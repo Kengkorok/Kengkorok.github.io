@@ -8,40 +8,48 @@
   :root {
     --bg: #0e1117;
     --card: #161b22;
+    --card2: #1c222c;
     --border: #262d38;
     --text: #e6edf3;
     --muted: #8b949e;
     --accent: #f0b90b;
     --accent2: #58a6ff;
+    --green: #3fb950;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     min-height: 100vh;
-    display: grid;
-    place-items: center;
     background:
-      radial-gradient(circle at 20% 20%, rgba(240,185,11,.08), transparent 40%),
-      radial-gradient(circle at 80% 80%, rgba(88,166,255,.08), transparent 40%),
+      radial-gradient(circle at 15% 15%, rgba(240,185,11,.08), transparent 40%),
+      radial-gradient(circle at 85% 85%, rgba(88,166,255,.08), transparent 40%),
       var(--bg);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     color: var(--text);
-    padding: 24px;
+    padding: 48px 24px;
+    display: flex;
+    justify-content: center;
   }
 
+  .wrap { width: 100%; max-width: 720px; }
+
   .card {
-    width: 100%;
-    max-width: 400px;
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 20px;
     padding: 40px 32px;
-    text-align: center;
+    margin-bottom: 24px;
     box-shadow: 0 20px 60px rgba(0,0,0,.5);
-    transition: transform .2s ease, border-color .2s ease;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
   }
-  .card:hover { transform: translateY(-4px); border-color: var(--accent); }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 24px 70px rgba(0,0,0,.6);
+  }
 
+  /* ---------- Header / Hero ---------- */
+  .hero { text-align: center; }
   .avatar {
     width: 96px; height: 96px;
     margin: 0 auto 20px;
@@ -49,58 +57,160 @@
     background: linear-gradient(135deg, var(--accent), #d97706);
     display: grid; place-items: center;
     font-size: 40px; font-weight: 700; color: #0e1117;
+    position: relative;
+    animation: pulse 3s ease-in-out infinite;
   }
+  .avatar::after {
+    content: ""; position: absolute; inset: -6px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    opacity: .5;
+    animation: ring 3s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+  @keyframes ring { 0%,100% { opacity:.25; inset:-6px; } 50% { opacity:.6; inset:-12px; } }
 
-  h1 { font-size: 24px; letter-spacing: -.5px; }
-  .role { color: var(--accent); font-size: 14px; margin-top: 6px; font-weight: 500; }
+  h1 { font-size: 26px; letter-spacing: -.5px; }
+  .role { color: var(--accent); font-size: 15px; margin-top: 6px; font-weight: 500; }
+  .org { color: var(--muted); font-size: 13px; margin-top: 4px; }
 
-  .divider { height: 1px; background: var(--border); margin: 24px 0; }
+  .divider { height: 1px; background: var(--border); margin: 28px 0; }
 
-  .section { text-align: left; }
+  /* ---------- Sections ---------- */
   .section h2 {
     font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
-    color: var(--muted); margin-bottom: 10px;
+    color: var(--muted); margin-bottom: 14px;
   }
+  .section p { color: var(--muted); font-size: 14px; line-height: 1.7; }
+  .section p strong { color: var(--text); }
 
-  .skill {
-    display: inline-block;
-    background: #1f2630;
-    border: 1px solid var(--border);
-    padding: 8px 16px; border-radius: 999px;
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    background: #1f2630; border: 1px solid var(--border);
+    padding: 7px 15px; border-radius: 999px;
     font-size: 13px; color: var(--accent2);
+    transition: transform .2s ease, border-color .2s ease, background .2s ease;
   }
+  .chip:hover { transform: translateY(-3px); border-color: var(--accent); background: #262f3c; }
 
-  .tags { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 20px; }
-  .tag {
-    background: transparent; border: 1px solid var(--border);
-    padding: 6px 14px; border-radius: 999px; font-size: 12px; color: var(--muted);
+  /* ---------- Projects ---------- */
+  .projects { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 560px) { .projects { grid-template-columns: 1fr 1fr; } }
+
+  .project {
+    background: var(--card2); border: 1px solid var(--border);
+    border-radius: 14px; padding: 18px;
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
   }
-  .tag:hover { border-color: var(--accent); color: var(--text); }
+  .project:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent2);
+    box-shadow: 0 10px 30px rgba(0,0,0,.4);
+  }
+  .project h3 { font-size: 15px; margin-bottom: 6px; color: var(--accent2); }
+  .project p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* ---------- Fun facts ---------- */
+  .facts { display: flex; gap: 10px; flex-wrap: wrap; }
+  .fact {
+    background: transparent; border: 1px solid var(--border);
+    padding: 8px 16px; border-radius: 999px; font-size: 13px; color: var(--muted);
+    transition: all .2s ease;
+  }
+  .fact:hover { border-color: var(--accent); color: var(--text); transform: scale(1.05); }
+
+  .footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 8px; }
+
+  /* ---------- Animations ---------- */
+  .fade-up { opacity: 0; transform: translateY(24px); animation: fadeUp .6s ease forwards; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  .d1 { animation-delay: .1s; } .d2 { animation-delay: .2s; }
+  .d3 { animation-delay: .3s; } .d4 { animation-delay: .4s; }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.show { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
-  <div class="card">
+<div class="wrap">
+
+  <!-- Hero -->
+  <div class="card hero fade-up">
     <div class="avatar">MS</div>
     <h1>Mohd Safwan Bin Abd Rahman</h1>
-    <p class="role">Pembantu Pegawai Masjid</p>
+    <p class="role">Pembantu Pegawai Masjid · Bilal Gred S1</p>
+    <p class="org">Masjid Talhah Bin Ubaidillah, Bukit Jalil (Zon 5 JAWI)</p>
+  </div>
 
-    <div class="divider"></div>
+  <!-- Tentang -->
+  <div class="card section reveal fade-up d1">
+    <h2>Tentang Saya</h2>
+    <p>
+      <strong>Pentadbir pejabat masjid</strong> yang menguruskan dokumentasi, rekod, dan operasi harian
+      masjid. Bertanggungjawab menyediakan <strong>laporan bulanan</strong> serta <strong>jadual kuliah</strong>
+      untuk dihantar ke pejabat zon. Berpengalaman mengkoordinasi <strong>rotasi 20 penceramah</strong> bagi
+      pengisian kuliah dan tazkirah.
+    </p>
+  </div>
 
-    <div class="section" style="text-align:center">
-      <h2 style="text-align:center">Kemahiran</h2>
-      <span class="skill">Pengurusan Pejabat Masjid</span>
+  <!-- Kemahiran -->
+  <div class="card section reveal fade-up d2">
+    <h2>Kemahiran</h2>
+    <div class="chips">
+      <span class="chip">Pengurusan Pejabat Masjid</span>
+      <span class="chip">Dokumentasi &amp; Rekod</span>
+      <span class="chip">Laporan Bulanan (Excel)</span>
+      <span class="chip">Jadual Kuliah &amp; Poster</span>
+      <span class="chip">Koordinasi Penceramah</span>
+      <span class="chip">Linux &amp; Self-hosting</span>
+      <span class="chip">Automasi (n8n, cron, Python)</span>
+      <span class="chip">Web (GitHub Pages, PWA)</span>
     </div>
+  </div>
 
-    <div class="divider"></div>
-
-    <div class="section" style="text-align:center">
-      <h2 style="text-align:center">Fakta Menarik</h2>
-      <div class="tags">
-        <span class="tag">☕ Suka kopi</span>
-        <span class="tag">🎮 Gaming</span>
-        <span class="tag">💡 Explore tech</span>
+  <!-- Projek -->
+  <div class="card section reveal fade-up d3">
+    <h2>Projek</h2>
+    <div class="projects">
+      <div class="project">
+        <h3>pogo-wave-radar</h3>
+        <p>Web tracker gelombang event Pokémon GO — repo flagship, dikemas kini hampir setiap hari.</p>
+      </div>
+      <div class="project">
+        <h3>Auto-Services-Tracker</h3>
+        <p>PWA tracker servis kenderaan — dibina dengan Firebase + GitHub Pages.</p>
+      </div>
+      <div class="project">
+        <h3>jadual-kuliah-generator</h3>
+        <p>Penjana jadual kuliah &amp; laporan masjid secara automatik.</p>
+      </div>
+      <div class="project">
+        <h3>focus-flow</h3>
+        <p>Alat produktiviti &amp; fokus untuk rutin harian.</p>
       </div>
     </div>
   </div>
+
+  <!-- Fakta Menarik -->
+  <div class="card section reveal fade-up d4">
+    <h2>Fakta Menarik</h2>
+    <div class="facts">
+      <span class="fact">☕ Suka kopi</span>
+      <span class="fact">🎮 Gaming</span>
+      <span class="fact">💡 Explore tech</span>
+      <span class="fact">🖥️ Self-hosted home lab</span>
+      <span class="fact">🤖 Suka cuba AI &amp; LLM</span>
+    </div>
+  </div>
+
+  <p class="footer">© 2026 Mohd Safwan Bin Abd Rahman · Portfolio peribadi</p>
+</div>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
 </body>
 </html>
