@@ -10,6 +10,7 @@ Laman portfolio peribadi Mohd Safwan Abd Rahman (Korok): Bilal siang, builder ma
 
 - **Lab**: slaid projek dengan video pratonton
   - Website Masjid Talhah (akan dilancarkan)
+  - [Pallet Office](https://kengkorok.github.io/pallet-office/): session Claude Code sebagai Pokémon
   - [PoGo Wave Radar](https://kengkorok.github.io/pogo-wave-radar/)
   - [Jadual Kuliah Generator](https://github.com/Kengkorok/jadual-kuliah-generator)
   - [Servis Tracker](https://kengkorok.github.io/Auto-Services-Tracker/)
@@ -27,6 +28,7 @@ HTML, CSS dan JavaScript biasa. Tiada framework dan tiada proses build. Hos di G
 | `main.js` | Slaid Lab, video lazy-load, kad bertindan dan animasi |
 | `assets/lab/` | Video pratonton (`.mp4` + versi `-mobile`) dan poster |
 | `assets/career/` | Gambar untuk kad kerjaya |
+| `pallet-office/` | Demo replay statik [Pallet Office](https://github.com/Kengkorok/pallet-office) |
 
 ## Jalankan secara local
 
@@ -45,7 +47,7 @@ Kemudian buka http://localhost:4321.
    ffmpeg -ss 1 -i demo.webm -frames:v 1 -vf "scale=1280:-2" assets/lab/nama-poster.jpg
    ```
 2. Salin satu `<li class="lab__slide">` dalam `index.html`, tukar video, teks dan pautan.
-3. Kemas kini kaunter `01 / 04` dalam `.lab__count`.
+3. Kemas kini kaunter `01 / 05` dalam `.lab__count`.
 
 ## Kredit
 

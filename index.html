@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Host+Grotesk:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=1">
+  <link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
   <header class="nav wrap">
@@ -47,7 +47,7 @@
       <div class="lab__head">
         <h2 id="lab-title" class="mono"><span class="accent">Lab:</span> benda yang aku bina</h2>
         <div class="lab__nav">
-          <span class="mono muted lab__count" aria-live="polite">01 / 04</span>
+          <span class="mono muted lab__count" aria-live="polite">01 / 05</span>
           <button class="lab__btn" type="button" data-dir="-1" aria-label="Projek sebelum">←</button>
           <button class="lab__btn" type="button" data-dir="1" aria-label="Projek seterusnya">→</button>
         </div>
@@ -67,6 +67,21 @@
           </div>
         </li>
         <li class="lab__slide" style="--i:1">
+          <a class="lab__frame lab__frame--lilac lab__frame--browser" href="pallet-office/">
+            <div class="browser">
+              <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span class="mono">kengkorok.github.io/pallet-office</span></div>
+              <video data-src="assets/lab/pallet-office.mp4" data-src-phone="assets/lab/pallet-office-mobile.mp4" poster="assets/lab/pallet-office-poster.jpg" width="1280" height="720" muted loop playsinline preload="none" aria-label="Pallet Office: Pokémon untuk setiap session Claude Code bekerja di meja, memanggil helper, dan pergi ke Pusat Pokémon bila perlukan kebenaran"></video>
+            </div>
+          </a>
+          <div class="lab__caption">
+            <p><strong>Pallet Office</strong> <span class="muted">Ofis pixel di mana setiap session Claude Code jadi Pokémon: kerja di meja, panggil helper untuk subagent, dan lari ke Pusat Pokémon bila perlukan aku. Demo ni replay hari kerja olok-olok.</span></p>
+            <div class="lab__links">
+              <a href="pallet-office/">Tengok <span class="arw">↗</span></a>
+              <a href="https://github.com/Kengkorok/pallet-office">Kod</a>
+            </div>
+          </div>
+        </li>
+        <li class="lab__slide" style="--i:2">
           <a class="lab__frame lab__frame--sky lab__frame--browser" href="https://kengkorok.github.io/pogo-wave-radar/">
             <div class="browser">
               <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span class="mono">kengkorok.github.io/pogo-wave-radar</span></div>
@@ -78,7 +93,7 @@
             <div class="lab__links"><a href="https://kengkorok.github.io/pogo-wave-radar/">Buka <span class="arw">↗</span></a></div>
           </div>
         </li>
-        <li class="lab__slide" style="--i:2">
+        <li class="lab__slide" style="--i:3">
           <a class="lab__frame lab__frame--butter lab__frame--browser" href="https://masjidtalhah-kl.github.io/JadualKuliahBulanan/">
             <div class="browser">
               <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span class="mono">jadual-kuliah-generator.html</span></div>
@@ -93,7 +108,7 @@
             </div>
           </div>
         </li>
-        <li class="lab__slide" style="--i:3">
+        <li class="lab__slide" style="--i:4">
           <a class="lab__frame lab__frame--rose lab__frame--phones" href="https://kengkorok.github.io/Auto-Services-Tracker/">
             <span class="phone"><img src="assets/lab/tracker-dashboard.jpg" width="440" height="952" alt="Servis Tracker: senarai kenderaan dengan status Overdue, Due Soon dan Belum Log"></span>
             <span class="phone"><img src="assets/lab/tracker-vehicle-detail.jpg" width="440" height="952" alt="Servis Tracker: jadual servis Proton Persona"></span>

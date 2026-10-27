@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pallet Office · Demo</title>
+  <script>if (!location.search) location.replace("?src=demo.ndjson&autoplay=1&loop=1&speed=2");</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;600&display=swap">
+  <link rel="stylesheet" href="office.css">
+</head>
+<body>
+  <header>
+    <h1>PALLET OFFICE · REPLAY</h1>
+    <span class="live" id="pos">–</span>
+    <div class="tools">
+      <select id="file" aria-label="Rakaman"></select>
+      <select id="speed" aria-label="Laju">
+        <option value="1">1×</option>
+        <option value="2" selected>2×</option>
+        <option value="4">4×</option>
+        <option value="8">8×</option>
+      </select>
+      <button id="play" type="button">▶ Main</button>
+      <button id="restart" type="button">⟲ Ulang</button>
+      <a class="btn" id="back" href="./">← Live</a>
+    </div>
+  </header>
+  <main>
+    <div id="office"></div>
+    <aside>
+      <h2>AKTIVITI</h2>
+      <ul id="feed"></ul>
+    </aside>
+  </main>
+  <footer>Sprite dimuat dari <a href="https://github.com/PokeAPI/sprites">PokeAPI/sprites</a>. Pokémon © Nintendo / Game Freak — projek hobi, bukan rasmi.</footer>
+  <script src="office.js"></script>
+  <script src="replay.js"></script>
+</body>
+</html>

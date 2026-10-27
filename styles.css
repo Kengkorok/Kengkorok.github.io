@@ -110,6 +110,7 @@ ol, ul { padding: 0; list-style: none; }
 .lab__frame--butter { background: #EBE1C5; }
 .lab__frame--sky { background: #D0DDE9; }
 .lab__frame--rose { background: #EBD5D7; }
+.lab__frame--lilac { background: #D5CEE2; }
 
 /* Tetingkap pelayar terletak di tepi bawah kad; bila hover ia membesar memenuhi kad */
 .lab__frame--browser { display: flex; align-items: flex-end; padding: 0 7%; transition: padding .6s var(--ease); }
