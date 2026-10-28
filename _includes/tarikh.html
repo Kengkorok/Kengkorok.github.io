@@ -1,0 +1,2 @@
+{%- assign m = include.date | date: "%-m" | minus: 1 -%}
+<time datetime="{{ include.date | date_to_xmlschema }}">{{ include.date | date: "%d" }} {{ site.data.bulan[m] }} {{ include.date | date: "%Y" }}</time>

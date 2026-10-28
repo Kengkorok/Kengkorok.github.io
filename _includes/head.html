@@ -1,0 +1,37 @@
+{%- if page.title -%}
+  {%- assign tajuk = page.title | append: " | " | append: site.title -%}
+{%- else -%}
+  {%- assign tajuk = site.title -%}
+{%- endif -%}
+{%- assign ringkas = page.description | default: page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 -%}
+{%- assign imej = page.image | default: "/assets/og.png" | absolute_url -%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add('js');</script>
+<title>{{ tajuk }}</title>
+<meta name="description" content="{{ ringkas }}">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+<meta name="author" content="Mohd Safwan Abd Rahman">
+<meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:title" content="{{ page.title | default: site.title }}">
+<meta property="og:description" content="{{ ringkas }}">
+<meta property="og:image" content="{{ imej }}">
+<meta property="og:locale" content="ms_MY">
+<meta name="twitter:card" content="summary_large_image">
+{%- if page.layout == 'post' %}
+<meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+{%- for t in page.tags %}
+<meta property="article:tag" content="{{ t }}">
+{%- endfor %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":{{ page.title | jsonify }},"description":{{ ringkas | jsonify }},"image":{{ imej | jsonify }},"datePublished":"{{ page.date | date_to_xmlschema }}","dateModified":"{{ page.last_modified_at | default: page.date | date_to_xmlschema }}","inLanguage":"ms","author":{"@type":"Person","name":"Mohd Safwan Abd Rahman","url":"{{ '/' | absolute_url }}"},"mainEntityOfPage":"{{ page.url | absolute_url }}"}
+</script>
+{%- endif %}
+<meta name="theme-color" content="#E8E8E4">
+<link rel="icon" href="{{ '/favicon.svg' | relative_url }}" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Host+Grotesk:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ '/styles.css?v=3' | relative_url }}">
+<link rel="stylesheet" href="{{ '/blog.css?v=1' | relative_url }}">

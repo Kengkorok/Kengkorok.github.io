@@ -1,0 +1,47 @@
+---
+layout: base
+---
+<article class="post wrap">
+  <header class="post__head">
+    <a class="post__back mono" href="{{ '/blog/' | relative_url }}">← Semua tulisan</a>
+    <p class="post__meta mono muted">
+      {% include tarikh.html date=page.date %}
+      <span aria-hidden="true">·</span>
+      {% include masa-baca.html content=content %}
+    </p>
+    <h1 class="post__title">{{ page.title }}</h1>
+    {%- if page.description %}
+    <p class="post__lede">{{ page.description }}</p>
+    {%- endif %}
+    {%- if page.tags.size > 0 %}
+    <p class="post__tags mono">
+      {%- for t in page.tags %}
+      <a href="{{ '/blog/' | relative_url }}?tag={{ t | slugify }}">#{{ t }}</a>
+      {%- endfor %}
+    </p>
+    {%- endif %}
+  </header>
+
+  {%- if page.image and page.cover != false %}
+  <figure class="post__cover">
+    <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: '' }}">
+  </figure>
+  {%- endif %}
+
+  <div class="prose">
+{{ content }}
+  </div>
+
+  <nav class="post__pager" aria-label="Post lain">
+    {%- if page.previous %}
+    <a class="post__pager-prev" href="{{ page.previous.url | relative_url }}"><span class="mono muted">← Sebelum</span>{{ page.previous.title }}</a>
+    {%- endif %}
+    {%- if page.next %}
+    <a class="post__pager-next" href="{{ page.next.url | relative_url }}"><span class="mono muted">Seterusnya →</span>{{ page.next.title }}</a>
+    {%- endif %}
+  </nav>
+
+  {%- unless page.komen == false %}
+  {% include komen.html %}
+  {%- endunless %}
+</article>

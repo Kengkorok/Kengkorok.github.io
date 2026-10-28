@@ -15,11 +15,12 @@ Laman portfolio peribadi Mohd Safwan Abd Rahman (Korok): Bilal siang, builder ma
   - [Jadual Kuliah Generator](https://github.com/Kengkorok/jadual-kuliah-generator)
   - [Servis Tracker](https://kengkorok.github.io/Auto-Services-Tracker/)
 - **Kerjaya**: Masjid Talhah, Masjid Abdul Rahman Bin Auf, DevOps dan Homelab
+- **[Blog](https://kengkorok.github.io/blog/)**: tulisan dengan tag, carian dan komen
 - **Hubungi**: GitHub, Threads, TikTok dan Ko-fi
 
 ## Teknologi
 
-HTML, CSS dan JavaScript biasa. Tiada framework dan tiada proses build. Hos di GitHub Pages.
+HTML, CSS dan JavaScript biasa, tiada framework. GitHub Pages jalankan Jekyll untuk bahagian blog sahaja; laman lain disalin terus.
 
 | Fail | Fungsi |
 | --- | --- |
@@ -29,14 +30,38 @@ HTML, CSS dan JavaScript biasa. Tiada framework dan tiada proses build. Hos di G
 | `assets/lab/` | Video pratonton (`.mp4` + versi `-mobile`) dan poster |
 | `assets/career/` | Gambar untuk kad kerjaya |
 | `pallet-office/` | Demo replay statik [Pallet Office](https://github.com/Kengkorok/pallet-office) |
+| `_posts/` | Tulisan blog (`.md` atau `.html`) |
+| `_layouts/`, `_includes/` | Templat Jekyll untuk blog |
+| `blog/`, `blog.css`, `blog.js` | Senarai tulisan, carian, tag dan komen |
+| `workers/komen/` | Cloudflare Worker untuk komen tanpa akaun ([panduan](workers/komen/README.md)) |
 
 ## Jalankan secara local
 
+Laman utama dan blog perlu Jekyll. Cara paling mudah guna imej Docker yang sama dengan GitHub Pages:
+
 ```bash
-python3 -m http.server 4321
+docker run --rm -u "$(id -u):$(id -g)" -e HOME=/tmp -v "$PWD":/github/workspace/src -v "$PWD/_site":/github/workspace/out -e GITHUB_WORKSPACE=/github/workspace -e INPUT_SOURCE=src -e INPUT_DESTINATION=out -e GITHUB_REPOSITORY=Kengkorok/Kengkorok.github.io -e INPUT_TOKEN="$(gh auth token)" ghcr.io/actions/jekyll-build-pages:v1.0.13
+python3 -m http.server 4000 -d _site
 ```
 
-Kemudian buka http://localhost:4321.
+Kemudian buka http://localhost:4000.
+
+## Tulis post blog
+
+1. Salin [`_drafts/templat.md`](_drafts/templat.md) ke `_posts/2026-11-03-tajuk-pendek.md`. Nama fail jadi URL: `/blog/tajuk-pendek/`.
+2. Isi `title`, `description` dan `tags`. Letak gambar dalam `assets/blog/2026/tajuk-pendek/`.
+3. Commit dan push. GitHub Pages siarkan dalam ~1 minit.
+
+Nota:
+- Post bertarikh masa depan tak keluar sehingga ada push lain selepas tarikh tu.
+- `image` jadi cover dan imej pratonton bila link dikongsi. Tanpa `image`, guna `assets/og.png`.
+- Garis bawah guna `<u>teks</u>`. HTML biasa boleh dicampur dalam Markdown.
+
+## Komen
+
+Setiap post ada dua tab:
+- **Nama sahaja**: melalui [`workers/komen`](workers/komen/README.md), disemak dulu sebelum dipapar. Tab ni tersorok selagi `komen.api` dalam `_config.yml` kosong.
+- **Guna GitHub**: [giscus](https://giscus.app). Komen disimpan dalam Discussions repo ni (kategori Announcements). Perlu app [giscus](https://github.com/apps/giscus) dipasang pada repo.
 
 ## Tambah projek baru
 

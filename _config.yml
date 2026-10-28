@@ -1,0 +1,42 @@
+# Jekyll (GitHub Pages) untuk bahagian blog.
+# Laman utama, pallet-office/ dan aset lain disalin terus tanpa diproses.
+
+title: Mohd Safwan Abd Rahman
+description: Tulisan Korok pasal masjid, kod dan homelab.
+url: https://kengkorok.github.io
+lang: ms
+timezone: Asia/Kuala_Lumpur
+
+permalink: /blog/:title/
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+excerpt_separator: "<!--more-->"
+
+plugins:
+  - jekyll-sitemap
+
+defaults:
+  - scope: { path: "", type: posts }
+    values: { layout: post }
+
+exclude:
+  - README.md
+  - workers/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+
+# Komen. Dua pilihan dipapar sebelah-menyebelah:
+#   1. "Nama sahaja": Cloudflare Worker dalam workers/komen/. Kosongkan `api` untuk sorok.
+#   2. "Guna GitHub": giscus, disimpan dalam GitHub Discussions repo ini.
+komen:
+  api: ""                 # contoh: https://komen.korokk.com
+  turnstile_sitekey: ""   # pilihan; isi kalau spam banyak
+  giscus:
+    repo: Kengkorok/Kengkorok.github.io
+    repo_id: R_kgDOUMGsHw
+    category: Announcements
+    category_id: DIC_kwDOUMGsH84DJyUT

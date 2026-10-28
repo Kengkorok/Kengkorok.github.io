@@ -1,0 +1,37 @@
+---
+layout: base
+title: Blog
+description: Tulisan Korok pasal masjid, kod, homelab dan hidup. Ditulis bila ada idea.
+---
+<section class="blog wrap">
+  <header class="blog__head">
+    <h1 class="blog__title">Tulisan</h1>
+    <p class="blog__lede">Catatan pasal masjid, kod, homelab dan apa-apa yang terlintas. Ditulis bila ada idea, bukan ikut jadual.</p>
+  </header>
+
+  {%- if site.posts.size > 0 %}
+  <div class="blog__tools">
+    <div class="blog__tags mono" role="group" aria-label="Tapis ikut tag">
+      <button type="button" data-tag="" aria-pressed="true">Semua <span class="muted">{{ site.posts.size }}</span></button>
+      {%- assign tags = site.tags | sort -%}
+      {%- for t in tags %}
+      <button type="button" data-tag="{{ t[0] | slugify }}" aria-pressed="false">#{{ t[0] }} <span class="muted">{{ t[1].size }}</span></button>
+      {%- endfor %}
+    </div>
+    <label class="blog__search">
+      <span class="sr-only">Cari tulisan</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="search" placeholder="Cari..." autocomplete="off" data-index="{{ '/blog/search.json' | relative_url }}">
+    </label>
+  </div>
+
+  <ol class="post-list">
+    {%- for post in site.posts %}
+    {% include post-row.html post=post %}
+    {%- endfor %}
+  </ol>
+  <p class="blog__empty mono muted" hidden>Tiada tulisan yang padan. Cuba perkataan lain.</p>
+  {%- else %}
+  <p class="blog__soon">Belum ada tulisan lagi. Post pertama tengah dimasak.</p>
+  {%- endif %}
+</section>

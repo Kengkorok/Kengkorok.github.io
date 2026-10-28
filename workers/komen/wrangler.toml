@@ -1,0 +1,20 @@
+name = "komen"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+# Domain sendiri (pilihan). Buang blok ni kalau guna komen.<akaun>.workers.dev
+# routes = [{ pattern = "komen.korokk.com", custom_domain = true }]
+
+[vars]
+ALLOWED_ORIGINS = "https://kengkorok.github.io,http://localhost:4000,http://127.0.0.1:4000"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "komen"
+database_id = "ISI-SELEPAS-d1-create"
+
+# Rahsia (jangan tulis di sini; guna `npx wrangler secret put NAMA`):
+#   ADMIN_TOKEN       wajib, untuk /admin
+#   IP_SALT           pilihan, garam untuk hash IP
+#   TURNSTILE_SECRET  pilihan, kalau hidupkan Turnstile
+#   NOTIFY_WEBHOOK    pilihan, URL webhook Discord untuk notifikasi komen baru

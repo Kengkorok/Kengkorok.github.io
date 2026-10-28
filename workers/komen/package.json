@@ -1,0 +1,12 @@
+{
+  "name": "komen",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:init": "wrangler d1 execute komen --remote --file schema.sql"
+  },
+  "devDependencies": {
+    "wrangler": "4.150.0"
+  }
+}

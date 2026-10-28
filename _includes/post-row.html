@@ -1,0 +1,14 @@
+{%- assign p = include.post -%}
+<li class="post-row" data-url="{{ p.url | relative_url }}" data-tags="{% for t in p.tags %}{{ t | slugify }} {% endfor %}">
+  <a class="post-row__link" href="{{ p.url | relative_url }}">
+    <span class="post-row__date mono muted">{% include tarikh.html date=p.date %}</span>
+    <span class="post-row__title">{{ p.title }}</span>
+    <span class="post-row__time mono muted">{% include masa-baca.html content=p.content %}</span>
+    {%- if p.tags.size > 0 %}
+    <span class="post-row__tags mono">{% for t in p.tags %}<span>#{{ t }}</span>{% endfor %}</span>
+    {%- endif %}
+    {%- if p.image %}
+    <img class="post-row__thumb" src="{{ p.image | relative_url }}" alt="" loading="lazy" decoding="async">
+    {%- endif %}
+  </a>
+</li>

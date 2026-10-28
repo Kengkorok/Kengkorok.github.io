@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ms">
+<head>
+{% include head.html %}
+</head>
+<body>
+  <header class="nav nav--blog wrap">
+    <div>
+      <a class="nav__name" href="{{ '/' | relative_url }}">Mohd Safwan Abd Rahman</a>
+      <p class="nav__tag mono muted">a.k.a. Korok · Bilal siang, builder malam</p>
+    </div>
+    <nav class="nav__links mono" aria-label="Utama">
+      <a href="{{ '/#lab' | relative_url }}">Lab</a>
+      <a href="{{ '/#kerjaya' | relative_url }}">Kerjaya</a>
+      <a href="{{ '/blog/' | relative_url }}" {% if page.url contains '/blog/' %}aria-current="page"{% endif %}>Blog</a>
+    </nav>
+    <a class="btn btn--ink nav__cta" href="{{ '/#hubungi' | relative_url }}">Jom sembang <span class="arw">↗</span></a>
+  </header>
+
+  <main>
+{{ content }}
+  </main>
+
+  <footer class="footer wrap mono">
+    <span>© {{ site.time | date: "%Y" }} Mohd Safwan Abd Rahman</span>
+    <span>Dibina dengan HTML biasa, hos di GitHub Pages</span>
+    <span>Kuala Lumpur, <time id="kl-time">--:--</time></span>
+  </footer>
+
+  <script src="{{ '/main.js?v=1' | relative_url }}" defer></script>
+  <script src="{{ '/blog.js?v=1' | relative_url }}" defer></script>
+</body>
+</html>

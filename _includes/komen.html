@@ -1,0 +1,48 @@
+{%- assign k = site.komen -%}
+<section class="komen" id="komen" aria-labelledby="komen-title"
+  data-api="{{ k.api }}" data-post="{{ page.url }}">
+  <div class="komen__head">
+    <h2 id="komen-title" class="komen__title">Komen</h2>
+    {%- if k.api != "" %}
+    <div class="komen__tabs mono" role="tablist" aria-label="Cara komen">
+      <button type="button" role="tab" id="tab-nama" aria-controls="panel-nama" aria-selected="true">Nama sahaja</button>
+      <button type="button" role="tab" id="tab-github" aria-controls="panel-github" aria-selected="false" tabindex="-1">Guna GitHub</button>
+    </div>
+    {%- endif %}
+  </div>
+
+  {%- if k.api != "" %}
+  <div class="komen__panel" id="panel-nama" role="tabpanel" aria-labelledby="tab-nama">
+    <ol class="komen__list" aria-live="polite"></ol>
+    <form class="komen__form" novalidate>
+      <label class="komen__field">
+        <span class="mono muted">Nama</span>
+        <input name="nama" type="text" maxlength="60" autocomplete="name" required>
+      </label>
+      <label class="komen__field">
+        <span class="mono muted">Komen</span>
+        <textarea name="isi" rows="4" maxlength="2000" required></textarea>
+      </label>
+      <!-- Perangkap bot: manusia tak nampak medan ni -->
+      <label class="komen__hp" aria-hidden="true">Laman web <input name="laman" type="text" tabindex="-1" autocomplete="off"></label>
+      {%- if k.turnstile_sitekey != "" %}
+      <div class="cf-turnstile" data-sitekey="{{ k.turnstile_sitekey }}" data-language="ms" data-size="flexible"></div>
+      {%- endif %}
+      <div class="komen__actions">
+        <button class="btn btn--ink" type="submit">Hantar komen</button>
+        <p class="komen__status mono muted" role="status">Komen disemak dulu sebelum dipapar.</p>
+      </div>
+    </form>
+  </div>
+  {%- endif %}
+
+  <div class="komen__panel" id="panel-github" role="tabpanel" aria-labelledby="tab-github" {% if k.api != "" %}hidden{% endif %}
+    data-repo="{{ k.giscus.repo }}" data-repo-id="{{ k.giscus.repo_id }}"
+    data-category="{{ k.giscus.category }}" data-category-id="{{ k.giscus.category_id }}">
+    <p class="komen__note mono muted">Login GitHub untuk komen dan react. Komen disimpan dalam GitHub Discussions.</p>
+    <div class="giscus"></div>
+  </div>
+</section>
+{%- if k.api != "" and k.turnstile_sitekey != "" %}
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+{%- endif %}
