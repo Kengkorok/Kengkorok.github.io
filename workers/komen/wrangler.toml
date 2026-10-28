@@ -11,7 +11,7 @@ ALLOWED_ORIGINS = "https://kengkorok.github.io,http://localhost:4000,http://127.
 [[d1_databases]]
 binding = "DB"
 database_name = "komen"
-database_id = "ISI-SELEPAS-d1-create"
+database_id = "4f868e18-ff79-4453-a39e-e5c8cce036d7"
 
 # Rahsia (jangan tulis di sini; guna `npx wrangler secret put NAMA`):
 #   ADMIN_TOKEN       wajib, untuk /admin

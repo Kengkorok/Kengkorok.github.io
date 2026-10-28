@@ -33,7 +33,7 @@ exclude:
 #   1. "Nama sahaja": Cloudflare Worker dalam workers/komen/. Kosongkan `api` untuk sorok.
 #   2. "Guna GitHub": giscus, disimpan dalam GitHub Discussions repo ini.
 komen:
-  api: ""                 # contoh: https://komen.korokk.com
+  api: "https://komen.sa7one.workers.dev"
   turnstile_sitekey: ""   # pilihan; isi kalau spam banyak
   giscus:
     repo: Kengkorok/Kengkorok.github.io
