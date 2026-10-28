@@ -4,36 +4,43 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pallet Office · Demo</title>
-  <script>if (!location.search) location.replace("?src=demo.ndjson&autoplay=1&loop=1&speed=2");</script>
+  <script>if (!location.search) location.replace('?src=demo.ndjson');</script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='8' fill='%23e04848'/><rect y='8' width='16' height='8' fill='%23fff'/><rect y='7' width='16' height='2' fill='%23222'/><rect x='6' y='6' width='4' height='4' fill='%23222'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;600&display=swap">
   <link rel="stylesheet" href="office.css">
+  <style>
+    .credit { position: fixed; left: 50%; bottom: 8px; transform: translateX(-50%); z-index: 9; color: var(--muted); font-size: 12px; white-space: nowrap; }
+    .credit a { color: var(--muted); }
+    @media (max-width: 900px) { .credit { position: static; transform: none; display: block; text-align: center; white-space: normal; padding: 0 16px 16px; } }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>PALLET OFFICE · REPLAY</h1>
-    <span class="live" id="pos">–</span>
-    <div class="tools">
-      <select id="file" aria-label="Rakaman"></select>
-      <select id="speed" aria-label="Laju">
-        <option value="1">1×</option>
-        <option value="2" selected>2×</option>
-        <option value="4">4×</option>
-        <option value="8">8×</option>
-      </select>
-      <button id="play" type="button">▶ Main</button>
-      <button id="restart" type="button">⟲ Ulang</button>
-      <a class="btn" id="back" href="./">← Live</a>
-    </div>
-  </header>
-  <main>
-    <div id="office"></div>
-    <aside>
-      <h2>AKTIVITI</h2>
-      <ul id="feed"></ul>
-    </aside>
-  </main>
-  <footer>Sprite dimuat dari <a href="https://github.com/PokeAPI/sprites">PokeAPI/sprites</a>. Pokémon © Nintendo / Game Freak — projek hobi, bukan rasmi.</footer>
+  <div id="office"></div>
+  <div class="topbar">
+    <h1>PALLET OFFICE · DEMO</h1>
+    <span class="btn" id="pos">–</span>
+    <select id="file" aria-label="Rakaman" hidden></select>
+    <select id="speed" aria-label="Laju">
+      <option value="1" selected>1×</option>
+      <option value="2">2×</option>
+      <option value="4">4×</option>
+    </select>
+    <button id="play" type="button">▶ Main</button>
+    <button id="restart" type="button">⟲ Ulang</button>
+    <button id="full" type="button">⛶ Skrin penuh</button>
+    <a class="btn" href="https://github.com/Kengkorok/pallet-office">Kod</a>
+    <a class="btn" href="../">← Portfolio</a>
+  </div>
+  <section class="panel" id="team-panel">
+    <h2>Team <span id="team-summary"></span></h2>
+    <ul id="team"></ul>
+  </section>
+  <section class="panel" id="feed-panel">
+    <h2>Aktiviti</h2>
+    <ul id="feed"></ul>
+  </section>
+  <p class="credit">Replay hari kerja olok-olok. Sprite dari <a href="https://github.com/PokeAPI/sprites">PokeAPI/sprites</a> · Pokémon © Nintendo / Game Freak, projek hobi.</p>
   <script src="office.js"></script>
   <script src="replay.js"></script>
 </body>
