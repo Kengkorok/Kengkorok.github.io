@@ -1,8 +1,8 @@
-# kengkorok.github.io
+# korokk.com
 
 Laman portfolio peribadi Mohd Safwan Abd Rahman (Korok): Bilal siang, builder malam.
 
-**Live:** https://kengkorok.github.io/
+**Live:** https://korokk.com/ (repo `Kengkorok.github.io`)
 
 ![Pratonton laman](assets/og.png)
 
@@ -10,12 +10,12 @@ Laman portfolio peribadi Mohd Safwan Abd Rahman (Korok): Bilal siang, builder ma
 
 - **Lab**: slaid projek dengan video pratonton
   - Website Masjid Talhah (akan dilancarkan)
-  - [Pallet Office](https://kengkorok.github.io/pallet-office/): session Claude Code sebagai Pokémon
-  - [PoGo Wave Radar](https://kengkorok.github.io/pogo-wave-radar/)
+  - [Pallet Office](https://korokk.com/pallet-office/): session Claude Code sebagai Pokémon
+  - [PoGo Wave Radar](https://korokk.com/pogo-wave-radar/)
   - [Jadual Kuliah Generator](https://github.com/Kengkorok/jadual-kuliah-generator)
-  - [Servis Tracker](https://kengkorok.github.io/Auto-Services-Tracker/)
+  - [Servis Tracker](https://korokk.com/Auto-Services-Tracker/)
 - **Kerjaya**: Masjid Talhah, Masjid Abdul Rahman Bin Auf, DevOps dan Homelab
-- **[Blog](https://kengkorok.github.io/blog/)**: tulisan dengan tag, carian dan komen
+- **[Blog](https://korokk.com/blog/)**: tulisan dengan tag, carian dan komen
 - **Hubungi**: GitHub, Threads, TikTok dan Ko-fi
 
 ## Teknologi

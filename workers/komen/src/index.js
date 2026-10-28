@@ -1,4 +1,4 @@
-// Komen "nama sahaja" untuk blog kengkorok.github.io.
+// Komen "nama sahaja" untuk blog korokk.com.
 // Komen baru masuk status 'menunggu' dan hanya dipapar selepas diluluskan di /admin.
 
 const MAX_NAMA = 60;

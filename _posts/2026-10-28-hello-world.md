@@ -9,7 +9,7 @@ Ini adalah kandungan pertama aku dalam pembinaan web portfolio dan juga blog per
 
 Jadi, memandangkan ini adalah kandungan pertama untuk blog ni, 3 perkara ringkas aku nak kongsikan bersama untuk kita bincangkan.
 
-**Pertama**, kepesatan dunia AI yang kita tak boleh nak lari. FOMO melanda dalam diri, lalu aku bina beberapa projek persendirian yang kebanyakannya hanya untuk kegunaan sendiri: app [Auto Services Tracker](https://kengkorok.github.io/Auto-Services-Tracker/), [PoGo Wave Radar](https://kengkorok.github.io/pogo-wave-radar/), dan satu projek yang memudahkan kerja hakiki aku sebagai *officeboy* pentadbiran masjid, iaitu [Jadual Kuliah Generator](https://masjidtalhah-kl.github.io/JadualKuliahBulanan/).
+**Pertama**, kepesatan dunia AI yang kita tak boleh nak lari. FOMO melanda dalam diri, lalu aku bina beberapa projek persendirian yang kebanyakannya hanya untuk kegunaan sendiri: app [Auto Services Tracker](https://korokk.com/Auto-Services-Tracker/), [PoGo Wave Radar](https://korokk.com/pogo-wave-radar/), dan satu projek yang memudahkan kerja hakiki aku sebagai *officeboy* pentadbiran masjid, iaitu [Jadual Kuliah Generator](https://masjidtalhah-kl.github.io/JadualKuliahBulanan/).
 
 **Kedua**, aku juga masih dalam proses pembinaan website rasmi Masjid Talhah Bin Ubaidillah, Bukit Jalil. Projek ini pada aku sangat berat untuk dibangunkan. Ia sebuah tanggungjawab yang agak besar untuk dipikul. Maka, aku perlukan sokongan dari pelbagai pihak, terutama dari pihak orang dalam sendiri. Aku tak dapat nak bangunkan projek ini dengan jayanya tanpa sokongan orang dalam sendiri.
 
