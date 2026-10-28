@@ -8,7 +8,7 @@ image: /assets/blog/2026/tajuk-pendek/cover.jpg   # pilihan: cover + imej OG
 # cover: false                # imej OG sahaja, tak papar cover atas post
 # komen: false                # tutup komen untuk post ni
 ---
-Perenggan pertama. **Tebal**, *condong*, <u>garis bawah</u> dan [pautan](https://kengkorok.github.io/).
+Perenggan pertama. **Tebal**, *condong*, <u>garis bawah</u> dan [pautan](https://korokk.com/).
 
 ## Subtajuk
 

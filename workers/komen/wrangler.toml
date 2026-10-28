@@ -6,7 +6,7 @@ compatibility_date = "2026-09-01"
 # routes = [{ pattern = "komen.korokk.com", custom_domain = true }]
 
 [vars]
-ALLOWED_ORIGINS = "https://kengkorok.github.io,http://localhost:4000,http://127.0.0.1:4000"
+ALLOWED_ORIGINS = "https://korokk.com,https://www.korokk.com,https://kengkorok.github.io,http://localhost:4000,http://127.0.0.1:4000"
 
 [[d1_databases]]
 binding = "DB"

@@ -1,4 +1,4 @@
-// Komen "nama sahaja" untuk blog kengkorok.github.io.
+// Komen "nama sahaja" untuk blog korokk.com.
 // Komen baru masuk status 'menunggu' dan hanya dipapar selepas diluluskan di /admin.
 
 const MAX_NAMA = 60;
@@ -78,6 +78,7 @@ async function hantar(req, env, ctx, cors) {
 // ---------- Admin ----------
 
 async function adminApi(req, url, env) {
+  if (!env.ADMIN_TOKEN?.trim()) return json({ ralat: 'ADMIN_TOKEN belum diset. Jalankan: npx wrangler secret put ADMIN_TOKEN' }, 503);
   if (!(await isAdmin(req, env))) return json({ ralat: 'Token salah.' }, 401);
 
   const parts = url.pathname.split('/').filter(Boolean); // ['admin', 'api', ...]
@@ -103,9 +104,10 @@ async function adminApi(req, url, env) {
 }
 
 async function isAdmin(req, env) {
-  const token = (req.headers.get('Authorization') || '').replace(/^Bearer\s+/i, '');
-  if (!env.ADMIN_TOKEN || !token) return false;
-  const [a, b] = await Promise.all([sha256(token), sha256(env.ADMIN_TOKEN)]);
+  // Buang ruang kosong: senang terbawa masa salin-tampal token
+  const token = (req.headers.get('Authorization') || '').replace(/^Bearer\s+/i, '').trim();
+  if (!token) return false;
+  const [a, b] = await Promise.all([sha256(token), sha256(env.ADMIN_TOKEN.trim())]);
   let diff = 0;
   for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
   return diff === 0;
@@ -207,6 +209,7 @@ const ADMIN_HTML = `<!doctype html>
   .isi { white-space: pre-line; overflow-wrap: anywhere; margin: 8px 0 12px; }
   .act { display: flex; gap: 8px; }
   .kosong { color: var(--muted); }
+  .err { color: #A2412F; margin: 0; }
   [hidden] { display: none !important; }
 </style></head>
 <body><main>
@@ -215,6 +218,7 @@ const ADMIN_HTML = `<!doctype html>
     <label for="tok">Token admin</label>
     <input id="tok" type="password" autocomplete="current-password" required>
     <button class="ink" type="submit">Masuk</button>
+    <p class="err" id="err" role="alert"></p>
   </form>
   <section id="panel" hidden>
     <div class="bar">
@@ -233,8 +237,15 @@ const $ = (s) => document.querySelector(s);
 const api = (path, opt = {}) => fetch('/admin/api' + path, { ...opt, headers: { Authorization: 'Bearer ' + token } });
 
 async function load() {
-  const r = await api('/komen?status=' + status);
-  if (r.status === 401) { sessionStorage.removeItem(KEY); token = ''; $('#panel').hidden = true; $('#login').hidden = false; return; }
+  const r = await api('/komen?status=' + status).catch(() => null);
+  if (!r || !r.ok) {
+    const res = r ? await r.json().catch(() => ({})) : {};
+    $('#err').textContent = res.ralat || 'Tak dapat sambung ke Worker.';
+    sessionStorage.removeItem(KEY); token = '';
+    $('#panel').hidden = true; $('#login').hidden = false;
+    return;
+  }
+  $('#err').textContent = '';
   $('#login').hidden = true; $('#panel').hidden = false;
   const items = await r.json();
   const list = $('#list');
@@ -262,7 +273,7 @@ async function load() {
     list.append(a);
   }
 }
-$('#login').onsubmit = (e) => { e.preventDefault(); token = $('#tok').value; sessionStorage.setItem(KEY, token); load(); };
+$('#login').onsubmit = (e) => { e.preventDefault(); token = $('#tok').value.trim(); sessionStorage.setItem(KEY, token); $('#err').textContent = 'Menyemak...'; load(); };
 $('#keluar').onclick = () => { sessionStorage.removeItem(KEY); location.reload(); };
 document.querySelectorAll('[data-s]').forEach((b) => b.onclick = () => {
   status = b.dataset.s;

@@ -1,18 +1,36 @@
-// Replay a recording (NDJSON of {t, msg}) through the same office renderer.
-//   replay.html                      pick from the server's recordings/
-//   replay.html?src=demo.ndjson      any URL, works on a static host too
-//   &autoplay=1&loop=1&speed=4       for an embedded demo
+// Replay a recording (NDJSON of {t, msg}) through the same office renderer, looping
+// by default so the island never empties.
+//   replay.html                       pick from the server's recordings/
+//   replay.html?src=demo.ndjson       any URL, works on a static host too
+//   &autoplay=0  &loop=0  &speed=2    to change the defaults
 (function () {
   const $ = (id) => document.getElementById(id);
   const params = new URLSearchParams(location.search);
-  const MAX_GAP = 2500; // squash long quiet stretches so demos keep moving
+  const MAX_GAP = 4000; // squash long quiet stretches so demos keep moving
+  const LOOP = params.get('loop') !== '0';
 
-  const office = PalletOffice.createOffice($('office'), $('feed'));
+  // Recording wall-clock time: the latest timestamp seen plus playback time since then.
+  let wall = 0;
+  let wallAt = 0;
+  const wallClock = () => (wall ? wall + (performance.now() - wallAt) * Number($('speed').value) : Date.now());
+  const office = PalletOffice.createOffice($('office'), {
+    feed: $('feed'),
+    team: { list: $('team'), summary: $('team-summary') },
+    clock: wallClock,
+  });
+  function seen(msg) {
+    const times = [msg.item && msg.item.t, msg.session && msg.session.changedAt, ...(msg.feed || []).map((f) => f.t)].filter(Boolean);
+    if (times.length) {
+      wall = Math.max(wall, ...times);
+      wallAt = performance.now();
+    }
+  }
   let frames = [];
   let i = 0;
   let clock = 0;
   let playing = false;
   let timer = null;
+  let started = false;
 
   async function load(src) {
     stop();
@@ -25,13 +43,12 @@
       prev = f.t;
       return { t, msg: f.msg };
     });
-    restart();
+    started = false;
+    rewind();
   }
 
-  function restart() {
-    stop();
-    office.clear();
-    office.apply({ type: 'snapshot', sessions: [], feed: [] });
+  function rewind() {
+    wall = 0;
     i = 0;
     clock = 0;
     showPos();
@@ -41,15 +58,26 @@
     $('pos').textContent = frames.length ? `${i}/${frames.length}` : 'tiada rakaman';
   }
 
+  // On a loop, the opening snapshot becomes ordinary updates so everyone walks back
+  // to their place instead of teleporting.
+  function play1(msg) {
+    seen(msg);
+    if (msg.type === 'snapshot' && started) {
+      msg.sessions.forEach((session) => office.apply({ type: 'session', session }));
+      return;
+    }
+    started = true;
+    office.apply(msg);
+  }
+
   function step() {
     if (!playing) return;
     const speed = Number($('speed').value);
-    while (i < frames.length && frames[i].t <= clock) office.apply(frames[i++].msg);
+    while (i < frames.length && frames[i].t <= clock) play1(frames[i++].msg);
     showPos();
     if (i >= frames.length) {
-      if (params.get('loop')) {
-        timer = setTimeout(() => { restart(); play(); }, 4000);
-      } else stop();
+      if (LOOP) timer = setTimeout(() => { rewind(); step(); }, 6000 / speed);
+      else stop();
       return;
     }
     const wait = (frames[i].t - clock) / speed;
@@ -59,7 +87,7 @@
 
   function play() {
     if (!frames.length) return;
-    if (i >= frames.length) restart();
+    if (i >= frames.length) rewind();
     playing = true;
     $('play').textContent = '⏸ Pause';
     step();
@@ -72,24 +100,34 @@
   }
 
   $('play').onclick = () => (playing ? stop() : play());
-  $('restart').onclick = () => { restart(); play(); };
+  $('restart').onclick = () => {
+    stop();
+    office.clear();
+    started = false;
+    rewind();
+    play();
+  };
+  $('full').onclick = () => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen());
   if (params.get('speed')) $('speed').value = params.get('speed');
 
   async function init() {
     const src = params.get('src');
     if (src) {
       $('file').hidden = true;
-      $('back').hidden = true;
+      if ($('back')) $('back').hidden = true;
       await load(src);
     } else {
       const res = await fetch('api/recordings').catch(() => null);
       const files = res && res.ok ? await res.json() : [];
       for (const f of files) $('file').append(new Option(f, f));
-      $('file').onchange = () => load(`recordings/${encodeURIComponent($('file').value)}`);
-      if (files.length) await load(`recordings/${encodeURIComponent(files[0])}`);
-      else showPos();
+      $('file').onchange = () => { office.clear(); load(`recordings/${encodeURIComponent($('file').value)}`).then(play); };
+      const first = files.includes('demo.ndjson') ? 'demo.ndjson' : files[0];
+      if (first) {
+        $('file').value = first;
+        await load(`recordings/${encodeURIComponent(first)}`);
+      } else showPos();
     }
-    if (params.get('autoplay')) play();
+    if (params.get('autoplay') !== '0') play();
   }
 
   init();
