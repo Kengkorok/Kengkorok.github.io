@@ -15,6 +15,23 @@
   const SPRITES = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
   const animated = (dex) => `${SPRITES}/versions/generation-v/black-white/animated/${dex}.gif`;
   const still = (dex) => `${SPRITES}/${dex}.png`;
+  // Cries ship in cries/<name>.mp3; anything missing comes from Showdown's set.
+  const CRY_FALLBACK = 'https://play.pokemonshowdown.com/audio/cries';
+  const CRY_VOLUME = 0.5;
+  const cries = new Map();
+  function cry(pokemon) {
+    const name = String(pokemon || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (!name) return;
+    let audio = cries.get(name);
+    if (!audio) {
+      audio = new Audio(`cries/${name}.mp3`);
+      audio.volume = CRY_VOLUME;
+      audio.onerror = () => { audio.onerror = null; audio.src = `${CRY_FALLBACK}/${name}.mp3`; audio.play().catch(() => {}); };
+      cries.set(name, audio);
+    }
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+  }
   const WORKING = new Set(['thinking', 'reading', 'editing', 'running', 'web', 'delegating']);
   const BUBBLE = {
     done: ['✅', 'siap'], thinking: ['💭', 'fikir…'], reading: ['📖', 'baca'], editing: ['✏️', 'edit'],
@@ -480,9 +497,10 @@
 
   // ---------- actors ----------
   class Actor {
-    constructor(stage, { dex, tag, helper }) {
+    constructor(stage, { dex, tag, helper, pokemon }) {
       this.el = document.createElement('div');
       this.el.className = 'actor' + (helper ? ' helper' : '');
+      this.pokemon = pokemon;
       this.bubble = document.createElement('div');
       this.bubble.className = 'bubble';
       this.bubble.hidden = true;
@@ -498,6 +516,8 @@
       };
       this.img.onerror = () => { this.img.onerror = null; this.img.src = still(dex); };
       this.img.src = animated(dex);
+      this.img.title = pokemon || '';
+      this.img.addEventListener('click', () => this.call());
       const inner = document.createElement('div');
       inner.className = 'inner';
       inner.append(this.bubble, this.img);
@@ -536,6 +556,14 @@
     walkTo(spot, onArrive) {
       this.onArrive = onArrive || null;
       this.path = route(this, spot);
+    }
+
+    // Clicked: play its cry and hop.
+    call() {
+      cry(this.pokemon);
+      this.el.classList.remove('hop');
+      void this.el.offsetWidth;
+      this.el.classList.add('hop');
     }
 
     poof(out, done) {
@@ -610,7 +638,7 @@
     paintBase();
     if (document.fonts) document.fonts.ready.then(paintBase);
     paintProps(stage);
-    const nurse = new Actor(stage, { dex: 113, helper: true });
+    const nurse = new Actor(stage, { dex: 113, helper: true, pokemon: 'Chansey' });
     nurse.place(NURSE);
     nurse.el.classList.add('nurse');
 
@@ -626,7 +654,11 @@
     fit();
 
     const recs = new Map(); // id -> { data, actor, desk, slot, helpers, mode, wanderAt, goalKey }
+    // Helpers stay on the island once they've shown up, one per species: between jobs
+    // they wander like everyone else, and the next subagent of that species reuses them.
+    const crew = new Map(); // dex -> { actor, job, mode, wanderAt, goalKey }
     const fading = new Set();
+    const walkers = () => [...recs.values(), ...crew.values()];
     const now = () => performance.now();
 
     const freeIndex = (field, size) => {
@@ -636,7 +668,7 @@
     };
 
     function roamSpot(rec) {
-      const taken = new Set([...recs.values()].filter((r) => r !== rec).map((r) => r.goalKey));
+      const taken = new Set(walkers().filter((r) => r !== rec).map((r) => r.goalKey));
       for (let i = 0; i < 20; i++) {
         const s = ROAM[Math.floor(Math.random() * ROAM.length)];
         const k = key(Math.floor(s.x), Math.floor(s.y));
@@ -689,21 +721,53 @@
       return [{ x: c + 1.5, y: r - 0.5 }, { x: c + 2.5, y: r - 0.5 }, { x: c + 2.5, y: r + 0.5 }, { x: c + 2.5, y: r + 1.5 }][i % 4];
     }
 
+    function newHelper(h, spot) {
+      const actor = new Actor(stage, { dex: h.dex, tag: h.kind, helper: true, pokemon: h.pokemon });
+      actor.place(spot);
+      actor.poof(false);
+      return actor;
+    }
+
+    // Job finished: crew go back to wandering, stand-ins poof away.
+    function release(actor) {
+      const mate = [...crew.values()].find((m) => m.actor === actor);
+      if (!mate) {
+        fading.add(actor);
+        actor.poof(true, () => { actor.remove(); fading.delete(actor); });
+        return;
+      }
+      mate.job = null;
+      mate.mode = 'roam';
+      actor.say('idle', '', false);
+      actor.tag.textContent = actor.pokemon || '';
+      actor.walkTo(roamSpot(mate), () => rest(mate));
+    }
+
     function syncHelpers(rec) {
       const live = rec.data.helpers || [];
       const ids = new Set(live.map((h) => h.id));
       for (const [id, actor] of rec.helpers) {
         if (ids.has(id)) continue;
         rec.helpers.delete(id);
-        fading.add(actor);
-        actor.poof(true, () => { actor.remove(); fading.delete(actor); });
+        release(actor);
       }
       live.forEach((h, i) => {
         let actor = rec.helpers.get(h.id);
         if (!actor) {
-          actor = new Actor(stage, { dex: h.dex, tag: h.kind, helper: true });
-          actor.place(helperSpot(rec, i));
-          actor.poof(false);
+          const spot = helperSpot(rec, i);
+          let mate = crew.get(h.dex);
+          if (!mate) {
+            mate = { actor: newHelper(h, spot), job: null };
+            mate.actor.crew = true; // ticked through crew, not through its desk
+            crew.set(h.dex, mate);
+          }
+          if (mate.job) actor = newHelper(h, spot); // already busy at another desk
+          else {
+            actor = mate.actor;
+            Object.assign(mate, { job: h.id, mode: 'job', wanderAt: Infinity, goalKey: key(Math.floor(spot.x), Math.floor(spot.y)) });
+            actor.tag.textContent = h.kind;
+            actor.walkTo(spot);
+          }
           rec.helpers.set(h.id, actor);
         }
         actor.say(h.state, h.detail, true);
@@ -716,7 +780,7 @@
         rec = { data, helpers: new Map(), slot: null, mode: null };
         rec.desk = freeIndex('desk', DESKS.length);
         recs.set(data.id, rec);
-        rec.actor = new Actor(stage, { dex: data.dex, tag: data.project });
+        rec.actor = new Actor(stage, { dex: data.dex, tag: data.project, pokemon: data.pokemon });
         if (!data.permanent && !instant) rec.actor.poof(false);
       }
       const prev = rec.data.state;
@@ -736,16 +800,17 @@
       const rec = recs.get(id);
       if (!rec) return;
       recs.delete(id);
-      for (const actor of [rec.actor, ...rec.helpers.values()]) {
-        fading.add(actor);
-        actor.poof(true, () => { actor.remove(); fading.delete(actor); });
-      }
+      fading.add(rec.actor);
+      rec.actor.poof(true, () => { rec.actor.remove(); fading.delete(rec.actor); });
+      rec.helpers.forEach(release);
     }
 
     function clear() {
       for (const rec of recs.values()) for (const a of [rec.actor, ...rec.helpers.values()]) a.remove();
+      for (const mate of crew.values()) mate.actor.remove();
       for (const a of fading) a.remove();
       recs.clear();
+      crew.clear();
       fading.clear();
       if (feed) feed.replaceChildren();
     }
@@ -826,6 +891,7 @@
         what.textContent = task(d);
         body.append(head, sub, what);
         li.append(icon, body);
+        li.onclick = () => recs.get(d.id)?.actor.call();
         return li;
       }));
       const s = stats();
@@ -866,7 +932,10 @@
       const secs = t / 1000;
       for (const rec of recs.values()) {
         rec.actor.tick(dt, secs);
-        for (const h of rec.helpers.values()) h.tick(dt, secs);
+        for (const h of rec.helpers.values()) if (!h.crew) h.tick(dt, secs);
+      }
+      for (const mate of crew.values()) mate.actor.tick(dt, secs);
+      for (const rec of walkers()) {
         if (rec.mode === 'roam' && !rec.actor.path.length && t > rec.wanderAt) {
           rec.wanderAt = Infinity;
           rec.actor.walkTo(roamSpot(rec), () => rest(rec));

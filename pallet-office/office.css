@@ -42,7 +42,7 @@ body {
 }
 
 .stage > * { position: absolute; left: 0; top: 0; }
-.stage canvas { image-rendering: pixelated; }
+.stage canvas { image-rendering: pixelated; pointer-events: none; }
 .stage .bg { z-index: 0; }
 
 /* ---------- Pokémon ---------- */
@@ -69,7 +69,9 @@ body {
   background: rgba(0, 0, 0, .2);
 }
 
-.sprite { display: block; image-rendering: pixelated; min-width: 20px; }
+.sprite { display: block; image-rendering: pixelated; min-width: 20px; pointer-events: auto; cursor: pointer; }
+.actor.hop .inner { animation: hop .4s ease-out; }
+@keyframes hop { 40% { transform: translateX(-50%) translateY(-14px); } }
 
 .tag {
   position: absolute;
@@ -169,6 +171,7 @@ body {
   margin-bottom: 4px;
   border-radius: 4px;
   background: rgba(255, 255, 255, .04);
+  cursor: pointer;
 }
 #team li.offline { opacity: .6; }
 #team img { width: 34px; height: 34px; image-rendering: pixelated; object-fit: contain; }
@@ -219,6 +222,7 @@ button, select, .btn {
   text-decoration: none;
 }
 button:hover, .btn:hover { border-color: var(--accent); }
+#volume { width: 90px; accent-color: var(--accent); cursor: pointer; }
 button.on { background: #5a4d2a; border-color: var(--accent); }
 button.rec-on { border-color: var(--alert); color: var(--alert); }
 [hidden] { display: none !important; }
