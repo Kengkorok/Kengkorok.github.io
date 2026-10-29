@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pokemon Korok sedang bekerja</title>
-  <script>if (!location.search) location.replace('?src=demo.ndjson');</script>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='8' fill='%23e04848'/><rect y='8' width='16' height='8' fill='%23fff'/><rect y='7' width='16' height='2' fill='%23222'/><rect x='6' y='6' width='4' height='4' fill='%23222'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;600&display=swap">
@@ -19,15 +18,6 @@
   <div id="office"></div>
   <div class="topbar">
     <h1>POKEMON KOROK SEDANG BEKERJA</h1>
-    <span class="btn" id="pos" hidden>–</span>
-    <select id="file" aria-label="Rakaman" hidden></select>
-    <select id="speed" aria-label="Laju" hidden>
-      <option value="1" selected>1×</option>
-      <option value="2">2×</option>
-      <option value="4">4×</option>
-    </select>
-    <button id="play" type="button" hidden>▶ Main</button>
-    <button id="restart" type="button" hidden>⟲ Ulang</button>
     <button id="music" type="button" aria-pressed="false">♪ Muzik</button>
     <input id="volume" type="range" min="0" max="0.6" step="0.05" value="0.15" aria-label="Volume muzik" title="Volume muzik">
     <button id="full" type="button">⛶ Skrin penuh</button>
@@ -40,8 +30,16 @@
     <h2>Aktiviti</h2>
     <ul id="feed"></ul>
   </section>
-  <p class="credit">Replay hari kerja olok-olok. Klik Pokémon untuk dengar cry. Sprite dari <a href="https://github.com/PokeAPI/sprites">PokeAPI/sprites</a>, cry dari <a href="https://play.pokemonshowdown.com/audio/cries/">Showdown</a> · Pokémon © Nintendo / Game Freak, projek hobi.</p>
+  <p class="credit">Hari kerja olok-olok, dijana terus dalam browser. Klik Pokémon untuk dengar cry. Sprite dari <a href="https://github.com/PokeAPI/sprites">PokeAPI/sprites</a>, cry dari <a href="https://play.pokemonshowdown.com/audio/cries/">Showdown</a> · Pokémon © Nintendo / Game Freak, projek hobi.</p>
   <script src="office.js"></script>
-  <script src="replay.js"></script>
+  <script src="sim.js"></script>
+  <script src="music.js"></script>
+  <script>
+    // Endless generated workday: no server events, no recording.
+    const $ = (id) => document.getElementById(id);
+    const office = PalletOffice.createOffice($('office'), { feed: $('feed'), team: { list: $('team'), summary: $('team-summary') } });
+    PalletSim.start(office);
+    $('full').onclick = () => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen());
+  </script>
 </body>
 </html>
