@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logo korokk · panduan</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=Host+Grotesk:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root { --bg:#F1EBE0; --ink:#2B211A; --muted:#7A6A5C; --line:#DCD0BD; --ter:#9E4A2F; --card:#E5DBCB; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 "Host Grotesk", system-ui, sans-serif; }
+.wrap { width: min(1120px, 100% - 64px); margin-inline: auto; padding-block: 64px 96px; }
+.mono { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted); letter-spacing: .02em; }
+h1, h2 { font-family: "Bricolage Grotesque", sans-serif; letter-spacing: -.03em; margin: 0; }
+h1 { font-size: 56px; line-height: 1; }
+h2 { font-size: 28px; margin-bottom: 20px; }
+section { padding-block: 56px; border-top: 1px solid var(--line); }
+.hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: center; padding-block: 24px 64px; border: 0; }
+.hero img { width: 100%; }
+.lede { font-size: 19px; max-width: 34em; margin: 18px 0 0; }
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.tile { border-radius: 24px; padding: 32px; display: grid; place-items: center; min-height: 200px; }
+.tile img { max-width: 100%; max-height: 120px; }
+.cap { margin-top: 10px; }
+.sw { border-radius: 20px; padding: 20px; min-height: 150px; display: flex; flex-direction: column; justify-content: flex-end; }
+.sw b { font: 600 18px "Bricolage Grotesque"; }
+.sw span { font: 12px/1.5 "JetBrains Mono"; opacity: .85; }
+.rules { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.space { position: relative; background: #fff; border-radius: 24px; padding: 56px; display: grid; place-items: center; }
+.space .box { position: relative; padding: 34px; outline: 1.5px dashed var(--ter); }
+.space img { display: block; height: 96px; max-width: 100%; object-fit: contain; }
+.space .x { position: absolute; font: 11px "JetBrains Mono"; color: var(--ter); }
+.sizes { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 28px; background: #fff; border-radius: 24px; padding: 40px; }
+.sizes div { text-align: center; }
+.sizes img { display: block; margin: 0 auto 8px; }
+ul.dont { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+ul.dont li { padding-left: 28px; position: relative; }
+ul.dont li::before { content: "✕"; position: absolute; left: 0; color: var(--ter); font-weight: 700; }
+.mock { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.m { border-radius: 24px; overflow: hidden; background: #fff; }
+.m-site { background: var(--bg); padding: 24px 28px; border: 1px solid var(--line); }
+.m-site .bar { display: flex; justify-content: space-between; align-items: center; }
+.m-site .bar img { height: 30px; }
+.m-site .pill { background: var(--ink); color: var(--bg); border-radius: 99px; padding: 7px 14px; font-size: 13px; }
+.m-site p { font: 700 40px/1 "Bricolage Grotesque"; letter-spacing: -.04em; margin: 36px 0 8px; }
+.m-site p span { color: var(--muted); }
+.m-tab { background: #DEE1E6; padding: 10px 12px 0; }
+.m-tab .t { display: inline-flex; align-items: center; gap: 8px; background: #fff; border-radius: 10px 10px 0 0; padding: 9px 16px; font-size: 13px; }
+.m-tab .t img { width: 16px; height: 16px; }
+.m-tab .t.dark { background: #35363A; color: #E8EAED; }
+.m-tab .url { background: #fff; padding: 12px 16px; font: 13px "Host Grotesk"; color: #5F6368; }
+.m-phone { background: linear-gradient(#7A6A5C, #2B211A); padding: 32px; display: flex; gap: 22px; justify-content: center; }
+.m-phone .app { text-align: center; color: #fff; font-size: 12px; }
+.m-phone .app img, .m-phone .app i { display: block; width: 64px; height: 64px; border-radius: 15px; margin-bottom: 6px; }
+.m-phone .app i { background: rgb(255 255 255 / .22); }
+.m-social { padding: 24px; display: flex; gap: 16px; align-items: center; }
+.m-social img { width: 64px; height: 64px; border-radius: 50%; }
+.m-social b { display: block; font-size: 15px; }
+.m-og { background: var(--bg); aspect-ratio: 1200 / 630; position: relative; padding: 7% 6%; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--line); }
+.m-og::before { content: ""; position: absolute; inset: 0 0 auto; height: 6px; background: var(--ter); }
+.m-og .top { display: flex; justify-content: space-between; align-items: center; }
+.m-og .top img { height: 28px; }
+.m-og h3 { font: 700 34px/1 "Bricolage Grotesque"; letter-spacing: -.04em; margin: 0; }
+@media (max-width: 760px) {
+  .hero, .rules { grid-template-columns: 1fr; }
+  h1 { font-size: 40px; }
+  .wrap { width: calc(100% - 32px); }
+  .space { padding: 24px; } .space .box { padding: 18px; } .space img { height: auto; width: 100%; }
+  .m-phone { gap: 12px; padding: 24px 16px; } .m-phone .app img, .m-phone .app i { width: 52px; height: 52px; }
+  .mock { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<div class="hero">
+  <div>
+    <p class="mono">LOGO KOROKK · VERSI 1 · OKT 2026</p>
+    <h1>Mihrab prompt</h1>
+    <p class="lede">Lengkung mihrab dengan prompt terminal <b>›_</b> di dalamnya. Satu bentuk untuk dua waktu: siang di masjid, malam depan terminal.</p>
+  </div>
+  <img src="svg/korokk-mendatar-warna.svg" alt="Logo korokk mendatar">
+</div>
+
+<section>
+  <h2>Binaan</h2>
+  <div class="grid">
+    <div><div class="tile" style="background:#fff"><img src="svg/korokk-simbol-warna.svg" alt="" style="max-height:150px"></div>
+      <p class="mono cap">Lengkung runcing: dua lengkok jejari 96 di atas tapak 144 unit. Bucu atas tajam, tapak rata.</p></div>
+    <div><div class="tile" style="background:#fff"><img src="svg/korokk-simbol-kecil-warna.svg" alt="" style="max-height:150px"></div>
+      <p class="mono cap">Versi kecil untuk 32 px ke bawah: lengkung lebih lebar, chevron dan kursor lebih tebal.</p></div>
+    <div><div class="tile" style="background:var(--ink)"><img src="svg/korokk-simbol-putih.svg" alt="" style="max-height:150px"></div>
+      <p class="mono cap">Versi terbalik: potongan ditebalkan 1 unit supaya tak nampak menipis atas latar gelap.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Warna</h2>
+  <div class="grid">
+    <div class="sw" style="background:#9E4A2F;color:#F1EBE0"><b>Terakota</b><span>#9E4A2F · RGB 158 74 47<br>Simbol. 5.1:1 atas krim</span></div>
+    <div class="sw" style="background:#2B211A;color:#F1EBE0"><b>Ink</b><span>#2B211A · RGB 43 33 26<br>Wordmark dan teks</span></div>
+    <div class="sw" style="background:#F1EBE0;color:#2B211A;border:1px solid var(--line)"><b>Krim</b><span>#F1EBE0 · RGB 241 235 224<br>Latar utama</span></div>
+    <div class="sw" style="background:#E7B48C;color:#2B211A"><b>Terakota terang</b><span>#E7B48C · RGB 231 180 140<br>Simbol atas ink (8.5:1)</span></div>
+    <div class="sw" style="background:#3F6B57;color:#F1EBE0"><b>Hijau tua</b><span>#3F6B57 · RGB 63 107 87<br>Warna kedua laman, bukan untuk logo</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Versi</h2>
+  <div class="grid">
+    <div class="tile" style="background:var(--bg);border:1px solid var(--line)"><img src="svg/korokk-mendatar-warna.svg" alt="Warna"></div>
+    <div class="tile" style="background:var(--ink)"><img src="svg/korokk-mendatar-terbalik.svg" alt="Terbalik"></div>
+    <div class="tile" style="background:#fff"><img src="svg/korokk-mendatar-hitam.svg" alt="Hitam"></div>
+    <div class="tile" style="background:var(--ter)"><img src="svg/korokk-mendatar-putih.svg" alt="Putih"></div>
+    <div class="tile" style="background:#fff"><img src="svg/korokk-bertindan-warna.svg" alt="Bertindan" style="max-height:160px"></div>
+    <div class="tile" style="background:var(--card)"><img src="svg/korokk-wordmark-ink.svg" alt="Wordmark"></div>
+  </div>
+</section>
+
+<section>
+  <h2>Ruang dan saiz</h2>
+  <div class="rules">
+    <div>
+      <div class="space"><div class="box"><img src="svg/korokk-mendatar-warna.svg" alt=""><span class="x" style="top:8px;left:50%">x</span><span class="x" style="left:10px;top:45%">x</span></div></div>
+      <p class="mono cap">Ruang kosong keliling logo sekurang-kurangnya x = lebar kursor ( _ ), iaitu ¼ lebar lengkung.</p>
+    </div>
+    <div>
+      <div class="sizes">
+        <div><img src="svg/korokk-simbol-kecil-warna.svg" width="16" height="16" alt=""><span class="mono">16 px</span></div>
+        <div><img src="svg/korokk-simbol-kecil-warna.svg" width="32" height="32" alt=""><span class="mono">32 px</span></div>
+        <div><img src="svg/korokk-simbol-warna.svg" width="48" height="48" alt=""><span class="mono">48 px+</span></div>
+        <div><img src="svg/korokk-mendatar-warna.svg" height="32" alt=""><span class="mono">mendatar ≥ 100 px</span></div>
+      </div>
+      <p class="mono cap">Simbol: versi kecil di bawah 48 px. Susunan mendatar: lebar minimum 100 px; lebih kecil, guna simbol sahaja.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Jangan</h2>
+  <ul class="dont">
+    <li>Letak simbol terakota atas latar ink (2.6:1, kabur). Guna terakota terang.</li>
+    <li>Ubah jarak atau saiz relatif simbol dan wordmark. Guna fail susunan yang tersedia.</li>
+    <li>Regang, condongkan, putar, atau tambah bayang, outline atau gradient.</li>
+    <li>Tukar chevron dan kursor jadi warna lain. Ia lubang, bukan bentuk berwarna.</li>
+    <li>Taip semula "korokk" dalam font lain. Wordmark ialah path, bukan teks.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Dalam penggunaan</h2>
+  <div class="mock">
+    <div class="m m-site"><div class="bar"><img src="svg/korokk-mendatar-warna.svg" alt=""><span class="pill">Jom sembang ↗</span></div><p>Siang bilal,<br><span>malam coding</span><span style="color:var(--ter)">.</span></p></div>
+    <div class="m"><div class="m-tab"><span class="t"><img src="web/favicon-32.png" alt="">korokk.com</span> <span class="t" style="background:transparent"><img src="web/favicon-32.png" alt="">Studio · korokk</span></div><div class="url">korokk.com/blog/hello-world/</div></div>
+    <div class="m m-phone"><div class="app"><i></i>Masjid</div><div class="app"><img src="web/icon-192.png" alt="">korokk</div><div class="app"><i></i>Threads</div><div class="app"><i></i>Jellyfin</div></div>
+    <div class="m m-social"><img src="web/icon-192.png" alt="" style="border-radius:50%"><div><b>msafwanrahman</b><span class="mono">Siang bilal, malam coding · korokk.com</span></div></div>
+    <div class="m m-og"><div class="top"><span class="mono" style="font-size:14px">korokk.com/blog</span><img src="svg/korokk-simbol-warna.svg" alt=""></div><h3>Hello world</h3><div class="top"><span class="mono">28 Okt 2026</span><span class="mono" style="color:var(--ter)">#peribadi #ai</span></div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Fail</h2>
+  <p class="mono" style="line-height:1.9">svg/ · simbol, simbol-kecil, mendatar, bertindan, wordmark (warna · ink · hitam · putih · terbalik)<br>
+  png/ · pratonton 1200 px dan simbol 1024 px<br>
+  web/ · favicon.svg (ikut tema browser), favicon.ico (16/32/48), apple-touch-icon.png, icon-192/512, icon-maskable-512, site.webmanifest, head-snippet.html<br>
+  Font wordmark: Bricolage Grotesque Bold (SIL OFL), dijadikan path. Jarak huruf −0.03em.</p>
+</section>
+
+</main>
+</body>
+</html>
