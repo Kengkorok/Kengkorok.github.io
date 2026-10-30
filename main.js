@@ -134,3 +134,26 @@ if (cursor && matchMedia('(pointer: fine)').matches && !reduceMotion) {
     card.addEventListener('pointerleave', () => cursor.classList.remove('is-on'));
   });
 }
+
+// Statistik: hantar satu rekod setiap halaman dibuka ke Worker komen.
+// Pemilik tak dikira: Studio set cookie korok_abai pada .korokk.com, atau buka ?abai=1 sekali (?abai=0 untuk batal).
+{
+  const HIT = 'https://komen.sa7one.workers.dev/hit';
+  const q = new URLSearchParams(location.search);
+  if (q.has('abai')) {
+    const on = q.get('abai') !== '0';
+    document.cookie = `korok_abai=1; domain=korokk.com; path=/; secure; samesite=lax; max-age=${on ? 315360000 : 0}`;
+    q.delete('abai');
+    history.replaceState(null, '', location.pathname + (q.size ? `?${q}` : '') + location.hash);
+    alert(on ? 'Lawatan dari browser ni tak dikira lagi.' : 'Lawatan dari browser ni dikira semula.');
+  }
+  const owner = /(?:^|;\s*)korok_abai=1/.test(document.cookie);
+  if (!owner && /(^|\.)korokk\.com$/.test(location.hostname) && navigator.sendBeacon) {
+    let v;
+    try {
+      v = localStorage.getItem('korok-pelawat');
+      if (!v) localStorage.setItem('korok-pelawat', (v = crypto.randomUUID()));
+    } catch { v = crypto.randomUUID(); }
+    navigator.sendBeacon(HIT, new Blob([JSON.stringify({ p: location.pathname, v })], { type: 'text/plain' }));
+  }
+}

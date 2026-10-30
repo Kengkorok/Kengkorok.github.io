@@ -5,6 +5,8 @@ Komen "nama sahaja" untuk blog. Cloudflare Worker + D1, percuma dalam had Cloudf
 - `GET /komen?post=/blog/slug/`: senarai komen yang dah lulus
 - `POST /komen`: hantar komen baru (masuk status `menunggu`)
 - `/admin`: panel lulus/padam komen (perlu `ADMIN_TOKEN`)
+- `POST /hit`: statistik lawatan dari `main.js` laman (jadual `lawatan`)
+- `GET /admin/api/statistik`: page view, pelawat, post paling dibaca dan bilangan komen, untuk tab Statistik dalam Studio
 
 Perlindungan spam: medan perangkap tersorok, had masa minimum 3 saat, 3 komen per IP setiap 10 minit (IP disimpan sebagai hash), had 300 komen menunggu, dan Turnstile (pilihan).
 
@@ -31,6 +33,8 @@ komen:
 Push portfolio, dan tab "Nama sahaja" muncul di setiap post.
 
 **Domain sendiri (pilihan):** buka komen pada baris `routes` dalam `wrangler.toml` (contoh `komen.korokk.com`), deploy semula, dan tukar `api` dalam `_config.yml`.
+
+**Naik taraf dari versi tanpa statistik:** jalankan `npm run db:init` semula (`CREATE TABLE IF NOT EXISTS`, data komen tak diusik), kemudian `npm run deploy`.
 
 ## Semak komen
 

@@ -7,6 +7,9 @@ const HAD_PER_IP = 3;          // komen setiap 10 minit bagi satu IP
 const HAD_MENUNGGU = 300;      // had senarai menunggu, elak D1 dibanjiri
 const MIN_MS = 3000;           // bot biasanya hantar terlalu cepat
 const POST_RE = /^\/blog\/[a-z0-9][a-z0-9-]{0,120}\/$/;
+const PATH_RE = /^\/[a-z0-9/._-]{0,200}$/;
+const PELAWAT_RE = /^[0-9a-f-]{36}$/;
+const BOT_RE = /bot|crawl|spider|slurp|preview|facebookexternalhit|headless|lighthouse|pingdom/i;
 
 export default {
   async fetch(req, env, ctx) {
@@ -18,6 +21,7 @@ export default {
     try {
       if (url.pathname === '/komen' && req.method === 'GET') return await senarai(url, env, cors);
       if (url.pathname === '/komen' && req.method === 'POST') return await hantar(req, env, ctx, cors);
+      if (url.pathname === '/hit' && req.method === 'POST') return await hit(req, env, cors);
       if (url.pathname === '/admin' && req.method === 'GET') return adminPage();
       if (url.pathname.startsWith('/admin/api/')) return await adminApi(req, url, env);
       return json({ ralat: 'Tiada di sini.' }, 404, cors);
@@ -75,6 +79,50 @@ async function hantar(req, env, ctx, cors) {
   return json({ ok: true }, 201, cors);
 }
 
+// ---------- Statistik lawatan ----------
+
+// Dihantar dengan navigator.sendBeacon (text/plain), jadi jawapan tak dibaca. Rekod tak sah diabaikan senyap.
+async function hit(req, env, cors) {
+  const done = new Response(null, { status: 204, headers: cors });
+  if (!allowedOrigin(req, env) || BOT_RE.test(req.headers.get('User-Agent') || '')) return done;
+  const body = await req.json().catch(() => null);
+  const path = String(body?.p || '').toLowerCase();
+  const pelawat = String(body?.v || '').toLowerCase();
+  if (!PATH_RE.test(path) || !PELAWAT_RE.test(pelawat)) return done;
+  await env.DB.prepare('INSERT INTO lawatan (path, pelawat) VALUES (?, ?)').bind(path, pelawat).run();
+  return done;
+}
+
+// Page view dan pelawat unik: sepanjang masa, 7 hari lepas, dan tahun ini (waktu KL, UTC+8)
+async function statistik(env) {
+  const iso = (ms) => new Date(ms).toISOString().replace(/\.\d{3}Z$/, 'Z');
+  const now = Date.now();
+  const tahunKL = new Date(now + 8 * 3600e3).getUTCFullYear();
+  const minggu = iso(now - 7 * 86400e3);
+  const tahun = iso(Date.UTC(tahunKL, 0, 1) - 8 * 3600e3);
+  const [jumlah, popular, komen] = await env.DB.batch([
+    env.DB.prepare(`SELECT
+        COUNT(*) AS v, COUNT(DISTINCT pelawat) AS p,
+        COALESCE(SUM(dibuat >= ?1), 0) AS v7, COUNT(DISTINCT CASE WHEN dibuat >= ?1 THEN pelawat END) AS p7,
+        COALESCE(SUM(dibuat >= ?2), 0) AS vy, COUNT(DISTINCT CASE WHEN dibuat >= ?2 THEN pelawat END) AS py
+      FROM lawatan`).bind(minggu, tahun),
+    env.DB.prepare(`SELECT path, COUNT(*) AS views, COUNT(DISTINCT pelawat) AS pelawat FROM lawatan
+      WHERE path LIKE '/blog/_%' GROUP BY path ORDER BY views DESC LIMIT 10`),
+    env.DB.prepare('SELECT status, COUNT(*) AS n FROM komen GROUP BY status'),
+  ]);
+  const j = jumlah.results[0];
+  const k = Object.fromEntries(komen.results.map((r) => [r.status, r.n]));
+  return {
+    lawatan: {
+      semua: { views: j.v, pelawat: j.p },
+      minggu: { views: j.v7, pelawat: j.p7 },
+      tahun: { views: j.vy, pelawat: j.py },
+    },
+    popular: popular.results,
+    komen: { lulus: k.lulus || 0, menunggu: k.menunggu || 0 },
+  };
+}
+
 // ---------- Admin ----------
 
 async function adminApi(req, url, env) {
@@ -82,6 +130,7 @@ async function adminApi(req, url, env) {
   if (!(await isAdmin(req, env))) return json({ ralat: 'Token salah.' }, 401);
 
   const parts = url.pathname.split('/').filter(Boolean); // ['admin', 'api', ...]
+  if (parts[2] === 'statistik' && req.method === 'GET') return json(await statistik(env));
   if (parts[2] === 'komen' && req.method === 'GET') {
     const status = url.searchParams.get('status') === 'lulus' ? 'lulus' : 'menunggu';
     const { results } = await env.DB.prepare(
