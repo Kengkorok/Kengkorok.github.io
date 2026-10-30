@@ -1,0 +1,67 @@
+---
+title: "Cloudflare Monetization Gateway: Bila AI Agent Dah Pandai Bayar Sendiri."
+description: Cloudflare perkenal Monetization Gateway yang membolehkan AI Agent membayar servis dan API secara automatik mengikut penggunaan, tapi sejauh mana kita boleh percayakan AI untuk pegang dompet sendiri
+tags:
+  - ai
+  - cloudflare
+  - agent
+  - teknologi
+image: /assets/blog/2026/cloudflare-monetization-gateway-bila-ai-agent-dah-pandai-bayar-sendiri/orldcoin-launches-agentkit-beta-to-verif-204071.webp
+image_alt: Ilustrasi AI Agent membuat pembayaran digital secara automatik melalui rangkaian API menggunakan teknologi Cloudflare Monetization Gateway.
+---
+{% raw %}
+<p>Cloudflare Monetization Gateway: Bila AI Agent Dah Pandai Bayar Sendiri</p>
+<p><em>AI Agent bukan sahaja boleh buat kerja untuk kita, sekarang dia dah boleh bayar sendiri untuk dapatkan servis yang diperlukan. Menarik, tapi dompet siapa yang kena tanggung?</em></p>
+<p><strong>#ai #cloudflare #agent #homelab #teknologi</strong></p>
+<p>Aku terjumpa satu artikel dari Cloudflare yang diterbitkan pada 30 September 2026 berkenaan satu teknologi baru yang dipanggil <strong>Monetization Gateway</strong>. Nama pon dah agak teknikal. Pada mulanya aku sendiri tak berapa faham apa benda yang Cloudflare cuba nak perkenalkan ni.</p>
+<p>Jadi aku minta ChatGPT ringkaskan artikel tersebut dalam bahasa yang mudah untuk aku faham. Setelah baca penerangan dia, aku rasa perkembangan ni agak menarik, terutamanya bagi mereka yang sedang bermain dengan AI Agent.</p>
+<p>Aku sendiri ada setup Hermes AI Agent dalam Linux homelab aku. Masih banyak benda yang aku tengah belajar dan explore, tapi sedikit sebanyak aku dah mula faham bagaimana AI Agent boleh membantu kita jalankan pelbagai tugasan secara automatik.</p>
+<h2>Apa sebenarnya Monetization Gateway ni?</h2>
+<p>Secara ringkasnya, Cloudflare memperkenalkan satu sistem yang membolehkan pemilik website, API atau penyedia data mengenakan bayaran kepada AI Agent berdasarkan penggunaan.</p>
+<p>Selama ni kalau kita nak gunakan sesuatu servis API berbayar, biasanya kita perlu daftar akaun, masukkan maklumat pembayaran, langgan pelan bulanan ataupun beli kredit terlebih dahulu.</p>
+<p>Masalahnya, AI Agent tak semestinya memerlukan servis tersebut setiap hari. Kadang-kadang dia cuma perlukan satu atau dua request untuk menyiapkan sesuatu tugasan.</p>
+<p>Jadi kenapa perlu langgan sebulan kalau nak guna sekali dua sahaja?</p>
+<p>Di sinilah Monetization Gateway cuba menyelesaikan masalah tersebut dengan konsep <strong>pay-per-use</strong>, iaitu bayar berdasarkan apa yang digunakan sahaja.</p>
+<h2>Bagaimana AI Agent boleh bayar sendiri?</h2>
+<p>Cloudflare menggunakan satu protokol yang dipanggil <strong>x402</strong>, berasaskan kod HTTP 402 Payment Required.</p>
+<p>Untuk mudahkan pemahaman, bayangkan aku arahkan Hermes untuk buat research tentang sesuatu topik. Dalam proses tersebut, Hermes perlukan data daripada satu API berbayar.</p>
+<p>Biasanya, Hermes mungkin akan gagal mendapatkan data tersebut kalau aku tak sediakan API key atau kredit yang mencukupi.</p>
+<p>Tapi dengan teknologi ni, sekiranya API tersebut menyokong x402 dan AI Agent aku mempunyai wallet serta kebenaran pembayaran yang sesuai, prosesnya lebih kurang begini.</p>
+<ol>
+<li>
+<p>Hermes cuba mendapatkan data daripada API.</p></li>
+<li>
+<p>API membalas dengan kod HTTP 402, bermaksud pembayaran diperlukan.</p></li>
+<li>
+<p>Hermes menerima maklumat harga dan menyediakan kebenaran pembayaran.</p></li>
+<li>
+<p>Setelah pembayaran disahkan, Hermes boleh mendapatkan data yang diperlukan dan meneruskan tugasan.</p></li>
+</ol>
+<p>Menarik kan?</p>
+<p>Untuk pembayaran, Cloudflare menggunakan stablecoin USDC melalui blockchain Base. Aku sendiri bukanlah orang yang mendalami dunia cryptocurrency, jadi bab ni masih agak asing bagi aku.</p>
+<p>Apa yang aku faham, mekanisme ni membolehkan pembayaran bernilai kecil dilakukan dengan cepat tanpa memerlukan proses checkout seperti yang biasa kita gunakan ketika membeli barang secara online.</p>
+<h2>Apa kaitan dengan homelab dan Hermes aku?</h2>
+<p>Ini bahagian yang paling menarik perhatian aku.</p>
+<p>Seperti yang aku sebut tadi, aku ada setup Hermes AI Agent dalam Linux homelab sendiri. Salah satu perkara yang aku sedang explore ialah bagaimana nak memanfaatkan AI Agent untuk menjalankan tugasan secara automatik dengan penggunaan pelbagai tools dan API.</p>
+<p>Bayangkan suatu hari nanti aku arahkan Hermes untuk menghasilkan laporan lengkap yang memerlukan beberapa sumber data berbayar.</p>
+<p>Daripada aku kena daftar dan melanggan setiap servis yang diperlukan, Hermes berpotensi memilih servis yang sesuai dan membuat pembayaran berdasarkan penggunaan sahaja.</p>
+<p>Bagaimanapun, ini masih gambaran potensi penggunaan, bukannya sesuatu yang aku dah berjaya implement dalam Hermes.</p>
+<p>Ada juga benda yang aku sedikit risau.</p>
+<p>Kalau AI Agent boleh buat pembayaran sendiri, bagaimana pula dengan kawalan perbelanjaan?</p>
+<p>Katakan aku bagi satu tugasan yang agak kompleks. AI Agent tu pula buat beratus-ratus request untuk mendapatkan maklumat. Kalau setiap request dikenakan bayaran, tak mustahil kos boleh meningkat tanpa kita sedar.</p>
+<p>Daripada AI Agent yang sepatutnya menjimatkan masa dan kos, tiba-tiba jadi AI Agent yang rajin shopping menggunakan duit tuan dia. Haha.</p>
+<p>Jadi pada aku, ciri seperti had bajet, kelulusan pembayaran dan pemantauan transaksi sangat penting sebelum kita memberikan kebebasan kepada AI Agent untuk berbelanja.</p>
+<h2>Adakah teknologi ni dah boleh digunakan?</h2>
+<p>Setakat pengumuman Cloudflare, Monetization Gateway masih berada dalam fasa <strong>closed beta</strong> dan hanya dibuka kepada pembeli serta penyedia servis yang layak berpangkalan di Amerika Syarikat.</p>
+<p>Cloudflare merancang untuk memperluaskan sokongan ke negara lain pada masa akan datang.</p>
+<p>Maksudnya, untuk pengguna seperti aku di Malaysia, belum masanya lagi nak terus implement teknologi ni dalam homelab.</p>
+<p>Lagipun, bukan semua API atau AI Agent terus menyokong sistem pembayaran tersebut. Masih perlu ada integrasi yang sesuai.</p>
+<h2>Kesimpulan</h2>
+<p>Pada aku, perkembangan ni memberikan sedikit gambaran bagaimana ekosistem AI Agent mungkin berubah pada masa akan datang.</p>
+<p>Sekarang ni kita dah biasa dengan pelbagai model langganan bulanan. ChatGPT, Claude, hosting, API dan macam-macam lagi. Kalau dikira semua langganan yang aku ada, memang boleh tahan juga jumlahnya.</p>
+<p>Dengan konsep pembayaran berdasarkan penggunaan, mungkin suatu hari nanti kita tak perlu lagi melanggan terlalu banyak servis semata-mata untuk mendapatkan fungsi yang kita gunakan sekali-sekala.</p>
+<p>Cuma aku tak rasa sistem ni akan menggantikan semua model langganan sedia ada. Ada servis yang lebih berbaloi dilanggan secara bulanan, dan ada juga yang lebih sesuai dibayar mengikut penggunaan.</p>
+<p>Aku masih baru dalam dunia AI Agent, Linux dan DevOps. Banyak lagi benda yang perlu aku belajar. Tapi teknologi macam ni membuatkan aku semakin tertarik untuk explore sejauh mana AI Agent boleh membantu kerja harian kita.</p>
+<p>Buat masa ni, biarlah Hermes aku belajar buat kerja dengan elok terlebih dahulu sebelum aku bagi dia pegang dompet. Haha.</p>
+<p><strong>Rujukan:</strong> <a href="https://blog.cloudflare.com/monetization-gateway-beta/">Cloudflare Blog — Monetization Gateway beta: charge AI agents for consumption with HTTP 402</a></p>
+{% endraw %}
