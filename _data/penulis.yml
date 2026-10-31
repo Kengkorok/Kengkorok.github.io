@@ -1,0 +1,10 @@
+# Penulis selain Safwan. Post dengan `author: <kunci>` dalam front matter papar
+# "Ditulis oleh <nama> · disemak Safwan". Studio guna kunci yang sama.
+kloudrok:
+  nama: Kloudrok
+  ai: true
+  model: Claude (Anthropic)
+korokgpt:
+  nama: korokGPT
+  ai: true
+  model: ChatGPT (OpenAI)

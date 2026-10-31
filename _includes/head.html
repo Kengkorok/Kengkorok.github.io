@@ -25,7 +25,7 @@
 <meta property="article:tag" content="{{ t }}">
 {%- endfor %}
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","headline":{{ page.title | jsonify }},"description":{{ ringkas | jsonify }},"image":{{ imej | jsonify }},"datePublished":"{{ page.date | date_to_xmlschema }}","dateModified":"{{ page.last_modified_at | default: page.date | date_to_xmlschema }}","inLanguage":"ms","author":{"@type":"Person","name":"Mohd Safwan Abd Rahman","url":"{{ '/' | absolute_url }}"},"mainEntityOfPage":"{{ page.url | absolute_url }}"}
+{"@context":"https://schema.org","@type":"BlogPosting","headline":{{ page.title | jsonify }},"description":{{ ringkas | jsonify }},"image":{{ imej | jsonify }},"datePublished":"{{ page.date | date_to_xmlschema }}","dateModified":"{{ page.last_modified_at | default: page.date | date_to_xmlschema }}","inLanguage":"ms","author":{"@type":"Person","name":"Mohd Safwan Abd Rahman","url":"{{ '/' | absolute_url }}"},{% assign penulis = site.data.penulis[page.author] %}{% if penulis %}"contributor":{"@type":"SoftwareApplication","name":{{ penulis.nama | jsonify }},"applicationCategory":{{ penulis.model | jsonify }}},{% endif %}"mainEntityOfPage":"{{ page.url | absolute_url }}"}
 </script>
 {%- endif %}
 <meta name="theme-color" content="#F1EBE0">
@@ -37,4 +37,4 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Host+Grotesk:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ '/styles.css?v=3' | relative_url }}">
-<link rel="stylesheet" href="{{ '/blog.css?v=2' | relative_url }}">
+<link rel="stylesheet" href="{{ '/blog.css?v=3' | relative_url }}">

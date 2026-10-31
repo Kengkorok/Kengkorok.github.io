@@ -3,7 +3,7 @@
   <a class="post-row__link" href="{{ p.url | relative_url }}">
     <span class="post-row__date mono muted">{% include tarikh.html date=p.date %}</span>
     <span class="post-row__title">{{ p.title }}</span>
-    <span class="post-row__time mono muted">{% include masa-baca.html content=p.content %}</span>
+    <span class="post-row__time mono muted">{% include masa-baca.html content=p.content %}{% assign pn = site.data.penulis[p.author] %}{% if pn %} · {{ pn.nama }}{% endif %}</span>
     {%- if p.tags.size > 0 %}
     <span class="post-row__tags mono">{% for t in p.tags %}<span>#{{ t }}</span>{% endfor %}</span>
     {%- endif %}

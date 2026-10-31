@@ -1,6 +1,7 @@
 ---
 layout: base
 ---
+{%- assign penulis = site.data.penulis[page.author] -%}
 <article class="post wrap">
   <header class="post__head">
     <a class="post__back mono" href="{{ '/blog/' | relative_url }}">← Semua tulisan</a>
@@ -8,6 +9,10 @@ layout: base
       {% include tarikh.html date=page.date %}
       <span aria-hidden="true">·</span>
       {% include masa-baca.html content=content %}
+      {%- if penulis %}
+      <span aria-hidden="true">·</span>
+      <span class="post__byline">Ditulis oleh <b>{{ penulis.nama }}</b>{% if penulis.ai %} <span class="post__ai" title="Ditulis oleh AI ({{ penulis.model }})">AI</span>{% endif %} · disemak Safwan</span>
+      {%- endif %}
     </p>
     <h1 class="post__title">{{ page.title }}</h1>
     {%- if page.description %}
@@ -25,12 +30,22 @@ layout: base
   {%- if page.image and page.cover != false %}
   <figure class="post__cover">
     <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: '' }}">
+    {%- if page.image_credit %}
+    <figcaption class="post__credit mono muted">{{ page.image_credit }}</figcaption>
+    {%- endif %}
   </figure>
   {%- endif %}
 
   <div class="prose">
 {{ content }}
   </div>
+
+  {%- if page.sumber.url %}
+  <aside class="post__sumber">
+    <span class="mono muted">Sumber</span>
+    <a href="{{ page.sumber.url }}" rel="noopener">{{ page.sumber.title | default: page.sumber.url }} ↗</a>
+  </aside>
+  {%- endif %}
 
   <nav class="post__pager" aria-label="Post lain">
     {%- if page.previous %}
