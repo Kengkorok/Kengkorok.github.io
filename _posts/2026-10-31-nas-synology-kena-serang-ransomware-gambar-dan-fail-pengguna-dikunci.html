@@ -1,0 +1,110 @@
+---
+title: NAS Synology Kena Serang Ransomware, Gambar dan Fail Pengguna Dikunci
+description: NAS Synology diserang ransomeware? Betul ke?
+tags:
+  - homelab
+  - technologi
+  - security
+  - nas
+  - hacker
+image: /assets/blog/2026/nas-synology-kena-serang-ransomware-gambar-dan-fail-pengguna-dikunci/ransomware-lock-over-network-storage-794a88.webp
+image_alt: ancaman ransomeware atas NAS Synology
+---
+{% raw %}
+<img loading="lazy" src="/assets/blog/2026/nas-synology-kena-serang-ransomware-gambar-dan-fail-pengguna-dikunci/image-b6b4da.webp" alt="">
+<p>Aku baru terbaca satu berita yang agak membimbangkan, terutamanya bagi mereka yang menggunakan NAS atau sedang merancang untuk <em>setup</em> personal cloud sendiri. Aku sendiri pon sedang merancang untuk memiliki sebuah nas peribadi aku.</p>
+<p>Pada 29 Oktober 2026, Synology mengeluarkan kenyataan rasmi bahawa terdapat serangan ransomware terhadap peranti NAS mereka yang menggunakan versi DiskStation Manager (DSM) lama.</p>
+<p>Lebih menarik, atau mungkin lebih tepat kalau aku kata lebih menakutkan, masalah keselamatan yang digunakan oleh penyerang ni sebenarnya dah menerima patch sejak Disember 2024.</p>
+<p>Maknanya, patch keselamatan dah lama tersedia, tetapi masih ada pengguna yang belum update sistem mereka.</p>
+<p>Dan sekarang, data mereka pula menjadi sasaran.</p>
+<p><strong>Apa sebenarnya yang berlaku?</strong></p>
+<p>Menurut laporan ChosunBiz dari Korea Selatan pada 30 Oktober 2026, beberapa pengguna Synology mendapati gambar dan dokumen yang disimpan dalam NAS mereka tiba-tiba tidak boleh dibuka.</p>
+<p>Fail tersebut telah dienkripsi oleh ransomware yang dikenali sebagai <strong>C3RB3R</strong>, iaitu daripada keluarga ransomware Cerber.</p>
+<p>Fail yang terjejas mempunyai extension .L0CK3D, manakala penyerang meninggalkan satu nota yang meminta pengguna membayar wang tebusan untuk mendapatkan semula akses kepada data mereka.</p>
+<p>Berapa jumlah yang diminta?</p>
+<p><strong>0.036960 Bitcoin</strong>, bersamaan kira-kira USD2,952 berdasarkan laporan tersebut.</p>
+<p>Penyerang memberikan tempoh lima hari untuk membuat pembayaran. Kalau tidak, jumlah tebusan akan digandakan.</p>
+<p>Bayangkan gambar keluarga, video anak-anak, dokumen penting dan koleksi fail yang dikumpulkan bertahun-tahun tiba-tiba tidak boleh diakses.</p>
+<p>Dah lah data kena kunci, nak dapat balik kena bayar tebusan pulak. Dan yang lebih merisaukan, membayar wang tebusan bukanlah jaminan bahawa data akan berjaya dipulihkan. Dapat bayangkan?</p>
+<p><strong>Macam mana NAS boleh kena hack?</strong></p>
+<img loading="lazy" src="/assets/blog/2026/nas-synology-kena-serang-ransomware-gambar-dan-fail-pengguna-dikunci/image-d24e8a.webp" alt="Paparan Synology Diskstation Manage OS">
+<p>Salah satu perkara yang menarik perhatian aku ialah serangan ni melibatkan kelemahan keselamatan pada sistem operasi Synology sendiri, iaitu DSM.</p>
+<p>Antara kelemahan yang didokumentasikan oleh Synology ialah <strong>CVE-2024-10441</strong>, yang mempunyai skor keterukan 9.8 daripada 10.</p>
+<p>Kelemahan ini boleh membolehkan penyerang menjalankan kod dari jauh pada sistem yang terdedah.</p>
+<p>Synology sendiri mengesahkan bahawa penyerang sedang mengeksploitasi kelemahan lama yang telah diperbaiki pada Disember 2024. Walau bagaimanapun, kenyataan tersebut tidak memperincikan CVE khusus yang digunakan dalam setiap serangan.</p>
+<p>Jadi bukanlah bermaksud semua NAS Synology boleh terus kena hack seperti yang dihebohkan oleh Pendakwah Teknologi di hantaran FB nya. Aku tak tahulah apa niatnya yang sebenar, tapi hantarannya ada berbaur fear mongering.</p>
+<img loading="lazy" src="/assets/blog/2026/nas-synology-kena-serang-ransomware-gambar-dan-fail-pengguna-dikunci/img-0302-0ce465.webp" alt="">
+<p></p>
+<p>Risiko lebih tinggi kepada sistem yang masih menggunakan versi DSM terdedah, terutamanya apabila servis NAS boleh dicapai terus melalui internet.</p>
+<p>Contohnya, kita buat port forwarding pada router supaya DSM boleh diakses dari luar rumah.</p>
+<p>Memang mudah. Kita boleh buka dashboard NAS dari mana-mana sahaja.</p>
+<p>Tapi pada masa yang sama, kita mungkin turut membuka peluang kepada pihak yang tidak sepatutnya untuk mencuba mengeksploitasi kelemahan keselamatan.</p>
+<p></p>
+<p><strong>Aku sendiri tengah explore dunia NAS dan homelab</strong></p>
+<p>Aku sedang menggunakan sebuah Linux homelab berasaskan Ubuntu dengan beberapa servis yang aku host sendiri menggunakan Docker.</p>
+<p>Antaranya Immich untuk pengurusan gambar, Navidrome untuk muzik, Vaultwarden untuk password manager dan beberapa servis lain.</p>
+<p>Aku juga menggunakan Tailscale dan Cloudflare Tunnel untuk akses dari luar rangkaian rumah.</p>
+<p>Selain tu, aku memang sedang mempertimbangkan untuk mendapatkan NAS bagi mengumpulkan data daripada beberapa HDD dan SSD lama yang aku ada.</p>
+<p>Tujuan utamanya mudah sahaja. Aku nak satukan gambar, video, dokumen dan fail lama dalam satu tempat yang mudah diuruskan. Mudah kata aku nak bina alternatif kepada cloud storage komersial macam iCloud, dropbox dan Google Drive.</p>
+<p>Tapi bila baca berita ni, aku terfikir satu perkara.</p>
+<p><strong>Bila kita pilih untuk host dan urus data sendiri, tanggungjawab menjaga keselamatan data tersebut pun jatuh kepada kita sendiri.</strong></p>
+<p>Kita tak boleh anggap NAS tu selamat semata-mata sebab kita beli daripada jenama terkenal.</p>
+<p><strong>Apa yang boleh kita belajar daripada insiden ni?</strong></p>
+<p>Aku bukanlah cybersecurity expert. Masih banyak perkara yang aku belajar berkaitan Linux, networking dan security.</p>
+<p>Tapi berdasarkan pembacaan aku, ada beberapa langkah asas yang patut diberikan perhatian oleh pengguna NAS dan homelab.</p>
+<p><strong>1. Sentiasa update sistem</strong></p>
+<p>Ini perkara paling asas, tapi mungkin juga yang paling mudah kita abaikan.</p>
+<p>Kalau menggunakan Synology, semak versi DSM dan pastikan patch keselamatan terkini telah dipasang. Jangan lupa update aplikasi yang dipasang melalui Package Center juga.</p>
+<p>Kalau menggunakan Ubuntu seperti aku, kena pastikan OS, Docker images dan aplikasi yang berjalan turut dikemas kini.</p>
+<p>Cuma untuk homelab, aku lebih suka pendekatan update secara terkawal selepas semak changelog dan backup. Bukan main update semua benda tanpa tahu kesannya.</p>
+<p><strong>2. Jangan dedahkan dashboard admin terus ke internet</strong></p>
+<p>Kalau boleh, elakkan membuka port pengurusan NAS secara terus kepada internet.</p>
+<p>Untuk akses dari luar, aku lebih selesa menggunakan VPN seperti Tailscale.</p>
+<p>Cloudflare Tunnel juga boleh digunakan untuk sesetengah servis, tetapi tetap memerlukan konfigurasi authentication dan access control yang betul.</p>
+<p>Jangan ingat sebab kita guna tunnel, automatik semua benda jadi selamat.</p>
+<p><strong>3. Gunakan MFA atau 2FA</strong></p>
+<p>Password yang kuat memang penting, tetapi perlindungan tambahan seperti multi-factor authentication (MFA) juga patut diaktifkan.</p>
+<p>Walaupun begitu, MFA bukan pengganti kepada patch keselamatan. Kalau terdapat kelemahan yang boleh dieksploitasi tanpa login, MFA sahaja tidak mencukupi.</p>
+<p><strong>4. Backup, backup dan backup</strong></p>
+<p>Ini bahagian paling penting.</p>
+<p>NAS bukanlah backup dengan sendirinya.</p>
+<p>Walaupun kita menggunakan RAID, ia tidak bermaksud data kita akan terselamat daripada ransomware, kesilapan memadam fail atau kerosakan keseluruhan sistem.</p>
+<p>Salah satu pendekatan yang selalu disyorkan ialah strategi <strong>3-2-1 backup</strong>.</p>
+<ul>
+<li>
+<p>3 salinan data.</p></li>
+<li>
+<p>2 jenis media atau storan yang berbeza.</p></li>
+<li>
+<p>1 salinan disimpan di lokasi berasingan.</p></li>
+</ul>
+<p>Untuk perlindungan ransomware, sebaiknya ada salinan offline atau backup yang tidak boleh diubah oleh sistem utama.</p>
+<p>Dan jangan lupa test proses restore. Backup yang tak pernah diuji belum tentu boleh menyelamatkan kita apabila berlaku masalah.</p>
+<p></p>
+<p><strong>Adakah Synology masih selamat digunakan?</strong></p>
+<p>Pada pendapat aku, berita ni bukan bermaksud Synology tiba-tiba menjadi produk yang tidak selamat atau kita patut berhenti menggunakan NAS.</p>
+<p>Mana-mana sistem yang terhubung ke rangkaian berpotensi mempunyai kelemahan keselamatan.</p>
+<p>Ubuntu, Windows, TrueNAS, Proxmox ataupun aplikasi Docker yang kita host sendiri pun tidak terkecuali.</p>
+<p>Yang membezakan ialah bagaimana vendor menangani kelemahan tersebut dan bagaimana kita sebagai pengguna mengurus keselamatan sistem.</p>
+<p>Dalam kes ini, Synology sudah menyediakan pembaikan untuk kelemahan lama tersebut, tetapi sistem yang tidak dikemas kini masih menjadi sasaran.</p>
+<p>Aku juga rasa ini satu peringatan bahawa kita perlu sentiasa peka dengan security advisory daripada vendor, bukan hanya bergantung kepada notifikasi update.</p>
+<p><strong>Kesimpulan</strong></p>
+<p>Semakin aku explore dunia homelab dan self-hosting, semakin aku sedar bahawa memiliki kawalan penuh terhadap data sendiri datang bersama tanggungjawab yang agak besar.</p>
+<p>Memang seronok bila kita boleh host pelbagai servis sendiri, tak perlu bergantung sepenuhnya kepada cloud provider dan boleh akses data dari mana-mana sahaja.</p>
+<p>Tapi kita juga yang perlu menjaga update, backup, network security dan segala macam benda lain.</p>
+<p>Aku masih berminat untuk mendapatkan NAS suatu hari nanti. Insiden ni tak mengubah perancangan itu, cuma membuatkan aku lebih berhati-hati tentang bagaimana nak setup sistem yang selamat.</p>
+<p>Bagi aku, gambar keluarga dan kenangan lama jauh lebih bernilai daripada harga sebuah NAS.</p>
+<p>Hardware rosak boleh beli baru. HDD rosak boleh tukar.</p>
+<p>Tapi kalau gambar kenangan yang tak ada backup hilang selama-lamanya, memang tak ada Shopee yang boleh jual balik benda tu.</p>
+<p><strong>Rujukan</strong></p>
+<ul>
+<li>
+<p><a href="https://www.synology.com/en-global/company/news/article/C3RB3R"><u>Synology — Official Ransomware Warning, 29 Oktober 2026</u></a></p></li>
+<li>
+<p><a href="https://biz.chosun.com/en/en-it/2026/10/30/QW7K2CGWJJGB5IZUO227IVDRKM/"><u>ChosunBiz — Ransomware Hits Synology NAS in Korea, 30 Oktober 2026</u></a></p></li>
+<li>
+<p><a href="https://www.synology.com/en-global/security/advisory/Synology_SA_24_20"><u>Synology Security Advisory SA-24:20</u></a></p></li>
+<li>
+<p><a href="https://www.cybersecurity.my/portal-main/advisories-details/1f8331ce-be48-11f1-9754-0050568ccc16"><u>CyberSecurity Malaysia — Multiple Vulnerabilities in Synology DSM</u></a></p></li>
+</ul>
+{% endraw %}
