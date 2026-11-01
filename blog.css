@@ -87,8 +87,8 @@
 .prose [data-youtube-video] iframe { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border: 0; border-radius: 16px; }
 .prose figure { margin-inline: 0; }
 .prose figcaption { margin-top: 10px; font: 12px/1.5 var(--mono); color: var(--muted); text-align: center; }
-/* Gambar boleh keluar sikit dari lajur teks supaya nampak lega */
-.prose > figure, .prose > p > img:only-child, .prose > img { width: min(100vw - 2 * var(--gutter), 920px); max-width: none; margin-left: 50%; transform: translateX(-50%); }
+/* Gambar selebar lajur teks supaya tepi kiri dan kanan sebaris */
+.prose > figure, .prose > p > img:only-child, .prose > img { width: 100%; }
 .prose > p:has(> img:only-child) { margin-block: 2em; }
 .prose :not(pre) > code {
   padding: .12em .38em; border-radius: 6px; background: rgb(43 33 26 / .07);
