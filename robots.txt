@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://korokk.com/sitemap.xml
+Sitemap: https://korokk.com/pogo-wave-radar/sitemap.xml
