@@ -11,6 +11,9 @@
 <title>{{ tajuk }}</title>
 <meta name="description" content="{{ ringkas }}">
 <link rel="canonical" href="{{ page.url | absolute_url }}">
+{%- if page.noindex %}
+<meta name="robots" content="noindex">
+{%- endif %}
 <meta name="author" content="Mohd Safwan Abd Rahman">
 <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
 <meta property="og:url" content="{{ page.url | absolute_url }}">
@@ -25,7 +28,7 @@
 <meta property="article:tag" content="{{ t }}">
 {%- endfor %}
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","headline":{{ page.title | jsonify }},"description":{{ ringkas | jsonify }},"image":{{ imej | jsonify }},"datePublished":"{{ page.date | date_to_xmlschema }}","dateModified":"{{ page.last_modified_at | default: page.date | date_to_xmlschema }}","inLanguage":"ms","author":{"@type":"Person","name":"Mohd Safwan Abd Rahman","url":"{{ '/' | absolute_url }}"},{% assign penulis = site.data.penulis[page.author] %}{% if penulis %}"contributor":{"@type":"SoftwareApplication","name":{{ penulis.nama | jsonify }},"applicationCategory":{{ penulis.model | jsonify }}},{% endif %}"mainEntityOfPage":"{{ page.url | absolute_url }}"}
+{"@context":"https://schema.org","@type":"BlogPosting","headline":{{ page.title | jsonify }},"description":{{ ringkas | jsonify }},"image":{{ imej | jsonify }},"datePublished":"{{ page.date | date_to_xmlschema }}","dateModified":"{{ page.last_modified_at | default: page.date | date_to_xmlschema }}","inLanguage":"ms","author":{"@type":"Person","@id":"{{ '/#person' | absolute_url }}","name":"Mohd Safwan Abd Rahman","url":"{{ '/' | absolute_url }}"},"publisher":{"@id":"{{ '/#person' | absolute_url }}"},"isPartOf":{"@id":"{{ '/#website' | absolute_url }}"},{% assign penulis = site.data.penulis[page.author] %}{% if penulis %}"contributor":{"@type":"SoftwareApplication","name":{{ penulis.nama | jsonify }},"applicationCategory":{{ penulis.model | jsonify }}},{% endif %}"mainEntityOfPage":"{{ page.url | absolute_url }}"}
 </script>
 {%- endif %}
 <meta name="theme-color" content="#F1EBE0">
@@ -33,6 +36,7 @@
 <link rel="icon" href="{{ '/favicon.svg' | relative_url }}" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{{ '/apple-touch-icon.png' | relative_url }}">
 <link rel="manifest" href="{{ '/site.webmanifest' | relative_url }}">
+{% feed_meta %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Host+Grotesk:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap" rel="stylesheet">

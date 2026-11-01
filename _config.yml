@@ -16,10 +16,26 @@ excerpt_separator: "<!--more-->"
 
 plugins:
   - jekyll-sitemap
+  - jekyll-feed
+
+# RSS (Atom) di /feed.xml
+feed:
+  path: feed.xml
+  posts_limit: 20
+author:
+  name: Mohd Safwan Abd Rahman
+  uri: https://korokk.com/
 
 defaults:
   - scope: { path: "", type: posts }
     values: { layout: post }
+  # Tak mahu dicari di Google: keluar dari sitemap dan dapat meta noindex
+  - scope: { path: "_posts/2026-10-28-hello-world.md" }
+    values: { sitemap: false, noindex: true }
+  - scope: { path: "brand" }
+    values: { sitemap: false }
+  - scope: { path: "pallet-office" }
+    values: { sitemap: false }
 
 exclude:
   - README.md

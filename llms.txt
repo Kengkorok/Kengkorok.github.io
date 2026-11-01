@@ -1,0 +1,32 @@
+---
+# Ringkasan laman untuk model AI (https://llmstxt.org). Senarai post dijana sendiri.
+layout: null
+sitemap: false
+---
+# Mohd Safwan Abd Rahman (Korok)
+
+> Laman peribadi dan blog Mohd Safwan Abd Rahman, atau Korok (Kengkorok). Dia Bilal Gred S1 di Masjid Talhah Bin Ubaidillah, Kuala Lumpur, di bawah Majlis Agama Islam Wilayah Persekutuan (MAIWP). Pada waktu malam dia membina projek sendiri: website masjid, penjana jadual kuliah, PoGo Wave Radar dan homelab. Kandungan dalam Bahasa Melayu.
+
+Post yang ditanda "Ditulis oleh Claudrok" atau "korokGPT" ditulis oleh AI (Claude atau ChatGPT) dan disemak oleh Safwan sebelum diterbitkan.
+
+## Laman utama
+
+- [Portfolio]({{ '/' | absolute_url }}): siapa Korok dan projek yang dia bina
+- [Blog]({{ '/blog/' | absolute_url }}): semua tulisan
+- [RSS]({{ '/feed.xml' | absolute_url }}): suapan Atom untuk tulisan terkini
+
+## Projek
+
+- [PoGo Wave Radar]({{ '/pogo-wave-radar/' | absolute_url }}): jadual event Pokémon GO mengikut zon waktu bandar
+- [Penjana jadual kuliah](https://github.com/Kengkorok/jadual-kuliah-generator): jana poster jadual kuliah masjid
+
+## Tulisan
+{% for post in site.posts %}{% unless post.noindex %}
+- [{{ post.title | strip }}]({{ post.url | absolute_url }}): {{ post.description | strip_html | normalize_whitespace }}{% endunless %}{% endfor %}
+
+## Pautan lain
+
+- [GitHub](https://github.com/Kengkorok)
+- [Threads](https://www.threads.com/@msafwanrahman)
+- [TikTok](https://www.tiktok.com/@kengkorokk)
+- [Ko-fi](https://ko-fi.com/kengkorok)

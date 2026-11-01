@@ -1,0 +1,5 @@
+# Nama penulis dalam RSS (jekyll-feed baca fail ini). Kunci sama dengan penulis.yml.
+claudrok:
+  name: Claudrok
+korokgpt:
+  name: korokGPT
