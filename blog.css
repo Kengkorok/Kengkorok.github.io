@@ -56,13 +56,14 @@
 /* Isi tulisan */
 .prose {
   max-width: var(--measure); margin: 64px auto 0;
-  font: 400 20px/1.68 var(--serif); color: #33281F;
-  font-optical-sizing: auto; hanging-punctuation: first; overflow-wrap: break-word;
+  /* Berat 430 dan opsz 14: Newsreader lebih tegap di skrin berbanding opsz auto yang nipis */
+  font: 430 20px/1.68 var(--serif); color: var(--ink);
+  font-variation-settings: "opsz" 14; hanging-punctuation: first; overflow-wrap: break-word;
 }
 .prose > * + * { margin-top: 1.1em; }
 /* Perenggan rata kiri-kanan; tajuk kekal rata kiri */
 .prose p, .prose li { text-align: justify; text-wrap: pretty; hyphens: auto; }
-.prose h2, .prose h3, .prose h4 { font-family: var(--display); color: var(--ink); letter-spacing: -.03em; text-wrap: balance; }
+.prose h2, .prose h3, .prose h4 { font-family: var(--display); font-variation-settings: normal; color: var(--ink); letter-spacing: -.03em; text-wrap: balance; }
 .prose h2 { font-size: 34px; line-height: 1.12; font-weight: 600; margin-top: 2em; }
 .prose h3 { font-size: 25px; line-height: 1.2; font-weight: 600; margin-top: 1.7em; }
 .prose h4 { font-size: 20px; line-height: 1.3; font-weight: 600; margin-top: 1.5em; }
@@ -170,6 +171,8 @@
   .post__lede { font-size: 18px; margin-top: 18px; }
   .post__cover { margin-top: 32px; }
   .prose { margin-top: 40px; font-size: 18px; line-height: 1.65; }
+  /* Lajur sempit: justify buat jurang besar antara perkataan, jadi rata kiri */
+  .prose p, .prose li { text-align: left; }
   .prose h2 { font-size: 27px; }
   .prose h3 { font-size: 22px; }
   .prose blockquote { font-size: 19px; padding-left: 18px; }
