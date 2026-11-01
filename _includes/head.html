@@ -3,7 +3,12 @@
 {%- else -%}
   {%- assign tajuk = site.title -%}
 {%- endif -%}
-{%- assign ringkas = page.description | default: page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 -%}
+{%- comment -%} Description yang ditulis sendiri dipapar penuh; hanya excerpt automatik dipendekkan {%- endcomment -%}
+{%- if page.description -%}
+  {%- assign ringkas = page.description | strip_html | normalize_whitespace -%}
+{%- else -%}
+  {%- assign ringkas = page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 -%}
+{%- endif -%}
 {%- assign imej = page.image | default: "/assets/og.png" | absolute_url -%}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
