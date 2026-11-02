@@ -1,0 +1,99 @@
+---
+title: "Kajian Kes: Dari PSD 256 Layer ke Penjana Jadual Kuliah Masjid"
+description: Poster jadual kuliah Masjid Talhah dulu ambil 30 minit hingga lebih sejam dalam Photoshop, sekarang 10 minit. Ini apa yang aku jumpa dalam fail PSD lama dan apa yang berubah.
+tags:
+  - masjid
+  - ai
+  - chatgpt
+  - github
+image: /assets/blog/2026/kajian-kes-jadual-kuliah/sebelum-anotasi.webp
+image_alt: Poster jadual kuliah Jun 2026 dengan kotak tarikh yang tak sebaris ditanda merah dan layer tersorok ditanda oren
+cover: false
+---
+{% raw %}
+<p><strong>Ringkasnya:</strong> setiap bulan aku sediakan poster jadual kuliah untuk Masjid Talhah Bin Ubaidillah, Bukit Jalil. Dulu semuanya dibuat secara manual dalam Photoshop, dan satu poster boleh makan masa 30 minit sampai lebih sejam. Fail PSD bulan Jun 2026 ada <strong>256 layer</strong>, 13 daripadanya tersorok, dan hampir separuh kotak tarikh tak sebaris. Sekarang aku guna <a href="https://github.com/Kengkorok/jadual-kuliah-generator">Penjana Jadual Kuliah Bulanan,</a> sistem yang aku bina dengan bantuan AI, dan satu poster siap dalam lebih kurang <strong>10 minit</strong>. Ia percuma, sumber terbuka, dan berjalan terus dalam pelayar.</p>
+<p>Dalam post <a href="/blog/migrasi-photoshop-poster-kuliah/">Migrasi Poster Jadual Kuliah Masjid dari Photoshop</a> aku dah cerita kenapa aku nak lari dari Photoshop. Post ni sambungannya. Kali ni aku nak tunjuk dengan angka: apa sebenarnya yang berlaku dalam fail PSD tu, dan apa yang berubah.</p>
+<h2>Kerja apa yang aku kena buat setiap bulan?</h2>
+<p>Secara kasar, satu poster ambil masa lebih kurang setengah jam. Itu pon kalau semua maklumat dah lengkap.</p>
+<p>Selalunya tak lengkap sebab aku kena tunggu bendahari atau ketua imam sahkan dulu penceramah mana yang ada bulan tu. Kadang-kadang penceramah bertukar saat akhir.</p>
+<p>Lepas dah dapat pengesahan, ini kerja yang menunggu:</p>
+<ol>
+<li>
+<p><strong>Proses gambar penceramah</strong> dalam <em>window</em> Photoshop lain: buang <em>background</em>, potong ikut nisbah 1:1, kemudian letak dalam <em>frame</em>.</p></li>
+<li>
+<p><strong>Ikut warna kotak</strong>, kemudian taip nama penceramah dan tajuk atau kitab yang diajar.</p></li>
+<li>
+<p><strong>Susun kotak tarikh.</strong> Satu hari bulan kadang-kadang jatuh hari Rabu, kadang-kadang hari Ahad. Setiap bulan aku kena alihkan kotak ikut hari pertama.</p></li>
+<li>
+<p><strong>Periksa hujung bulan.</strong> Kotak yang berlebihan kena padam, kemudian <em>adjust</em> supaya kotak-kotak putih tu sekata.</p></li>
+</ol>
+<p>Benda ni semua aku buat secara manual, dan memang merenyahkan. Kadang-kadang lebih sejam. Kalau tak ada <em>mood</em>, aku <em>save</em> dulu dan sambung esok.</p>
+<p>Masalahnya, poster ni <strong>mesti siap sebelum bulan baru bermula</strong>. Sekitar 28, 29 atau 30 hari bulan, aku dah mula kelam-kabut kena siapkan segera.</p>
+<p>Sebahagian besar kuliah sekarang dah tetap. Yang selalu berubah ialah <strong>tazkirah Jumaat</strong>, sebab penceramahnya bergilir.</p>
+<h2>Apa yang aku jumpa bila bedah fail PSD bulan Jun?</h2>
+<p>Fail-fail lama ada dalam PC pejabat, jadi fail paling awal yang aku ada di rumah ialah <strong>Jun 2026</strong>. Aku minta Claude bedah fail tu dan kira semuanya. Hasilnya:</p>
+<ul>
+<li>
+<p><strong>256 layer</strong> dalam satu poster: 118 layer teks, 66 layer piksel, 34 <em>shape</em>, 32 <em>smart object</em> dan 5 <em>group</em>.</p></li>
+<li>
+<p><strong>139 layer masih guna nama asal Photoshop</strong>, contohnya "Vector Smart Object copy 27". Nama yang sama tu sahaja dipakai oleh <strong>8 layer</strong> berbeza.</p></li>
+<li>
+<p><strong>13 layer tersorok.</strong> Antaranya nama penceramah tazkirah dan tajuk kuliah dari bulan-bulan sebelum, dan satu kotak tarikh kosong. Ini yang aku maksudkan bila layer "menimbun". Aku tekan ikon mata untuk sorok, dan lama-lama aku sendiri tak tahu layer tu masih dipakai ke tak.</p></li>
+<li>
+<p><strong>14 daripada 30 kotak tarikh lari dari grid.</strong> Tiga lajur kiri (Isnin hingga Rabu) duduk 5 piksel lebih rendah daripada empat lajur kanan. Jarak antara lajur pula berubah-ubah antara 676 dan 680 piksel, dan jarak antara baris antara 504 dan 509 piksel.</p></li>
+</ul>
+<p></p>
+<img loading="lazy" src="/assets/blog/2026/kajian-kes-jadual-kuliah/sebelum-anotasi.webp" alt="Poster Jun 2026: kotak merah ialah kotak tarikh yang lari dari grid, kotak oren ialah layer yang tersorok">
+<p>Lima piksel tu nampak kecil. Pada poster A3 300 dpi, ia lebih kurang setengah milimeter. Tapi bila dicetak besar dan digantung, mata kita perasan juga ada yang tak kena.</p>
+<p></p>
+<img loading="lazy" src="/assets/blog/2026/kajian-kes-jadual-kuliah/sebelum-zoom.webp" alt="Zum 6 kali di sempadan Rabu dan Khamis: garis merah ialah bucu atas kotak Rabu, garis biru ialah bucu atas kotak Khamis">
+<p>Tak ada siapa yang salah dalam hal ni. Inilah yang jadi bila satu fail disalin dan diubah suai setiap bulan, bertahun-tahun, oleh tangan manusia.</p>
+<h2>Kenapa percubaan AI yang awal gagal?</h2>
+<p>Aku bukan terus berjaya. Mula-mula aku cuba <strong>Hermes</strong> dengan beberapa model, termasuk DeepSeek dan GLM dari Zhipu. Hasilnya tak mirip langsung dengan poster Photoshop yang aku buat sebelum ni.</p>
+<p>Aku faham. Mungkin aku sendiri pon belum tahu <em>tools</em> dan <em>harness</em> yang betul untuk kerja macam ni. Ia sebuah design jadual yang agak kompleks, ada banyak layer, ada banyak shape, banyak teks, banyak, resterize gambar, gradient, icon dan banyak lagi. </p>
+<p>Lepas tu aku dengar Claude Code pon boleh buat. Aku cuba. Secara jujurnya, hasilnya pon tak berapa memuaskan bagi aku.</p>
+<p>Akhirnya aku kembali buat secara manual dalam Photoshop.</p>
+<p>Bila <strong>GPT-6 Astra</strong> dilancarkan pada September 2026, aku cuba sekali lagi. Kali ni prompt aku sangat spesifik: aku nak penjana yang hasilnya <strong>mirip</strong> poster Photoshop aku dari segi grafik, warna dan tulisan. Gambar masjid yang besar di atas pon mesti duduk di belakang, ditindih oleh beberapa layer grafik lain, sama macam dalam PSD.</p>
+<p>Tapi tak siap sekali jalan. Prompt pertama dengan Astra pon dah kena <em>limit</em>, sebab Astra antara model yang paling mahal masa tu. Aku kena tunggu dan sambung dalam beberapa sesi sebelum hasilnya betul-betul ikut selera aku.</p>
+<p>Akhirnya hasilnya hampir sama dengan poster asal. Cuma perlu sedikit <em>tweak</em>  itu ini dan di sana dan di sini untuk kemaskan, dan itu biasa.</p>
+<h2>Apa yang penjana ni buat sekarang?</h2>
+<p><a href="https://github.com/Kengkorok/jadual-kuliah-generator">Penjana Jadual Kuliah Bulanan</a> ialah satu fail HTML yang dibuka dalam Edge atau Chrome. Tak perlu akaun, tak perlu pasang apa-apa, dan tak perlu Adobe. Versi semasa ialah 3.0.0.</p>
+<ul>
+<li>
+<p><strong>Aturan berulang.</strong> Contohnya "Kuliah Maghrib setiap Isnin ketiga". Tekan <em>Terapkan pada bulan ini</em>, dan semua tarikh diisi sendiri.</p></li>
+<li>
+<p><strong>Kalendar disusun automatik</strong> ikut hari pertama bulan. Tiada lagi alih kotak secara manual.</p></li>
+<li>
+<p><strong>Senarai penceramah</strong> disimpan sekali, lengkap dengan nama, kitab dan gambar. Gambar boleh dilaraskan dari segi <em>crop</em>, zum dan kedudukan.</p></li>
+<li>
+<p><strong>Ruang QR infaq</strong> diletak sendiri di ruang kosong yang paling luas dalam kalendar.</p></li>
+<li>
+<p><strong>Profil berasingan</strong>, jadi masjid atau surau lain boleh guna untuk jadual mereka sendiri.</p></li>
+<li>
+<p><strong>Eksport PNG 300 dpi atau PDF</strong>, dalam saiz A3 atau A4.</p></li>
+</ul>
+<p></p>
+<img loading="lazy" src="/assets/blog/2026/kajian-kes-jadual-kuliah/selepas-oktober-2026.webp" alt="Poster Oktober 2026 yang dijana oleh penjana: kotak tarikh sebaris, QR infaq di ruang kosong awal bulan">
+<p>Untuk cetakan, aku eksport A4 dan pilih saiz A3 masa <em>print</em>. Hasilnya okey, tak nampak pecah.</p>
+<h2>Sebelum dan selepas</h2>
+<p>Photoshop (dulu)Penjana (sekarang)Masa sebulan30 minit hingga lebih sejamLebih kurang 10 minitSusun kotak tarikhManual, ikut hari pertama bulanAutomatikGambar penceramahBuang <em>background</em> dan <em>crop</em> setiap kaliSimpan sekali dalam senaraiFail1 PSD, 256 layer, 13 tersorok1 fail HTML + data simpananKotak sebaris?14 daripada 30 lari 1 hingga 5 pikselSentiasa sebaris, dijana ikut grid 7 lajurKos perisianAdobe RM120 sebulanPercuma</p>
+<p>Untuk bina penjana ni, aku langgan ChatGPT Plus. Kalau tak silap aku, lebih kurang RM99 sebulan. Langganan Adobe pula belum boleh dihentikan sebab kontraknya sampai Disember tahun ni.</p>
+<h2>Apa reaksi orang masjid?</h2>
+<p>Setakat ni poster dari penjana dah dipakai dua kali.</p>
+<p>Aku ada tunjuk kepada pegawai, tapi nampaknya mereka tak berapa kisah. Aku faham. Mereka bukan orang grafik, dan tak pernah tengok aliran kerja Photoshop. Yang penting bagi mereka ialah hasil: poster siap dan cantik.</p>
+<p>Susah payah di belakang tu mungkin hanya pereka grafik yang faham. Kalau aku cerita kepada pereka grafik lain, aku rasa mereka akan terus faham betapa renyahnya menyusun ratusan layer setiap bulan.</p>
+<h2>Apa yang aku belajar?</h2>
+<ul>
+<li>
+<p><strong>Beri AI contoh yang jelas.</strong> Percubaan yang berjaya ialah bila aku tunjuk poster sebenar dan minta hasil yang mirip, bukan sekadar "buatkan jadual kuliah".</p></li>
+<li>
+<p><strong>Model dan alat memang beri kesan.</strong> Prompt yang sama boleh beri hasil yang sangat berbeza bergantung pada model yang digunakan.</p></li>
+<li>
+<p><strong>Automasi sesuai untuk kerja yang berulang.</strong> Kerja yang sama setiap bulan, dengan peraturan yang tetap, memang patut diserahkan kepada mesin.</p></li>
+</ul>
+<h2>Nak cuba untuk masjid atau surau sendiri?</h2>
+<p>Setakat ni rasanya belum ada masjid atau surau lain yang guna. Mungkin sebab aku tak pernah promosi pon. Jadi anggaplah post ni promosi pertama.</p>
+<p>Penjana ni percuma dan sumber terbuka di <a href="https://github.com/Kengkorok/jadual-kuliah-generator">GitHub</a>. Muat turun ZIP, buka fail HTML, dan tekan <strong>Cuba contoh</strong> untuk tengok profil demo dengan nama "Penceramah A hingga D". Panduan penuh ada dalam README.</p>
+<p>Kalau ada AJK masjid atau surau yang cuba, aku nak sangat dengar macam mana hasilnya.</p>
+<p>Jumpa lagi.</p>
+{% endraw %}
