@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Korokk Studio</title>
+<style>
+  :root { --ink:#2a2118; --mut:#6b5f52; --bg:#faf7f1; --line:#e3dbcc; --brand:#a04b33; }
+  * { box-sizing:border-box }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    padding:32px 20px 80px; }
+  main { max-width:720px; margin:0 auto }
+  h1 { font-size:1.9rem; line-height:1.25; margin:0 0 6px }
+  h2 { font-size:1.15rem; margin:2em 0 .4em }
+  .meta { color:var(--mut); font-size:.9rem; border-bottom:1px solid var(--line); padding-bottom:16px }
+  a { color:var(--brand) }
+  ul { padding-left:1.2em }
+  table { width:100%; border-collapse:collapse; font-size:.95rem; margin:.5em 0 1em }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top }
+  th { color:var(--mut); font-weight:600 }
+  footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--line); color:var(--mut); font-size:.9rem }
+</style>
+</head>
+<body>
+<main>
+  <h1>Privacy Policy</h1>
+  <p class="meta">Korokk Studio &middot; Effective 3 November 2026 &middot; Last updated 3 November 2026</p>
+
+  <h2>1. Who we are</h2>
+  <p>Korokk Studio ("Studio") is a private publishing tool operated by Mohd Safwan Abd Rahman, an
+     individual developer in Malaysia. This policy explains what happens to data when you use Studio and
+     when you connect a TikTok account to it.</p>
+
+  <h2>2. What we collect</h2>
+  <table>
+    <tr><th>Data</th><th>When</th><th>Why</th></tr>
+    <tr><td>TikTok account identifier (open ID), display name, avatar, follower and like counts</td>
+        <td>When you connect TikTok</td><td>To show you which account is connected and your own statistics</td></tr>
+    <tr><td>List of your own public TikTok videos and their status</td>
+        <td>When you view your library in Studio</td><td>To confirm that an upload or post succeeded</td></tr>
+    <tr><td>Video and photo files you choose to publish</td>
+        <td>When you upload them</td><td>To publish them to the account you selected</td></tr>
+    <tr><td>Access and refresh tokens issued by TikTok (through Composio)</td>
+        <td>When you connect TikTok</td><td>To make API calls on your behalf until you disconnect</td></tr>
+    <tr><td>Sign-in email address</td><td>When you open Studio</td><td>To restrict access to authorised users</td></tr>
+  </table>
+  <p>We do not collect your TikTok password. We do not collect personal data about your followers, your
+     viewers, or any other TikTok user.</p>
+
+  <h2>3. Where data is stored</h2>
+  <ul>
+    <li><strong>Connected-account tokens</strong> are held by <strong>Composio</strong>
+        (backend.composio.dev) as the OAuth broker. Studio stores only the connection reference.</li>
+    <li><strong>Content and drafts</strong> are stored on a private self-hosted server controlled by the
+        operator, and in a private GitHub repository for version history.</li>
+    <li><strong>Access control</strong> is handled by Cloudflare Access; your sign-in email is processed
+        there to decide whether you may open Studio.</li>
+  </ul>
+  <p>No data is sold, rented, or shared with advertisers or data brokers.</p>
+
+  <h2>4. How we use data</h2>
+  <p>Only to operate the features you ask for: authenticating you, displaying your own TikTok statistics,
+     uploading the media you select, publishing it to your own account, and reporting whether the post
+     succeeded. We do not use your data to train models, and we do not run analytics or profiling on it.</p>
+
+  <h2>5. Retention</h2>
+  <p>Tokens remain valid until you disconnect the account or revoke access in TikTok. Drafts and media stay
+     on the operator's server until you delete them. Server logs are kept for a maximum of 30 days.</p>
+
+  <h2>6. Your rights: access and deletion</h2>
+  <ul>
+    <li><strong>Disconnect at any time.</strong> Remove the TikTok connection from Studio's settings, or
+        from <em>TikTok &rarr; Settings and privacy &rarr; Security and login &rarr; Manage app
+        permissions</em>. Tokens are discarded and API access stops immediately.</li>
+    <li><strong>Request deletion.</strong> Email
+        <a href="mailto:sa7one@gmail.com?subject=Data%20deletion%20request">sa7one@gmail.com</a> with the
+        subject "Data deletion request" and the TikTok username you connected. All stored data for that
+        account is deleted within 30 days, and you receive confirmation by email.</li>
+    <li><strong>Ask what we hold.</strong> The same address can be used to request a copy of the data
+        associated with your account.</li>
+  </ul>
+
+  <h2>7. Security</h2>
+  <p>Studio is served over HTTPS, restricted to authorised email addresses, and reachable only through an
+     authenticated tunnel. Tokens are stored by the OAuth broker, never embedded in web pages. No system is
+     perfectly secure, but access is limited to the operator and named collaborators.</p>
+
+  <h2>8. Children</h2>
+  <p>Studio is not directed at children and is limited to users aged 18 or over, consistent with TikTok's
+     own age requirements.</p>
+
+  <h2>9. Changes</h2>
+  <p>If this policy changes, the new version is published at this URL with a new "last updated" date.</p>
+
+  <h2>10. Contact</h2>
+  <p>Privacy questions or requests: <a href="mailto:sa7one@gmail.com">sa7one@gmail.com</a></p>
+
+  <footer>Korokk Studio &middot; <a href="/terma/">Terms of Service</a> &middot; <a href="https://korokk.com/">korokk.com</a></footer>
+</main>
+</body>
+</html>
