@@ -1,0 +1,96 @@
+---
+title: "Macam Mana Aku Buat Video TikTok Guna Claude "
+description: "Tiga video TikTok, satu editor AI. Ni aliran kerja aku guna Claude: potong retake, caption ikut brand, kad grafik, sampai upload."
+tags:
+  - claude
+  - ai
+  - tiktok
+  - agent
+  - masjid
+image: /assets/blog/2026/macam-mana-aku-buat-video-tiktok-guna-claude/macam-mana-aku-buat-video-tiktok-guna-cl-11098e.webp
+author: claudrok
+sumber:
+  title: TikTok @kengkorokk
+  url: https://www.tiktok.com/@kengkorokk
+---
+{% raw %}
+<p>Edit video ni kerja yang makan masa. Rakam 2 minit, edit 2 jam. Potong "eh, jap, ummm, aaaaa", cari <em>silent pause</em>, tulis caption satu-satu dalam CapCut.</p>
+<p>Aku bilal, pernahlah juga jadi <em>editor</em> video sambilan yang sebelum ni banyak menggunakan Adobe Premiere. Tapi nak buat smooth transition, grafik motion tu sesuai yang sangat renyah.</p>
+<img loading="lazy" src="/assets/blog/2026/macam-mana-aku-buat-video-tiktok-guna-claude/image-e5802a.webp" alt="https://korokk.com/blog/aku-suruh-claude-edit-video-content-tiktok/">
+<p>Post sebelum ni aku hanya berikan pengenalan ringkas, bahawa aku suruh Claude yang editkan video untuk aku, dan mungkin inilah workflow aku untuk video-video akan datang.</p>
+<p>Jadi aku cuba satu benda: suruh Claude jadi editor aku. Setakat ni dah 3 video TikTok aku siap dengan cara ni:</p>
+<ol>
+<li>
+<p><strong>Silent phone sebelum masuk saf</strong>: video <em>talking head</em> pasal fungsi rahsia butang tepi telefon, supaya ringtone tak berbunyi dalam solat.</p></li>
+<li>
+<p><strong>Claude audit algoritma TikTok aku</strong>: video <em>react</em> pada analisis Claude terhadap akaun TikTok aku sendiri. Muka aku + screen recording.</p></li>
+<li>
+<p><strong>5 perkara wajib masjid era digital &amp; AI</strong>: video <em>faceless</em>, suara aku je dengan kad grafik.</p></li>
+</ol>
+<p>Post ni bukan iklan. Aku nak kongsi aliran kerja yang betul-betul aku guna, termasuk bahagian yang masih tak sempurna.</p>
+<h2>Peraturan nombor satu: aku pengarah, Claude editor</h2>
+<p>Ni yang paling penting. Claude bukan buat video untuk aku dari kosong.</p>
+<p>Aku yang tentukan topik, aku yang rakam, aku yang suara. Claude potong, kemas, reka grafik, dan lapor balik apa yang dia buat. Kalau ada keputusan, dia tanya dulu.</p>
+<p>Sebab tu aku tulis satu <strong>skill</strong> untuk Claude, namanya <code>video-editor</code>. Skill ni macam SOP. Setiap kali aku minta edit video, Claude baca peraturan yang sama, jadi aku tak perlu terangkan semula.</p>
+<p>Sebelum kita masuk bahagian skill, untuk yang tak tahu lagi, untuk edit video, korang perlu muat turun aplikasi Claude itu sendiri, guna claude dari web browser korang agak sukar dan banyak limitasi. Google saja "Claude Desktop", nanti jumpalah, download dan install. Kemudian, asasnya korang perlu langgan Claude Pro untuk features Cowork dan Claude code ini boleh digunakan, setakat tulisan ini diterbitkan harga Claude Pro sekitar RM100 macamtu.</p>
+<h2>Apa isi skill tu?</h2>
+<p>Ada 9 peraturan. Ni versi bahasa mudah:</p>
+<ol>
+<li>
+<p><strong>Tanya 3 soalan dulu.</strong> Video ni untuk apa, TikTok, Reels, YouTube? Lepas tengok, penonton patut buat apa (follow, komen, share)? Nak caption dengan grafik, caption je, atau potong bersih?</p></li>
+<li>
+<p><strong>Jangan sentuh fail asal.</strong> Semua kerja guna salinan. Hasil akhir disimpan sebelah fail asal dengan nama baru.</p></li>
+<li>
+<p><strong>Transkrip setiap perkataan, lepas tu potong retake dan <em>silent</em>.</strong> Claude guna Whisper untuk dapat masa setiap perkataan. Kalau aku ulang ayat, dia simpan <em>take</em> yang terbaik, biasanya yang terakhir dan lengkap. Jeda panjang dipendekkan. Lepas potong, dia transkrip semula untuk pastikan takde perkataan terpotong separuh.</p></li>
+<li>
+<p><strong>Satu rakaman, banyak topik?</strong> Pecahkan jadi beberapa video, tapi tanya aku dulu.</p></li>
+<li>
+<p><strong>Ikut brand aku.</strong> Warna krim, ink dan rust, font Bricolage Grotesque, ikon Lucide. Sama macam tema blog ni. So tema yang kita gunakan setiap kali edit akan konsisten.</p></li>
+<li>
+<p><strong>Format dan kualiti.</strong> Menegak 1080x1920 untuk TikTok, kuat bunyi -14 LUFS supaya sama level dengan video lain dalam feed.</p></li>
+<li>
+<p><strong>Campur suara AI dengan suara sebenar?</strong> Setiap satu diseimbangkan berasingan. Suara aku tak boleh jadi lebih perlahan.</p></li>
+<li>
+<p><strong>Video gelap?</strong> Dibetulkan, tapi kena jujur. Kalau terlalu gelap, Claude akan cakap terus: rakam semula lagi bagus.</p></li>
+<li>
+<p><strong>Bila siap</strong>, Claude beritahu nama fail dan lokasi file dan selalu ingatkan aku: <em>"Tengok sekali dulu sebelum post."</em></p></li>
+</ol>
+<p>Peraturan ni tak datang sekali gus. Setiap kali ada benda tak kena, aku tambah satu baris. Contohnya, rakaman dari OBS rupanya nampak tersekat-sekat. Jadi sekarang skill tu suruh guna fail kamera dulu.</p>
+<h2>Contoh sebenar: video "5 perkara wajib masjid"</h2>
+<p>Video ketiga ni paling jelas untuk tunjuk aliran penuh.</p>
+<p><strong>1. Brainstorm.</strong> Aku bagi Claude satu video sampel yang aku suka gayanya, tapi aku rasa terlalu banyak <em>screenshot</em> artikel untuk dibaca. Claude bedah video tu dan cadangkan versi yang lebih ringkas: satu skrin, satu idea. Ini juga penting, kalau kita suka sesuatu video yang kita jumpa di Tiktok, short, reels, ambil video tu jadikan rujukan supaya Claude boleh tiru style, dan terangkan apa yang anda suka dalam video sample tu.</p>
+<p><strong>2. Skrip.</strong> Claude tulis draf skrip lebih kurang 140 patah perkataan. Aku susun semula poin ikut citarasa aku. Poin 1 aku tukar jadi "masjid kena wujud dalam Google".</p>
+<p><strong>3. Rakam.</strong> Aku rakam suara sendiri. Tak payah sempurna. Bila tersilap, aku diam sekejap dan ulang ayat. Hasilnya 2 minit 29 saat, penuh retake dan ad-lib. Untuk voice recording ni, aku guna perisina Audacity, OBS dalam satu take sahaja.</p>
+<p><strong>4. Potong.</strong> Claude transkrip, buang semua retake, pendekkan jeda, dan laju 1.2x. Hasil akhir 78 saat.</p>
+<p>Satu benda menarik: Whisper kadang-kadang "dengar" perkataan dua kali padahal aku sebut sekali. Contohnya "Lima. Lima". Claude semak bentuk gelombang bunyi dan sahkan aku cuma sebut sekali. Kalau tak semak, perkataan tu mungkin terpotong.</p>
+<p><strong>5. Grafik.</strong> Claude bina 7 kad (pembuka, poin 01 hingga 05, penutup) guna <a href="https://hyperframes.heygen.com">HyperFrames</a>. HyperFrames ni tool yang tukar HTML jadi video. Screen recording iPhone aku guna <a href="https://github.com/Kengkorok/jadual-kuliah-generator">jadual-kuliah-generator</a> dimasukkan dalam mockup telefon.</p>
+<p><strong>6. Caption.</strong> Caption keluar ikut perkataan, dan perkataan yang tengah disebut bertukar warna. Salah dengar Whisper dibetulkan ikut konteks. "EJK" jadi "AJK", "tulis" jadi "tools".</p>
+<p><strong>7. Upload.</strong> Claude upload terus ke TikTok Studio melalui Chrome aku. Tapi caption dan butang Post dia tanya aku dulu sebelum tekan.</p>
+<h2>Apa yang belum sempurna?</h2>
+<p>Aku nak jujur bab ni.</p>
+<ul>
+<li>
+<p><strong>Claude tak boleh "dengar".</strong> Dia ukur kuat bunyi dan transkrip semula, tapi rasa sedap telinga tu kena aku sendiri yang semak.</p></li>
+<li>
+<p><strong>Takde muzik latar.</strong> Library muzik HyperFrames perlukan akaun lain. Kalau nak muzik, aku tambah sendiri dalam CapCut.</p></li>
+<li>
+<p><strong>Had saiz fail.</strong> Upload melalui Chrome ada had 10 MB. Video kena encode semula jadi lebih kecil sebelum upload.</p></li>
+<li>
+<p><strong>Masih perlu mata manusia.</strong> Sebab tu peraturan terakhir dalam skill tu "tengok sekali dulu sebelum post". Bukan hiasan.</p></li>
+</ul>
+<h2>Apa yang boleh kau ambil dari sini?</h2>
+<p>Kau tak perlu skill yang sama dengan aku. Tapi ada beberapa benda yang aku rasa berguna untuk sesiapa yang nak cuba:</p>
+<ol>
+<li>
+<p><strong>Tulis peraturan kau sendiri.</strong> Bila AI buat silap, jangan marah. Tambah satu baris dalam SOP.</p></li>
+<li>
+<p><strong>Bagi AI brand kau.</strong> Warna, font, gaya tulisan. Lepas tu tak perlu ulang setiap kali.</p></li>
+<li>
+<p><strong>Rakam tanpa tekanan.</strong> Tersilap? Ulang je ayat tu. Bahagian yang tersilap, terbelit lidah, terbatuk, biar claude atau chatgpt yang tolong buat.</p></li>
+<li>
+<p><strong>Kekal sebagai pengarah.</strong> Keputusan kreatif dan butang Post tetap tangan kau.</p></li>
+</ol>
+<p>Bagi aku, ni bukan pasal ganti editor video. Ni pasal bilal yang masa malamnya terhad, tapi tetap nak buat content yang kemas. Haha.</p>
+<p>Kau pernah cuba guna AI untuk edit video? Ceritalah kat ruang komen.</p>
+<p>Jumpa lagi.</p>
+{% endraw %}
