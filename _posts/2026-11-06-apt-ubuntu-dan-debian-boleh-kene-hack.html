@@ -1,0 +1,96 @@
+---
+title: "APT Ubuntu dan Debian Boleh Kene Hack? "
+description: Bug dalam APT boleh membolehkan pakej berbahaya dipasang sebagai root. Ini apa yang berlaku, siapa berisiko dan cara semak serta patch Linux kita.
+tags:
+  - security
+  - hacker
+  - homelab
+  - teknologi
+image: /assets/blog/2026/apt-ubuntu-dan-debian-boleh-kene-hack/apt-linux-security-debian-ubuntu-fb875c.webp
+author: korokgpt
+sumber:
+  - title: Cyber Security News — Debian and Ubuntu APT Flaw Lets Hackers Hijack Software Updates and Execute Code as Root
+    url: https://cybersecuritynews.com/debian-apt-flaw-lets-hackers-hijack-updates/
+  - title: Ubuntu
+    url: https://ubuntu.com/security/CVE-2026-109518
+  - title: Cyber Security News
+    url: https://cybersecuritynews.com/debian-apt-flaw-lets-hackers-hijack-updates/
+---
+{% raw %}
+<p>Aku baru terbaca satu perkongsian Facebook tentang kelemahan keselamatan dalam Debian dan Ubuntu. Tajuk beritanya agak menakutkan: hacker boleh hijack software update dan jalankan kod sebagai <strong>root</strong>.</p>
+<p>Bagi orang yang guna Ubuntu untuk homelab macam aku, benda ni memang buat aku ambil perhatian. Sebab bila kita run <code>sudo apt update</code> atau <code>sudo apt upgrade</code>, kita sebenarnya percayakan sistem tu untuk ambil perisian yang betul.</p>
+<p>Jadi, betul ke hacker boleh selit perisian jahat ketika kita update Linux?</p>
+<h2>Apa sebenarnya yang berlaku?</h2>
+<p>Pada <strong>4 November 2026</strong>, Debian mengumumkan kelemahan <strong>CVE-2026-109518</strong> dalam APT. Penyelidik <strong>Max Justicz</strong> menemui masalah ini. Ubuntu juga mengeluarkan pembaikan dan memberikan skor <strong>CVSS 7.7/10</strong>, kategori <strong>High</strong>.</p>
+<p>APT ialah <em>package manager</em> yang mengurus pemasangan dan kemas kini perisian dalam Debian, Ubuntu dan beberapa distro berasaskannya. Secara biasa, APT menggunakan maklumat repositori yang ditandatangani secara kriptografi untuk memastikan pakej yang diterima sepadan dengan apa yang dipercayai.</p>
+<p>Masalahnya, terdapat satu keadaan tertentu apabila APT boleh tersalah mengendalikan fail muat turun. Selepas <em>HTTP redirect</em> dan percubaan semula (<em>retry</em>), dua muat turun boleh berkongsi lokasi fail melalui mekanisme <em>hard link</em>. Penyerang yang mengawal trafik HTTP di tengah laluan berpotensi menggantikan kandungan pakej <strong>selepas proses pengesahan</strong>, tetapi sebelum pemasangan.</p>
+<p>Hasilnya? Pakej yang sebenarnya tak dipercayai boleh terus ter<em>install</em>.</p>
+<h2>Kenapa perkataan 'root' tu serius?</h2>
+<p>Dalam Linux, <em>root</em> ialah akaun dengan kuasa pentadbiran tertinggi. Pakej <code>.deb</code> boleh mengandungi skrip pemasangan yang dilaksanakan dengan keistimewaan root.</p>
+<p>Jadi kalau penyerang berjaya menyelitkan pakej berbahaya melalui kelemahan ini, kesannya bukan setakat aplikasi rosak. Kod penyerang mungkin mendapat kawalan tahap root pada mesin tersebut.</p>
+<p>Untuk server yang menyimpan gambar, backup atau data peribadi, malah yang lebih teruk lagi, sekiranya server menyimpan sebarang kredential seperti API key, password, bank login, ini memang bukan perkara kecil.</p>
+<h2>Adakah semua Ubuntu dan Debian dah kena hack?</h2>
+<p><strong>Tak.</strong> Kewujudan CVE bukan bukti bahawa semua mesin sudah diceroboh.</p>
+<p>Menurut <a href="https://ubuntu.com/blog/apt-vulnerability-fixes-available">penjelasan rasmi Ubuntu</a>, eksploit ini memerlukan beberapa keadaan:</p>
+<ol>
+<li>
+<p>Penyerang mesti boleh memanipulasi trafik <strong>HTTP</strong> antara komputer dengan pelayan repositori, contohnya melalui <em>on-path attack</em>, proxy berbahaya atau mirror yang dikompromi.</p></li>
+<li>
+<p>APT mesti mengikuti redirect dan melakukan percubaan semula muat turun.</p></li>
+<li>
+<p>Tetapan <code>Acquire::Retries</code> mesti lebih besar daripada sifar.</p></li>
+<li>
+<p>Mesin sedang melakukan proses pemasangan atau kemas kini pakej yang boleh dieksploitasi.</p></li>
+</ol>
+<p>Nilai retry bukan sifar menjadi tetapan lalai pada <strong>Debian 12</strong> dan <strong>Ubuntu 22.04 LTS</strong> serta keluaran baharu yang berkenaan. Versi lebih lama mungkin terdedah juga jika tetapan tersebut diubah.</p>
+<p>Ini bukan jenis bug yang membolehkan sesiapa saja terus masuk ke server hanya kerana server itu online. Tetapi bila syarat tadi bertemu, kesannya boleh jadi sangat serius.</p>
+<p>Penggunaan repositori melalui <strong>HTTPS</strong> membantu menghalang manipulasi trafik di tengah laluan. Cuma HTTPS sahaja bukan pengganti patch, khususnya jika mirror itu sendiri berniat jahat.</p>
+<h2>Macam mana nak tahu versi APT kita selamat?</h2>
+<p>Debian dan Ubuntu sudah menyediakan versi pembaikan. Antara versi minimum yang disenaraikan dalam <a href="https://security-tracker.debian.org/tracker/CVE-2026-109518">Debian Security Tracker</a> dan <a href="https://ubuntu.com/security/CVE-2026-109518">rekod CVE Ubuntu</a> ialah:</p>
+<p>SistemVersi APT yang telah ditampalDebian 12 (Bookworm)2.6.2Debian 13 (Trixie)3.0.4Ubuntu 22.04 LTS2.4.15ubuntu0.1Ubuntu 24.04 LTS2.8.4ubuntu0.1Ubuntu 26.04 LTS3.2.1ubuntu0.1Ubuntu 26.103.3.3ubuntu0.1</p>
+<p><strong>Penting:</strong> Jangan bandingkan nombor versi merentas distro secara membuta tuli. Debian dan Ubuntu menggunakan binaan dan nombor versi yang berlainan. Semak berdasarkan keluaran yang kau pakai. Untuk Ubuntu 20.04 dan lebih lama, pembaikan tertakluk pada saluran sokongan Ubuntu Pro/ESM yang berkenaan.</p>
+<p>Mula-mula, periksa sistem:</p>
+<pre><code class="language-bash">cat /etc/os-release
+apt-cache policy apt
+</code></pre>
+<p>Arahan pertama menunjukkan versi Ubuntu atau Debian. Arahan kedua menunjukkan versi APT yang sedang <strong>Installed</strong> dan versi <strong>Candidate</strong> yang tersedia dari repositori. Kalau <code>Candidate</code> belum menunjukkan versi yang ditampal, periksa sumber pakej dan status sokongan distro sebelum buat andaian semuanya selamat.</p>
+<h2>Langkah untuk atasi sekarang</h2>
+<p>Menurut panduan rasmi Ubuntu, mematikan sementara retry ketika memasang patch ialah mitigasi terhadap syarat eksploit ini.</p>
+<p>Untuk Ubuntu atau Debian yang menggunakan APT, boleh jalankan:</p>
+<pre><code class="language-bash">sudo apt -o Acquire::Retries=0 update
+sudo apt -o Acquire::Retries=0 upgrade
+</code></pre>
+<p>Pastikan arahan pertama selesai tanpa ralat sebelum meneruskan arahan kedua. Baca senarai perubahan yang dipaparkan sebelum mengesahkan pemasangan, terutamanya pada server yang menjalankan banyak servis.</p>
+<p>Kemudian semak semula:</p>
+<pre><code class="language-bash">apt-cache policy apt
+</code></pre>
+<p>Untuk pengguna Ubuntu, ada juga semakan bagi semua pakej yang datang daripada sumber APT:</p>
+<pre><code class="language-bash">apt list --installed '?source-package(^apt$)'
+</code></pre>
+<p>Kalau belum dapat update, <code>Acquire::Retries=0</code> boleh dijadikan perlindungan sementara ketika menjalankan APT. Tapi jangan anggap ia penyelesaian kekal. <strong>Patch APT tetap perlu dipasang.</strong></p>
+<p>Elakkan juga mengubah tetapan pengesahan pakej kepada tidak selamat atau menambah repositori yang tidak dikenali semata-mata nak cepat selesai.</p>
+<h2>Apa kaitannya dengan homelab aku?</h2>
+<p>Aku menggunakan Ubuntu untuk menjalankan beberapa servis self-hosted melalui Docker. Ada servis seperti Immich untuk gambar, Vaultwarden untuk password, dan aplikasi lain yang bergantung pada kestabilan mesin Linux.</p>
+<p>Walaupun aplikasi tu berada dalam container, <strong>host Ubuntu tetap perlu dijaga</strong>. Docker tak menjadikan host kebal daripada kelemahan pengurusan pakej.</p>
+<p>Jadi pendekatan yang lebih masuk akal untuk homelab aku ialah:</p>
+<ol>
+<li>
+<p>Semak versi Ubuntu dan APT pada host sebenar, bukan setakat dalam container.</p></li>
+<li>
+<p>Pastikan backup konfigurasi dan data penting ada sebelum upgrade besar.</p></li>
+<li>
+<p>Pasang patch keselamatan, kemudian semak semula versi yang telah dipasang.</p></li>
+<li>
+<p>Semak sama ada servis perlu restart dan pastikan container kembali berfungsi seperti biasa.</p></li>
+<li>
+<p>Kekalkan sumber pakej yang dipercayai, pantau kemas kini keselamatan dan gunakan HTTPS apabila mirror menyokongnya.</p></li>
+</ol>
+<p>Kalau ada bukti mesin <strong>sudah</strong> diceroboh, update APT sahaja tidak semestinya membuang perisian berbahaya. Itu memerlukan siasatan keselamatan dan pemulihan berasingan.</p>
+<h2>Adakah serangan siber sekarang makin menjadi-jadi?</h2>
+<p>Aku faham kenapa rasa macam tu. Hari-hari ada berita CVE baharu, data bocor, ransomware dan sebagainya.</p>
+<p>Tapi kena bezakan antara <strong>kelemahan yang baru ditemui</strong>, <strong>cubaan eksploit</strong> dan <strong>serangan yang sudah disahkan berlaku</strong>. Tiga benda ni bukan perkara yang sama. Laporan CVE ini mengesahkan risiko teknikal yang serius, bukan bukti bahawa semua pengguna Linux sudah menjadi mangsa.</p>
+<p>Bagi aku, pengajaran paling penting bukanlah nak takut guna Linux. Sebaliknya, jangan anggap proses update itu kebal daripada bug hanya sebab ia sebahagian daripada sistem operasi.</p>
+<p><strong>Ironinya, kita update sistem untuk jadi lebih selamat. Kali ni, komponen yang mengurus update tu sendiri yang perlu diupdate.</strong></p>
+<p>Kalau kau guna Debian atau Ubuntu, cuba semak versi APT hari ni. Tak perlu panik, tapi jangan tangguh patch keselamatan.</p>
+<p>Jumpa lagi.</p>
+{% endraw %}
