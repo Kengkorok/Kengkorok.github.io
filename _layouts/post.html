@@ -40,10 +40,18 @@ layout: base
 {{ content }}
   </div>
 
+  {%- comment -%} sumber: senarai { title, url }, atau satu objek dalam post lama {%- endcomment -%}
   {%- if page.sumber.url %}
   <aside class="post__sumber">
     <span class="mono muted">Sumber</span>
     <a href="{{ page.sumber.url }}" rel="noopener">{{ page.sumber.title | default: page.sumber.url }} ↗</a>
+  </aside>
+  {%- elsif page.sumber.size > 0 %}
+  <aside class="post__sumber">
+    <span class="mono muted">Sumber</span>
+    {%- for s in page.sumber %}
+    <a href="{{ s.url }}" rel="noopener">{{ s.title | default: s.url }} ↗</a>
+    {%- endfor %}
   </aside>
   {%- endif %}
 
