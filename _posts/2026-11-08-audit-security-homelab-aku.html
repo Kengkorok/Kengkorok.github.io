@@ -1,0 +1,69 @@
+---
+title: Audit Security Homelab Aku
+description: Lepas dengar Ubuntu dan Debian "boleh diceroboh", aku ambil masa hujung minggu untuk audit PC dan server rumah dengan bantuan Claude. Ini ringkasannya.
+tags:
+  - homelab
+  - security
+  - claude
+  - cloudflare
+image: /assets/blog/2026/audit-security-homelab-aku/add-a-heading-9a81e1.webp
+image_credit: Gambar dijana oleh Chatgpt
+author: claudrok
+---
+{% raw %}
+<p>Minggu ni macam-macam berita berkenaan <em>cybersecurity</em> aku terbaca di media sosial, bermula dengan berita yang Ubuntu dan Debian boleh kene hack, Bank Rakyat kene hack dan last sekali ada terbaca posting dari <em>Incluencer</em> memasak tanah air kita Che Nom.</p>
+<img loading="lazy" src="/assets/blog/2026/audit-security-homelab-aku/image-fd669b.webp" alt="">
+<p>Bila terbaca posting Che Nom ni, aku mula terfikir, homelab aku ni selamat ke ek? Maklumlah aku langsung takda background <em>cybersecurity. </em>Memang zero bab <em>security</em>, paling hebat pon dulu zaman sekolah menengah ambil upah orang buatkan email yahoo untuk yahoo messenger, <em>create</em> Myspace <em>account</em>, friendster dan blogspot. Hahaha. Kelakar pula bila teringat kisah dulu-dulu.</p>
+<p>So, apa aku buat? Ikut saranan Che Nom, hacker menggodam menggunakan ai, so kita perkuatkan security gunakan ai juga. Aku suruh Claude scan Pc window, Homelab server aku pelan dan senaraikan apa perlu dibuat.</p>
+<h2>Server: patch dulu</h2>
+<p>Benda paling asas, tapi paling penting.</p>
+<ul>
+<li>
+<p><strong>Update dan reboot server.</strong> Kernel baru dah tutup lubang keselamatan yang sedang hangat dibincangkan. Bahagian APT pulak rupanya dah selamat sebelum diaudit oleh Claude lagi.</p></li>
+<li>
+<p><strong>Update container lama.</strong> Ada container yang dah 3–5 bulan tak di-<em>update</em>. Antaranya Nextcloud, Jellyfin, n8n dan beberapa app media. Semua di-<em>backup</em> dulu sebelum di-<em>update</em>.</p></li>
+<li>
+<p><strong>Kemas container.</strong> Beberapa container yang aku buat dengan <code>docker run</code> dulu ditukar ke Docker Compose, supaya senang di-<em>update</em> lepas ni. Container ujian dan imej lama dibuang, jimat lebih kurang 15 GB.</p></li>
+<li>
+<p><strong>Ollama dikunci.</strong> Sebelum ni sesiapa dalam rangkaian rumah boleh guna Ollama aku. Sekarang hanya server sendiri yang boleh.</p></li>
+</ul>
+<h2>SSH: kunci sahaja, tiada kata laluan</h2>
+<p>Phone aku selama ni login ke server guna <em>password</em>. Aku guna Termius untuk remote SSH ke server aku dengan menggunakan SSH key.  Login ke server menggunakan password tidak selamat ye gais.</p>
+<p>Lepas phone dah boleh masuk guna kunci, login guna kata laluan terus dimatikan. Ada satu benda kecil yang aku belajar: setting <code>PasswordAuthentication</code> dalam satu fail config boleh "menang" dari fail lain. Kena faham turutan fail tu dibaca.</p>
+<h2>Router: port forwarding</h2>
+<p>Ni bahagian yang paling aku risau. tapi aku tak sedar pon. Malah aku pon tak faham sangat bab network ni. Claude yang sarankan untuk semak setting router aku. </p>
+<p>Port yang di-<em>publish</em> Docker <strong>tak ikut UFW (</strong>Uncomplicated Firewall). Maksudnya, firewall server tak boleh harap sangat. Router yang jadi benteng terakhir.</p>
+<p>Jadi kami buka page dashboard admin router TM Unifi dan semak:</p>
+<ol>
+<li>
+<p>Port forwarding: kosong ✅</p></li>
+<li>
+<p>DMZ: off ✅</p></li>
+<li>
+<p>UPnP: off ✅</p></li>
+<li>
+<p>Akses admin router dari internet: off ✅</p></li>
+</ol>
+<p>Lega.</p>
+<h2>Cloudflare Tunnel</h2>
+<p>Masa awal-awal <em>setup</em> homelab dulu, aku buka beberapa servis ke internet melalui Cloudflare Tunnel. Masa tu aku memang <em>zero knowledge</em> pasal homelab. Haha. Masa setup tu aku hanya bergantung kat chat web browser Gemini atau Chatgpt, so aku pon setup lah secara manual. </p>
+<p>Ada panel admin yang tak patut expose, aku exposekan dia. Now, dah protected dengan Cloudflare Access, so kalau nak login, perlu dapatkan kod OTP dari Cloudflare.</p>
+<h2>Perkara lain yang tak kritikal.</h2>
+<ul>
+<li>
+<p><strong>Tailscale:</strong> 9 <em>device</em> lama yang dah berbulan offline dibuang dari tailnet.</p></li>
+<li>
+<p><strong>PC Windows:</strong> semua app di-<em>update</em> dan <em>full scan</em> Defender bersih. Aku pasang <em>cumulative update</em> untuk versi sedia ada sahaja.</p></li>
+</ul>
+<h2>Kesimpulan</h2>
+<ol>
+<li>
+<p>Berita "boleh diceroboh" selalunya ada <em>patch</em> yang dah keluar. Yang penting, kita rajin <em>update</em>.</p></li>
+<li>
+<p>Docker dan UFW tak semestinya sekepala. Router dan tunnel kena semak dan <em>double check</em>.</p></li>
+<li>
+<p>Semua apa yang aku dah buat dengan sesi Claude, aku juga suruh dia dokumentasikan semuanyadi Obsidian. Senang nak rujuk balik nanti.</p></li>
+</ol>
+<p>Sekian cerita hari ini.</p>
+<p>Jumpa lagi.</p>
+{% endraw %}
