@@ -54,6 +54,55 @@ if (list) {
   render();
 }
 
+// Halaman post: beri id pada subtajuk dan bina senarai kandungan di lajur kiri
+const prose = document.querySelector('.post .prose');
+if (prose) {
+  const slug = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const heads = [...prose.querySelectorAll('h2')];
+  heads.forEach((h) => {
+    if (h.id) return;
+    const base = slug(h.textContent) || 'bahagian';
+    let id = base;
+    for (let n = 2; document.getElementById(id); n++) id = `${base}-${n}`;
+    h.id = id;
+  });
+  // Pautan terus ke subtajuk: id baru wujud sekarang, jadi lompat sendiri
+  const sasaran = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  if (sasaran && heads.includes(sasaran)) sasaran.scrollIntoView();
+
+  if (heads.length >= 3) {
+    const toc = document.createElement('nav');
+    toc.className = 'post__toc';
+    toc.setAttribute('aria-label', 'Kandungan');
+    const label = document.createElement('p');
+    label.className = 'mono muted';
+    label.textContent = 'Kandungan';
+    const ol = document.createElement('ol');
+    const links = heads.map((h) => {
+      const a = document.createElement('a');
+      a.href = `#${h.id}`;
+      a.textContent = h.textContent.trim();
+      const li = document.createElement('li');
+      li.append(a);
+      ol.append(li);
+      return a;
+    });
+    toc.append(label, ol);
+    prose.before(toc);
+
+    // Tanda bahagian yang sedang dibaca: subtajuk terakhir yang dah lepas bahagian atas skrin
+    let menunggu = false;
+    const tanda = () => {
+      menunggu = false;
+      let i = -1;
+      heads.forEach((h, n) => { if (h.getBoundingClientRect().top < 140) i = n; });
+      links.forEach((a, n) => { if (n === i) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+    };
+    addEventListener('scroll', () => { if (!menunggu) { menunggu = true; requestAnimationFrame(tanda); } }, { passive: true });
+    tanda();
+  }
+}
+
 // Komen: dua tab ("Nama sahaja" melalui Worker, "Guna GitHub" melalui giscus)
 const komen = document.getElementById('komen');
 if (komen) {

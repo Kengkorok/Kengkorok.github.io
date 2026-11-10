@@ -31,19 +31,27 @@
 .post-row[hidden] { display: none; }
 
 /* ---------- Halaman post ---------- */
-.post { padding-top: 40px; }
-.post__head { max-width: 980px; }
+/* Satu grid tiga lajur: teks di tengah. Header dan cover bermula di tepi kiri lajur teks
+   dan melimpah ke kanan, jadi semua blok kongsi satu paksi kiri. Lajur kiri untuk senarai kandungan. */
+.post {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, var(--measure)) minmax(0, 1fr); column-gap: 48px;
+  padding-top: 32px;
+}
+.post > * { grid-column: 2; min-width: 0; }
+.post__head { grid-column: 2 / -1; max-width: 900px; }
 .post__back { display: inline-block; text-decoration: none; padding: 6px 0; color: var(--muted); transition: color .2s ease, transform .2s ease; }
 .post__back:hover { color: var(--ink); transform: translateX(-4px); }
-.post__meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
-.post__title { margin-top: 18px; font: 600 clamp(44px, 6.4vw, 96px)/.95 var(--display); letter-spacing: -.05em; margin-left: -.03em; text-wrap: balance; }
-.post__lede { max-width: 760px; margin-top: 28px; font-size: 22px; line-height: 1.4; letter-spacing: -.01em; color: var(--muted); }
-.post__tags { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 24px; }
+.post .mono { font-size: 13px; }
+.post__meta { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 28px; }
+.post__title { margin-top: 14px; font: 600 clamp(38px, 4.6vw, 68px)/1.02 var(--display); letter-spacing: -.04em; margin-left: -.02em; text-wrap: balance; }
+.post__lede { max-width: var(--measure); margin-top: 22px; font-size: 21px; line-height: 1.42; letter-spacing: -.01em; color: var(--muted); }
+.post__tags { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 20px; }
 .post__tags a { color: var(--accent); text-decoration: none; }
 .post__tags a:hover { text-decoration: underline; }
-.post__cover { margin: 56px 0 0; }
-.post__cover img { width: 100%; max-height: 640px; object-fit: cover; border-radius: var(--radius-xl); }
-.post__credit { margin-top: 10px; text-align: right; font-size: 12px; }
+/* Cover tak lebih lebar dari gambar asal (1200px ke atas). Ruang 16:9 ditempah sebelum gambar siap dimuat. */
+.post__cover { grid-column: 2 / -1; max-width: 920px; margin: 40px 0 0; }
+.post__cover img { width: 100%; aspect-ratio: auto 16 / 9; max-height: 560px; object-fit: cover; border-radius: var(--radius-l); }
+.post__credit { margin-top: 10px; text-align: right; }
 .post__byline b { font-weight: 500; color: var(--ink); }
 .post__ai { display: inline-block; padding: 1px 6px; border-radius: 999px; background: var(--accent); color: var(--bg); font-size: 10px; letter-spacing: .06em; vertical-align: 1px; }
 .post__sumber {
@@ -53,16 +61,38 @@
 .post__sumber a { color: var(--accent); font-weight: 500; text-decoration: none; overflow-wrap: anywhere; }
 .post__sumber a:hover { text-decoration: underline; }
 
+/* Senarai kandungan: dibina blog.js dari h2, melekat di lajur kiri (skrin lebar sahaja) */
+.post__toc { display: none; }
+@media (min-width: 1181px) {
+  .post__toc {
+    display: block; grid-column: 1; align-self: start; position: sticky; top: 28px;
+    max-height: calc(100vh - 56px); overflow-y: auto; margin-top: 56px; scrollbar-width: none;
+  }
+}
+.post__toc ol { margin-top: 14px; border-left: 1px solid var(--line); }
+.post__toc a {
+  display: block; margin-left: -1px; padding: 6px 0 6px 16px; border-left: 1px solid transparent;
+  font-size: 14px; line-height: 1.35; color: var(--muted); text-decoration: none; text-wrap: pretty;
+  transition: color .2s ease, border-color .2s ease;
+}
+.post__toc a:hover { color: var(--ink); }
+.post__toc a[aria-current] { color: var(--ink); border-left-color: var(--accent); }
+@media (max-width: 960px) {
+  .post { grid-template-columns: minmax(0, var(--measure)); justify-content: center; }
+  .post > *, .post__head, .post__cover { grid-column: 1; }
+}
+
 /* Isi tulisan */
 .prose {
-  max-width: var(--measure); margin: 64px auto 0;
+  max-width: var(--measure); margin: 48px auto 0;
   /* Berat 430 dan opsz 14: Newsreader lebih tegap di skrin berbanding opsz auto yang nipis */
   font: 430 20px/1.68 var(--serif); color: var(--ink);
   font-variation-settings: "opsz" 14; hanging-punctuation: first; overflow-wrap: break-word;
 }
 .prose > * + * { margin-top: 1.1em; }
-/* Perenggan rata kiri-kanan; tajuk kekal rata kiri */
-.prose p, .prose li { text-align: justify; text-wrap: pretty; hyphens: auto; }
+/* Rata kiri: pelayar tak pecahkan suku kata BM, jadi justify buat jurang besar antara perkataan */
+.prose p, .prose li { text-wrap: pretty; }
+.prose h2 { scroll-margin-top: 24px; }
 .prose h2, .prose h3, .prose h4 { font-family: var(--display); font-variation-settings: normal; color: var(--ink); letter-spacing: -.03em; text-wrap: balance; }
 .prose h2 { font-size: 34px; line-height: 1.12; font-weight: 600; margin-top: 2em; }
 .prose h3 { font-size: 25px; line-height: 1.2; font-weight: 600; margin-top: 1.7em; }
@@ -90,7 +120,7 @@
 .prose [data-tiktok-video] { max-width: 325px; margin-inline: auto; }
 .prose [data-tiktok-video] iframe { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; border: 0; border-radius: 16px; background: #000; }
 .prose figure { margin-inline: 0; }
-.prose figcaption { margin-top: 10px; font: 12px/1.5 var(--mono); color: var(--muted); text-align: center; }
+.prose figcaption { margin-top: 10px; font: 13px/1.5 var(--mono); color: var(--muted); text-align: center; }
 /* Gambar selebar lajur teks supaya tepi kiri dan kanan sebaris */
 .prose > figure, .prose > p > img:only-child, .prose > img { width: 100%; }
 .prose > p:has(> img:only-child) { margin-block: 2em; }
@@ -165,14 +195,16 @@
   .blog__tags { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); }
   .blog__tags button { flex: none; }
 
-  .post { padding-top: 16px; }
-  .post__meta { margin-top: 24px; }
-  .post__title { font-size: clamp(36px, 10.5vw, 52px); }
-  .post__lede { font-size: 18px; margin-top: 18px; }
-  .post__cover { margin-top: 32px; }
-  .prose { margin-top: 40px; font-size: 18px; line-height: 1.65; }
-  /* Lajur sempit: justify buat jurang besar antara perkataan, jadi rata kiri */
-  .prose p, .prose li { text-align: left; }
+  .post { padding-top: 12px; }
+  .post .mono { font-size: 12px; }
+  .post__meta { margin-top: 20px; }
+  .post__titik { display: none; }
+  .post__byline { flex-basis: 100%; }
+  .post__title { font-size: clamp(31px, 8.6vw, 42px); line-height: 1.05; }
+  .post__lede { font-size: 18px; margin-top: 16px; }
+  .post__cover { margin-top: 28px; }
+  .prose { margin-top: 32px; font-size: 18px; line-height: 1.65; }
+  .prose figcaption { font-size: 12px; }
   .prose h2 { font-size: 27px; }
   .prose h3 { font-size: 22px; }
   .prose blockquote { font-size: 19px; padding-left: 18px; }

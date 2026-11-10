@@ -1,3 +1,4 @@
 {%- assign words = include.content | strip_html | number_of_words -%}
-{%- assign mins = words | divided_by: 200 | at_least: 1 -%}
+{%- comment -%} 200 patah seminit, dibundar ke atas {%- endcomment -%}
+{%- assign mins = words | plus: 199 | divided_by: 200 | at_least: 1 -%}
 {{ mins }} min baca
