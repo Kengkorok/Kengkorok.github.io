@@ -284,28 +284,40 @@ ol, ul { padding: 0; list-style: none; }
 .role-mini__title { font: 600 22px/1.25 var(--display); letter-spacing: -.03em; }
 .role-mini__desc { font-size: 15px; line-height: 1.45; opacity: .8; }
 
-/* Senarai post (laman utama dan /blog/) */
+/* Senarai post (laman utama dan /blog/): tarikh | tajuk + ringkasan + tag | gambar kecil */
 .post-list { border-top: 1px solid var(--ink); }
 .post-row { border-bottom: 1px solid var(--line); }
+.post-row .mono { font-size: 13px; }
 .post-row__link {
-  position: relative; display: grid; grid-template-columns: 140px minmax(0, 1fr) auto; column-gap: 32px; row-gap: 6px;
-  align-items: baseline; padding: 26px 0; text-decoration: none;
+  display: grid; grid-template-columns: 140px minmax(0, 1fr) 176px; column-gap: 32px;
+  align-items: start; padding: 28px 0; text-decoration: none;
 }
-.post-row__date { grid-row: 1; }
+.post-row__date { display: grid; gap: 2px; padding-top: 5px; }
+.post-row__baru { color: var(--accent); }
+.post-row__body { display: grid; gap: 8px; max-width: 720px; }
 .post-row__title {
-  grid-column: 2; font: 600 clamp(24px, 2.6vw, 34px)/1.12 var(--display); letter-spacing: -.035em;
-  transition: transform .4s var(--ease), color .2s ease;
+  font: 600 clamp(22px, 2.3vw, 30px)/1.14 var(--display); letter-spacing: -.035em; text-wrap: balance;
+  transition: color .2s ease;
 }
-.post-row__time { grid-column: 3; grid-row: 1; text-align: right; white-space: nowrap; }
-.post-row__tags { grid-column: 2; display: flex; flex-wrap: wrap; gap: 4px 12px; color: var(--accent); }
+.post-row__desc {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+  font-size: 16px; line-height: 1.45; color: var(--muted); text-wrap: pretty;
+}
+.post-row__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; margin-top: 2px; }
+.post-row__by { margin-right: 4px; }
+.post-row__tag { color: var(--accent); }
 .post-row__thumb {
-  position: absolute; right: 120px; top: 50%; z-index: 2; width: 220px; aspect-ratio: 16 / 10; object-fit: cover;
-  border-radius: 14px; box-shadow: 0 30px 60px -30px rgb(43 33 26 / .5); pointer-events: none;
-  opacity: 0; transform: translateY(-50%) rotate(-3deg) scale(.9); transition: opacity .3s ease, transform .4s var(--ease);
+  grid-column: 3; width: 100%; aspect-ratio: 1200 / 630; object-fit: cover;
+  border-radius: 12px; background: var(--card); transition: transform .4s var(--ease);
+}
+/* Lencana untuk post yang ditulis AI (senarai dan halaman post) */
+.post__ai {
+  display: inline-block; padding: 1px 6px; border-radius: 999px; background: var(--accent); color: var(--bg);
+  font-size: 10px; letter-spacing: .06em; vertical-align: 1px;
 }
 @media (hover: hover) {
-  .post-row__link:hover .post-row__title { transform: translateX(8px); color: var(--accent); }
-  .post-row__link:hover .post-row__thumb { opacity: 1; transform: translateY(-50%) rotate(-3deg); }
+  .post-row__link:hover .post-row__title { color: var(--accent); }
+  .post-row__link:hover .post-row__thumb { transform: scale(1.03); }
 }
 
 /* Tulisan terkini */
@@ -361,6 +373,9 @@ ol, ul { padding: 0; list-style: none; }
 .js .reveal.is-in { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: no-preference) {
+  /* Pertukaran antara halaman (laman utama, senarai, post): pudar silang, bukan potong terus */
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .22s; }
   .hero__title, .hero__lede { animation: rise .9s var(--ease) both; }
   .hero__lede { animation-delay: .1s; }
   @keyframes rise { from { opacity: 0; transform: translateY(24px); } }
@@ -451,12 +466,18 @@ ol, ul { padding: 0; list-style: none; }
   .latest { padding-top: 88px; }
   .latest__head { margin-bottom: 20px; }
   .latest__head .pill { padding: 7px 12px; font-size: 13px; }
-  .post-row__link { grid-template-columns: minmax(0, 1fr) auto; padding: 20px 0; row-gap: 8px; }
-  .post-row__date { grid-column: 1; }
-  .post-row__time { grid-column: 2; }
-  .post-row__title, .post-row__tags { grid-column: 1 / -1; }
-  .post-row__title { font-size: 23px; }
-  .post-row__thumb { display: none; }
+  /* Telefon: tarikh di atas, gambar kecil di kanan tajuk, ringkasan dan tag selebar penuh */
+  .post-row__link { grid-template-columns: minmax(0, 1fr) 108px; column-gap: 16px; row-gap: 8px; padding: 20px 0; }
+  .post-row__date { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0 8px; padding-top: 0; }
+  .post-row__time::before { content: "· "; }
+  .post-row__body { display: contents; }
+  .post-row__title { grid-column: 1; font-size: 21px; }
+  .post-row--teks .post-row__title { grid-column: 1 / -1; }
+  .post-row__thumb { grid-column: 2; grid-row: 2; margin-top: 4px; border-radius: 8px; }
+  .post-row__tag:nth-child(n+5) { display: none; }
+  .post-row__desc, .post-row__meta { grid-column: 1 / -1; }
+  .post-row__desc { font-size: 15px; }
+  .post-row__meta { margin-top: 0; }
   .contact { padding-top: 88px; }
   .contact__pre { font-size: 17px; padding-top: 20px; }
   .contact__title { font-size: clamp(52px, 16.5vw, 80px); margin-top: 16px; }

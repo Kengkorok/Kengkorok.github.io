@@ -11,12 +11,25 @@ description: Tulisan Korok pasal masjid, kod, homelab dan hidup. Ditulis bila ad
 
   {%- if site.posts.size > 0 %}
   <div class="blog__tools">
+    {%- comment -%} Tag disusun ikut bilangan post; yang ada satu post sahaja disorok di bawah butang "lagi" {%- endcomment -%}
+    {%- assign kunci = "" | split: "" -%}
+    {%- for t in site.tags -%}
+      {%- assign k = 1000 | minus: t[1].size | append: "|" | append: t[0] -%}
+      {%- assign kunci = kunci | push: k -%}
+    {%- endfor -%}
+    {%- assign kunci = kunci | sort -%}
+    {%- assign lagi = 0 -%}
     <div class="blog__tags mono" role="group" aria-label="Tapis ikut tag">
       <button type="button" data-tag="" aria-pressed="true">Semua <span class="muted">{{ site.posts.size }}</span></button>
-      {%- assign tags = site.tags | sort -%}
-      {%- for t in tags %}
-      <button type="button" data-tag="{{ t[0] | slugify }}" aria-pressed="false">#{{ t[0] }} <span class="muted">{{ t[1].size }}</span></button>
+      {%- for k in kunci %}
+      {%- assign b = k | split: "|" -%}
+      {%- assign n = 1000 | minus: b[0] -%}
+      {%- if n < 2 %}{% assign lagi = lagi | plus: 1 %}{% endif %}
+      <button type="button" data-tag="{{ b[1] | slugify }}" aria-pressed="false"{% if n < 2 %} hidden{% endif %}>#{{ b[1] }} <span class="muted">{{ n }}</span></button>
       {%- endfor %}
+      {%- if lagi > 0 %}
+      <button type="button" class="blog__lagi" aria-expanded="false">+ {{ lagi }} lagi</button>
+      {%- endif %}
     </div>
     <label class="blog__search">
       <span class="sr-only">Cari tulisan</span>
@@ -27,7 +40,7 @@ description: Tulisan Korok pasal masjid, kod, homelab dan hidup. Ditulis bila ad
 
   <ol class="post-list">
     {%- for post in site.posts %}
-    {% include post-row.html post=post %}
+    {% include post-row.html post=post utama=forloop.first i=forloop.index0 %}
     {%- endfor %}
   </ol>
   <p class="blog__empty mono muted" hidden>Tiada tulisan yang padan. Cuba perkataan lain.</p>

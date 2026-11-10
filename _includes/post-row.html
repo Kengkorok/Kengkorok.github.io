@@ -1,14 +1,35 @@
+{%- comment -%}
+  Satu baris dalam senarai post. Dipakai di laman utama dan /blog/.
+  post  : post yang dipapar
+  utama : true untuk angkat jadi kad besar (perlu ada imej)
+  i     : kedudukan dalam senarai, untuk animasi masuk berperingkat
+{%- endcomment -%}
 {%- assign p = include.post -%}
-<li class="post-row" data-url="{{ p.url | relative_url }}" data-tags="{% for t in p.tags %}{{ t | slugify }} {% endfor %}">
+{%- assign i = include.i | default: 0 -%}
+{%- assign utama = false -%}
+{%- if include.utama and p.image %}{% assign utama = true %}{% endif -%}
+{%- assign pn = site.data.penulis[p.author] -%}
+<li class="post-row{% if utama %} post-row--utama{% endif %}{% unless p.image %} post-row--teks{% endunless %}" data-url="{{ p.url | relative_url }}" data-tags="{% for t in p.tags %}{{ t | slugify }} {% endfor %}" style="--i:{{ i }}">
   <a class="post-row__link" href="{{ p.url | relative_url }}">
-    <span class="post-row__date mono muted">{% include tarikh.html date=p.date %}</span>
-    <span class="post-row__title">{{ p.title }}</span>
-    <span class="post-row__time mono muted">{% include masa-baca.html content=p.content %}{% assign pn = site.data.penulis[p.author] %}{% if pn %} · {{ pn.nama }}{% endif %}</span>
-    {%- if p.tags.size > 0 %}
-    <span class="post-row__tags mono">{% for t in p.tags %}<span>#{{ t }}</span>{% endfor %}</span>
-    {%- endif %}
+    <span class="post-row__date mono muted">
+      {%- if utama %}<span class="post-row__baru">Terbaru</span>{% endif -%}
+      {% include tarikh.html date=p.date %}
+      <span class="post-row__time">{% include masa-baca.html content=p.content %}</span>
+    </span>
+    <span class="post-row__body">
+      <span class="post-row__title">{{ p.title }}</span>
+      {%- if p.description %}
+      <span class="post-row__desc">{{ p.description }}</span>
+      {%- endif %}
+      <span class="post-row__meta mono">
+        <span class="post-row__by muted">{% if pn %}{{ pn.nama }}{% if pn.ai %} <span class="post__ai" title="Ditulis oleh AI ({{ pn.model }})">AI</span>{% endif %}{% else %}Safwan{% endif %}</span>
+        {%- for t in p.tags %}
+        <span class="post-row__tag">#{{ t }}</span>
+        {%- endfor %}
+      </span>
+    </span>
     {%- if p.image %}
-    <img class="post-row__thumb" src="{{ p.image | relative_url }}" alt="" loading="lazy" decoding="async">
+    <img class="post-row__thumb" src="{{ p.image | relative_url }}" alt=""{% if utama %} fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async">
     {%- endif %}
   </a>
 </li>

@@ -2,7 +2,8 @@
 const list = document.querySelector('.blog .post-list');
 if (list) {
   const rows = [...list.querySelectorAll('.post-row')];
-  const tagBtns = [...document.querySelectorAll('.blog__tags button')];
+  const tagBtns = [...document.querySelectorAll('.blog__tags button[data-tag]')];
+  const lagi = document.querySelector('.blog__lagi');
   const search = document.querySelector('.blog__search input');
   const empty = document.querySelector('.blog__empty');
   let tag = new URLSearchParams(location.search).get('tag') || '';
@@ -10,16 +11,25 @@ if (list) {
   let index = null; // url -> teks penuh, dimuat bila mula menaip
 
   const norm = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  let nampak = null; // baris yang kelihatan selepas render terakhir
   const render = () => {
-    let shown = 0;
-    rows.forEach((row) => {
+    const kini = rows.filter((row) => {
       const okTag = !tag || row.dataset.tags.split(' ').includes(tag);
       const hay = index?.get(row.dataset.url) ?? norm(row.textContent);
-      const ok = okTag && terms.every((t) => hay.includes(t));
-      row.hidden = !ok;
-      if (ok) shown++;
+      return okTag && terms.every((t) => hay.includes(t));
     });
-    empty.hidden = shown > 0;
+    const tanda = kini.map((r) => r.dataset.url).join('|');
+    if (nampak !== null && tanda !== nampak) {
+      // set baris berubah: matikan animasi masuk dan pudarkan senarai sekejap
+      list.classList.add('is-sedia');
+      list.classList.remove('is-tukar');
+      void list.offsetWidth;
+      list.classList.add('is-tukar');
+    }
+    nampak = tanda;
+    rows.forEach((row) => { row.hidden = !kini.includes(row); });
+    list.classList.toggle('is-tapis', !!tag || terms.length > 0);
+    empty.hidden = kini.length > 0;
     tagBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tag === tag)));
   };
 
@@ -50,7 +60,41 @@ if (list) {
     timer = setTimeout(() => { terms = norm(search.value).split(/\s+/).filter(Boolean); render(); }, 120);
   });
 
-  if (!tagBtns.some((b) => b.dataset.tag === tag)) tag = '';
+  // Tag yang jarang dipakai disorok di bawah butang "lagi"
+  const bukaLagi = () => {
+    tagBtns.forEach((b) => { b.hidden = false; });
+    lagi?.remove();
+  };
+  lagi?.addEventListener('click', () => {
+    const pertama = tagBtns.find((b) => b.hidden);
+    bukaLagi();
+    pertama?.focus();
+  });
+
+  // Tajuk dan cover baris yang diklik bergerak ke halaman post (view transition).
+  // Nama kekal pada baris itu, jadi bila tekan "back" ia bergerak balik ke tempat asal.
+  const namakan = (row) => {
+    rows.forEach((r) => {
+      r.querySelector('.post-row__title').style.viewTransitionName = r === row ? 'post-tajuk' : '';
+      const img = r.querySelector('.post-row__thumb');
+      if (img) img.style.viewTransitionName = r === row ? 'post-cover' : '';
+    });
+  };
+  list.addEventListener('click', (e) => {
+    const row = e.target.closest('.post-row');
+    if (row) namakan(row);
+  });
+  // Datang dari halaman post melalui pautan (bukan "back"): namakan baris post itu
+  try {
+    const dari = window.navigation?.activation?.from?.url;
+    const laluan = dari && new URL(dari).pathname;
+    const row = laluan && rows.find((r) => r.dataset.url === laluan);
+    if (row) { list.classList.add('is-sedia'); namakan(row); }
+  } catch {}
+
+  const btnTag = tagBtns.find((b) => b.dataset.tag === tag);
+  if (!btnTag) tag = '';
+  else if (btnTag.hidden) bukaLagi();
   render();
 }
 
