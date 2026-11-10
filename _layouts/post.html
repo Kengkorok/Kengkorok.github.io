@@ -57,14 +57,57 @@ layout: base
   </aside>
   {%- endif %}
 
-  <nav class="post__pager" aria-label="Post lain">
-    {%- if page.previous %}
-    <a class="post__pager-prev" href="{{ page.previous.url | relative_url }}"><span class="mono muted">← Sebelum</span>{{ page.previous.title }}</a>
-    {%- endif %}
-    {%- if page.next %}
-    <a class="post__pager-next" href="{{ page.next.url | relative_url }}"><span class="mono muted">Seterusnya →</span>{{ page.next.title }}</a>
-    {%- endif %}
-  </nav>
+  {%- assign pautan = page.url | absolute_url -%}
+  {%- assign kongsi = page.title | append: ' ' | append: pautan | url_encode | replace: '+', '%20' -%}
+  <footer class="post__tutup">
+    <div class="post__kongsi mono">
+      <span class="muted">Kongsi</span>
+      <button type="button" class="post__salin" data-url="{{ pautan }}">Salin pautan</button>
+      <a href="https://wa.me/?text={{ kongsi }}" target="_blank" rel="noopener">WhatsApp ↗</a>
+      <a href="https://www.threads.com/intent/post?text={{ kongsi }}" target="_blank" rel="noopener">Threads ↗</a>
+    </div>
+    <div class="post__penulis">
+      <img src="{{ '/brand/svg/korokk-simbol-warna.svg' | relative_url }}" alt="" width="56" height="56" loading="lazy" decoding="async">
+      <div>
+        <p class="post__penulis-nama">Safwan <span class="muted">a.k.a. Korok</span></p>
+        <p class="post__penulis-bio">Bilal siang, builder malam. Aku tulis pasal masjid, kod dan homelab.</p>
+        {%- if penulis.ai %}
+        <p class="post__penulis-nota muted">Post ni ditulis oleh {{ penulis.nama }}, AI berasaskan {{ penulis.model }}, dan disemak Safwan sebelum terbit.</p>
+        {%- endif %}
+        <p class="post__penulis-pautan mono">
+          <a href="https://www.tiktok.com/@kengkorokk" rel="noopener">TikTok ↗</a>
+          <a href="https://www.threads.com/@msafwanrahman" rel="noopener">Threads ↗</a>
+          <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  {%- comment -%} Tulisan berkaitan: paling banyak tag sepunya dulu, kemudian yang terbaru.
+     Kunci "900 tolak tag sepunya | 1000 campur kedudukan" supaya susunan teks sama dengan susunan nombor. {%- endcomment -%}
+  {%- assign kunci = "" -%}
+  {%- for p in site.posts -%}
+    {%- if p.url == page.url %}{% continue %}{% endif -%}
+    {%- assign sama = 0 -%}
+    {%- for t in p.tags %}{% if page.tags contains t %}{% assign sama = sama | plus: 1 %}{% endif %}{% endfor -%}
+    {%- assign kedudukan = forloop.index0 | plus: 1000 -%}
+    {%- assign k = 900 | minus: sama | append: "|" | append: kedudukan -%}
+    {%- assign kunci = kunci | append: k | append: "," -%}
+  {%- endfor -%}
+  {%- assign susun = kunci | split: "," | sort -%}
+  {%- if susun.size > 0 %}
+  <section class="post__lain" aria-labelledby="lain-tajuk">
+    <h2 class="post__lain-tajuk" id="lain-tajuk">Tulisan berkaitan</h2>
+    <ol class="post-list">
+      {%- for k in susun limit: 3 %}
+      {%- assign kedudukan = k | split: "|" | last | minus: 1000 %}
+      {%- assign lain = site.posts[kedudukan] %}
+      {% include post-row.html post=lain %}
+      {%- endfor %}
+    </ol>
+    <a class="post__semua mono" href="{{ '/blog/' | relative_url }}">Semua tulisan →</a>
+  </section>
+  {%- endif %}
 
   {%- unless page.komen == false %}
   {% include komen.html %}

@@ -6,7 +6,7 @@
 <body>
   <header class="nav nav--blog wrap">
     <div>
-      <a class="nav__name" href="{{ '/' | relative_url }}">Mohd Safwan Abd Rahman</a>
+      <a class="nav__name" href="{{ '/' | relative_url }}"><span>Mohd Safwan Abd Rahman</span></a>
       <p class="nav__tag mono muted">a.k.a. Korok · Bilal siang, builder malam</p>
     </div>
     <nav class="nav__links mono" aria-label="Utama">
@@ -23,11 +23,11 @@
 
   <footer class="footer wrap mono">
     <span>© {{ site.time | date: "%Y" }} Mohd Safwan Abd Rahman</span>
-    <span>Dibina dengan HTML biasa, hos di GitHub Pages</span>
+    <span>Dibina dengan Jekyll, hos di GitHub Pages</span>
     <span>Kuala Lumpur, <time id="kl-time">--:--</time></span>
   </footer>
 
   <script src="{{ '/main.js?v=2' | relative_url }}" defer></script>
-  <script src="{{ '/blog.js?v=3' | relative_url }}" defer blocking="render"></script>
+  <script src="{{ '/blog.js?v=4' | relative_url }}" defer blocking="render"></script>
 </body>
 </html>

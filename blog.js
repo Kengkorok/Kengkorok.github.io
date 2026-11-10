@@ -147,6 +147,66 @@ if (prose) {
   }
 }
 
+// Gambar dalam isi: klik untuk besarkan, hanya kalau skrin memang boleh tunjuk lebih besar dari dalam isi
+if (prose && typeof HTMLDialogElement === 'function') {
+  const gambar = [...prose.querySelectorAll('img')].filter((g) => !g.closest('a'));
+  if (gambar.length) {
+    const dlg = document.createElement('dialog');
+    dlg.className = 'zum';
+    dlg.setAttribute('aria-label', 'Gambar dibesarkan');
+    const tutup = document.createElement('button');
+    tutup.type = 'button';
+    tutup.className = 'zum__tutup mono';
+    tutup.textContent = 'Tutup ✕';
+    const besar = new Image();
+    dlg.append(tutup, besar);
+    document.body.append(dlg);
+    dlg.addEventListener('click', () => dlg.close());
+
+    const lebihBesar = (g) => {
+      if (!g.naturalWidth) return false;
+      const muat = Math.min(g.naturalWidth, innerWidth - 32, ((innerHeight - 32) * g.naturalWidth) / g.naturalHeight);
+      return muat > g.clientWidth * 1.15;
+    };
+    const buka = (g) => {
+      if (!lebihBesar(g)) return;
+      besar.src = g.currentSrc || g.src;
+      besar.alt = g.alt;
+      dlg.showModal();
+    };
+    gambar.forEach((g) => {
+      const sedia = () => {
+        if (!lebihBesar(g)) return;
+        g.classList.add('boleh-zum');
+        g.tabIndex = 0;
+        g.setAttribute('role', 'button');
+        g.setAttribute('aria-label', `Besarkan gambar${g.alt ? `: ${g.alt}` : ''}`);
+      };
+      if (g.complete) sedia(); else g.addEventListener('load', sedia, { once: true });
+      g.addEventListener('click', () => buka(g));
+      g.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); buka(g); }
+      });
+    });
+  }
+}
+
+// Kongsi: salin pautan post
+const salin = document.querySelector('.post__salin');
+if (salin) {
+  const asal = salin.textContent;
+  salin.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(salin.dataset.url);
+      salin.textContent = 'Dah salin ✓';
+      salin.classList.add('is-ok');
+      setTimeout(() => { salin.textContent = asal; salin.classList.remove('is-ok'); }, 2000);
+    } catch {
+      window.prompt('Salin pautan ni:', salin.dataset.url);
+    }
+  });
+}
+
 // Komen: dua tab ("Nama sahaja" melalui Worker, "Guna GitHub" melalui giscus)
 const komen = document.getElementById('komen');
 if (komen) {
@@ -207,6 +267,13 @@ if (komen) {
     };
 
     const show = (items) => {
+      if (!items.length) {
+        const li = document.createElement('li');
+        li.className = 'komen__kosong mono muted';
+        li.textContent = 'Belum ada komen. Jadi yang pertama.';
+        listEl.replaceChildren(li);
+        return;
+      }
       listEl.replaceChildren(...items.map((k) => {
         const li = document.createElement('li');
         li.className = 'komen__item';
@@ -228,8 +295,8 @@ if (komen) {
     };
 
     fetch(`${api}/komen?post=${encodeURIComponent(post)}`)
-      .then((r) => (r.ok ? r.json() : []))
-      .then(show)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((items) => { if (Array.isArray(items)) show(items); })
       .catch(() => {});
 
     form.addEventListener('submit', async (e) => {
