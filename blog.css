@@ -7,6 +7,14 @@
 /* ---------- /blog/ ---------- */
 .blog { padding-top: 32px; }
 .blog__title { font: 600 clamp(52px, 7.5vw, 104px)/.92 var(--display); letter-spacing: -.05em; margin-left: -.035em; }
+/* Nav blog: logo korokk + tagline */
+.nav--blog { align-items: center; }
+.nav--blog .nav__name { display: block; width: fit-content; }
+.nav--blog .nav__name img { display: block; width: 132px; height: 40px; }
+.nav--blog .nav__tag { margin-top: 6px; }
+.blog__rss { display: inline-flex; vertical-align: -3px; margin-left: 2px; color: var(--accent); }
+.blog__rss svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.blog__rss:hover { color: var(--ink); }
 .blog__lede { max-width: 620px; margin-top: 24px; font-size: 22px; line-height: 1.4; letter-spacing: -.01em; color: var(--muted); }
 .blog__soon { margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--ink); font: 400 28px/1.3 var(--display); letter-spacing: -.02em; color: var(--muted); }
 
@@ -298,11 +306,8 @@ html:has(.zum[open]) { overflow: hidden; }
   .post__penulis img { width: 44px; height: 44px; }
   .post__lain-tajuk { font-size: 28px; margin-bottom: 16px; }
   .post__lain .post-row__title { font-size: 19px; }
-  /* Nav blog: logo korokk ganti nama penuh + tagline (nama kekal untuk pembaca skrin) */
-  .nav--blog { align-items: center; }
-  .nav--blog .nav__name { display: block; width: 100px; height: 30px; background: url("brand/svg/korokk-mendatar-ink.svg") left center / contain no-repeat; }
-  .nav--blog .nav__name span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .nav--blog .nav__tag { display: none; }
+  .nav--blog .nav__name img { width: 100px; height: 30px; }
+  .nav--blog .nav__tag { margin-top: 4px; }
   .komen { margin-top: 64px; }
   .komen__title { font-size: 28px; }
 }
