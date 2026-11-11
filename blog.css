@@ -10,7 +10,7 @@
 /* Nav blog: logo korokk + tagline */
 .nav--blog { align-items: center; }
 .nav--blog .nav__name { display: block; width: fit-content; }
-.nav--blog .nav__name img { display: block; width: 132px; height: 40px; }
+.nav--blog .nav__name img { display: block; width: 120px; height: 40px; }
 .nav--blog .nav__links { align-items: center; }
 [data-theme="dark"] .logo--terang, :root:not([data-theme="dark"]) .logo--gelap { display: none !important; }
 
@@ -363,7 +363,7 @@ html:has(.zum[open]) { overflow: hidden; }
   .post__penulis img { width: 44px; height: 44px; }
   .post__lain-tajuk { font-size: 28px; margin-bottom: 16px; }
   .post__lain .post-row__title { font-size: 19px; }
-  .nav--blog .nav__name img { width: 100px; height: 30px; }
+  .nav--blog .nav__name img { width: 90px; height: 30px; }
   .nav--blog .nav__tag { margin-top: 4px; white-space: nowrap; }
   .nav--blog .nav__links { gap: 12px; }
   .komen { margin-top: 64px; }
