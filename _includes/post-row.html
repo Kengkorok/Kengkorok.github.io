@@ -29,7 +29,9 @@
       </span>
     </span>
     {%- if p.image %}
-    <img class="post-row__thumb" src="{{ p.image | relative_url }}" alt=""{% if utama %} fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async">
+    {%- comment -%} Kad utama guna cover penuh; baris biasa guna thumbnail 480px dari Studio kalau ada {%- endcomment -%}
+    {%- if utama or p.thumb == nil %}{% assign gambar = p.image %}{% else %}{% assign gambar = p.thumb %}{% endif %}
+    <img class="post-row__thumb" src="{{ gambar | relative_url }}" alt=""{% if utama %} fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async">
     {%- endif %}
   </a>
 </li>

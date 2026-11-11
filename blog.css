@@ -183,6 +183,7 @@
 .prose th, .prose td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
 .prose th { font-weight: 500; border-bottom-color: var(--ink); }
 .prose .table-scroll { overflow-x: auto; }
+.prose th > p, .prose td > p { margin: 0; font: inherit; }
 
 /* Gambar dalam isi yang boleh dibesarkan (kelas diletak blog.js) */
 .prose img.boleh-zum { cursor: zoom-in; }
