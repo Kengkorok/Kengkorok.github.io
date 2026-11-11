@@ -1,0 +1,56 @@
+---
+title: Sync Obsidian dengan LiveSync dan server sendiri
+description: "Aku tukar cara sync Obsidian aku dari method OneDrive kepada Komuniti Plugin LiveSync bersama dengan CouchDB. Semua platform boleh sync : Andoird, iOS, Windows, Linux dll."
+tags:
+  - obsidian
+  - homelab
+  - teknologi
+  - claude
+  - agent
+  - ai
+image: /assets/blog/2026/sync-obsidian-dengan-livesync-dan-server-sendiri/cover-ai-b936a6.webp
+thumb: /assets/blog/2026/sync-obsidian-dengan-livesync-dan-server-sendiri/thumb-c713c4.webp
+image_credit: "Gambar: dijana AI"
+author: korokgpt
+sumber:
+  - title: Self-hosted LiveSync
+    url: https://github.com/vrtmrz/obsidian-livesync
+---
+{% raw %}
+<p>Aku banyak guna Obsidian sebagai nota untuk diri aku dan juga ai agent aku. Mudah, segala progress projek, workflow even biodata diri aku pon, aku catat dalam obsidian supaya ai agent aku kenal siapa aku, macamana jalan kerja aku, dan mudah nak sambung kerja atau projek tergendala.</p>
+<p>Masalah yang aku kene hadap dengan Obsidian ni adalah sync antara semua platform device yang aku guna seharian, iaitu iOS iPhone, Pc Window, Ubuntu server dan Pixel 8 Android 16. Which sebelum ni aku sync nota Obsidian menggunakan OneDrive, tapi kt iOS sangkut, mungkin iOS tak support sync direct OneDrive, ini yang buat aku pening macamana aku nak sync semua platform ni.</p>
+<p>Dan sekarang, dengan bantuan Claude, aku sekarang dah jumpa solusinya, Claude mencadangkan menggunakan community plugin dari Obsidian iaitu plugin Self-hosted LiveSync, dengan CouchDB memandangkan aku ada server yang running 24/7 di rumah.</p>
+<p>Nampak panjang cerita dia untuk sync nota je kan? Memang ada beberapa benda kena setup dulu.</p>
+<h2>Kenapa aku pilih LiveSync?</h2>
+<img loading="lazy" src="/assets/blog/2026/sync-obsidian-dengan-livesync-dan-server-sendiri/image-1dadf2.webp" alt="" width="1247" height="1261">
+<p>Untuk setup ni, aku nak Pc server aku jadi rumah (hosting) device yang menghantar dan mengambil sebarang perubahan nota sebabnya pc server aku running 24 jam. So PC windows aku tak perlu hidup sepanjang masa. Selagi server boleh dicapai, telefon boleh sync dulu dan PC window sync terus perubahan tu bila aku buka pc tu untuk buat kerja.</p>
+<p>Aku pernah ada pertimbangkan untuk pilih Syncthing. Tapi masalah pada iOS iPhone, sebab iOS tak support share atau sync dari third party. Korang masih boleh guna Syncthing kalau takda devices iOS, so tak perlu pening-pening.</p>
+<p>Memandangkan aku memang ada homelab, aku cuba jalan LiveSync dengan CouchDB.</p>
+<p><a href="https://github.com/vrtmrz/obsidian-livesync">Self-hosted LiveSync</a> ni plugin komuniti untuk Obsidian bukan native dalam Obsidian seperti yang didakwa dalam gambar. Dalam setup aku, plugin tu sync antara vault lokal dengan CouchDB. Ia juga boleh buat encrypting end-to-end sekiranya korang perlukan encryption kalau takut dicuri atau sekadar langkah backup.</p>
+<p>LiveSync ada fungsi bagaimana nak setel kalau ada file konflik, maksudnya device A edit file memasak, tapi device B edit file yang sama, so plugin ni akan ada prompt pop-up sama ada nak guna yang asal, gabung atau revert perubahan, semuanya perlu disemak dan diteliti jugak lah.</p>
+<h2>Pelan-pelan kayuhh</h2>
+<p>Macam biasa, aku suruh Claude tolong aku bantu brainstorm dan susun pelan pemindahan, iaitu pindah sistem lama OneDrive, kepada sistem baru komuniti plugin Livesync bersama CouchDB.</p>
+<p>So workflownya macam ni :</p>
+<ol>
+<li>
+<p>Pelan, rancang, brainstorm : Claude Opus 5.5 High</p></li>
+<li>
+<p>Buat kerja-kerja pemindahan : Hermes Deepseek 4.1</p></li>
+<li>
+<p>Semak : aku sendirilah, untuk pastikan takda kesilapan atau troubleshoot sekiranya berlaku perkara yang tidak diingini berlaku.</p></li>
+</ol>
+<p>Mula-mula buat backup. Lepas tu salin vault keluar dari OneDrive ke folder lokal. Buat copy dulu, selesai semuanya baru aku delete terus dari OneDrive. Ini penting ye gais, kalau sekiranya ai-agent yang aku suruh buat silap, aku boleh recover balik semua fila nota ni, so takda la menggelabah dikemudian hari.</p>
+<p>Fail copy dibandingkan dengan yang asal menggunakan hash, supaya kami boleh semak kandungannya sama. Baru sambung setup CouchDB dan plugin.</p>
+<p>Untuk akses CouchDB, aku guna <a href="https://tailscale.com/docs/reference/tailscale-cli/serve">Tailscale Serve</a>. Servis tu boleh diakses melalui network Tailscale aku tanpa buka akses public ke internet. Device lain yang nak sync, kena connect juga dengan VPN Tailscale.</p>
+<p>Lepas PC siap, baru sambungkan iPhone menggunakan setup URI daripada plugin. Aku tunggu sync pertama selesai, kemudian test edit nota dua hala, meaning aku edit nota di PC, aku semak perubahan yang aku edit dalam iPhone aku.</p>
+<p>Salinan OneDrive tu aku kekalkan sampai semakan selesai. Bab transfer nota ni aku prefer buat satu persatu. Kalau ada yang tak kena, masih ada salinan asal nak rujuk.</p>
+<h2>Ada juga yang tersangkut</h2>
+<p>Bahagian plugin ada pilihan yang sebut overwrite dan delete local files. Kena faham peranti mana yang ada salinan lengkap sebelum pilih. Arahan untuk vault kosong tak semestinya sesuai untuk vault yang dah ada nota.</p>
+<p>CLI (command line interface) di server pernah tersangkut masa fetch, sampai database lokal kena dipulihkan daripada backup. Ada juga masalah nama Tailscale tak dapat di-resolve di server dan kena betulkan dulu.</p>
+<p>Jadi aku tak anggap ni setup yang semua orang boleh pasang dan terus abaikan. CouchDB, sambungan Tailscale dan backup tu tetap aku kena jaga.</p>
+<p>Di phone pulak, aku buka Obsidian dan tunggu sync sebelum sambung edit. Aku tak bergantung pada app yang duduk di background untuk pastikan nota dah sampai.</p>
+<p>Satu lagi, sync dan backup dua benda berbeza. Kalau tersalah padam dan perubahan tu tersync ke device lain, aku masih perlukan backup berasingan. Dalam setup ni ada backup database dan arkib vault. Ada revision dalam CouchDB pon aku tak jadikan alasan untuk abaikan backup.</p>
+<p>Setakat kegunaan aku, ini cara yang sesuai untuk satukan nota telefon dengan PC sambil guna server yang dah ada. Kerja awalnya agak renyah, tapi sekarang aku dah ada setup yang aku boleh urus sendiri.</p>
+<p>Aku tulis ni sebagai catatan atau dokumentasi aku dan juga sebagai perkongsian untuk sesiapa yang sedang mencari solusi untuk sync semua platform macam aku. Kalau nak cuba, rujuk panduan LiveSync terkini untuk step by step installation. </p>
+<p>Jumpa lagi.</p>
+{% endraw %}
