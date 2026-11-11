@@ -113,6 +113,10 @@ ol, ul { padding: 0; list-style: none; }
 .nav { display: grid; grid-template-columns: 1fr auto auto auto auto; gap: 48px; align-items: start; padding: 28px 0 24px; }
 .nav__name { font: 600 21px/1.2 var(--display); letter-spacing: -.03em; text-decoration: none; }
 .nav__tag { margin-top: 4px; }
+/* Logo korokk di nav (laman utama dan blog) */
+.nav__name:has(img) { display: block; width: fit-content; }
+.nav__name img { display: block; width: 120px; height: 40px; }
+.nav__name:has(img) + .nav__tag { margin-top: 6px; }
 .nav__meta { color: var(--muted); }
 .nav__cta { margin-top: -4px; }
 .nav__aksi { display: flex; align-items: center; gap: 16px; margin-top: -4px; }
@@ -483,6 +487,8 @@ ol, ul { padding: 0; list-style: none; }
   .nav__cta { padding: 9px 16px; font-size: 13px; margin: 0; }
   .nav__name { font-size: 18px; }
   .nav__tag { font-size: 10px; }
+  .nav__name img { width: 90px; height: 30px; }
+  .nav__name:has(img) + .nav__tag { margin-top: 4px; white-space: nowrap; }
   .hero { padding-top: 18px; }
   .hero__status { display: block; margin-bottom: 26px; }
   .hero__title { font-size: clamp(52px, 16.5vw, 80px); }
@@ -553,4 +559,13 @@ ol, ul { padding: 0; list-style: none; }
   .footer { grid-template-columns: 1fr; gap: 6px; margin-top: 72px; font-size: 11px; }
   .footer span:last-child { text-align: left; }
   .cursor { display: none; }
+}
+
+/* Telefon kecil: muatkan logo, tagline, Blog dan butang dalam satu baris */
+@media (max-width: 380px) {
+  .nav { column-gap: 10px; }
+  .nav__tag { font-size: 9px; }
+}
+@media (max-width: 340px) {
+  .nav__name:has(img) + .nav__tag { white-space: normal; }
 }
