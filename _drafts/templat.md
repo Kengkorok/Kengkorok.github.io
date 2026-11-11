@@ -7,6 +7,13 @@ tags: [homelab]               # contoh lain: masjid, kod, hidup
 image: /assets/blog/2026/tajuk-pendek/cover.jpg   # pilihan: cover + imej OG
 # cover: false                # imej OG sahaja, tak papar cover atas post
 # komen: false                # tutup komen untuk post ni
+# image_alt: Terangkan cover
+# image_credit: "Gambar: Niantic"
+# pin: true                   # pin di atas "Tulisan terkini" laman utama
+# author: claudrok            # penulis dari _data/penulis.yml; kosong = Safwan
+# sumber:
+#   - title: Nama sumber
+#     url: https://contoh.com/artikel
 ---
 Perenggan pertama. **Tebal**, *condong*, <u>garis bawah</u> dan [pautan](https://korokk.com/).
 

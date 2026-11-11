@@ -21,8 +21,12 @@ Laman portfolio peribadi Mohd Safwan Abd Rahman (Korok): Bilal siang, builder ma
   - [PoGo Wave Radar](https://korokk.com/pogo-wave-radar/)
   - [Jadual Kuliah Generator](https://github.com/Kengkorok/jadual-kuliah-generator)
   - [Servis Tracker](https://korokk.com/Auto-Services-Tracker/)
-- **Kerjaya**: Masjid Talhah, Masjid Abdul Rahman Bin Auf, DevOps dan Homelab
-- **[Blog](https://korokk.com/blog/)**: tulisan dengan tag, carian dan komen
+- **Kerjaya**: Masjid Talhah, Masjid Abdul Rahman Bin Auf, DevOps dan Homelab. Kursor jadi ikon korokk berpusing (tetikus sahaja)
+- **Tulisan terkini**: post yang dipin (`pin: true`) di atas dengan label "Pilihan", kemudian post terbaru sehingga cukup 3
+- **[Blog](https://korokk.com/blog/)**:
+  - Senarai dengan post terbaru sebagai kad besar, ringkasan, thumbnail, tapis tag dan carian (`blog/search.json`)
+  - Halaman post: senarai kandungan dari subtajuk (skrin lebar, minimum 3 subtajuk), klik gambar untuk zoom, kotak sumber, kotak penulis, butang kongsi (Salin pautan, WhatsApp, Threads), 3 tulisan berkaitan ikut tag dan komen
+  - RSS (Atom) di [`/feed.xml`](https://korokk.com/feed.xml)
 - **Hubungi**: GitHub, Threads, TikTok dan Ko-fi
 - **Mod gelap**: suis matahari/bulan di nav laman utama dan blog. Ikut tetapan peranti selagi pelawat belum pilih sendiri, dan pilihan diingat (`localStorage`)
 
@@ -42,6 +46,17 @@ HTML, CSS dan JavaScript biasa, tiada framework. GitHub Pages jalankan Jekyll un
 | `_layouts/`, `_includes/` | Templat Jekyll untuk blog |
 | `blog/`, `blog.css`, `blog.js` | Senarai tulisan, carian, tag dan komen |
 | `brand/` | Logo, ikon dan [panduan jenama](https://korokk.com/brand/panduan.html) |
+| `_data/penulis.yml` | Penulis selain Safwan (Claudrok, korokGPT): nama, lencana AI dan model |
+| `_data/authors.yml` | Nama penulis yang sama untuk RSS (jekyll-feed) |
+| `_data/bulan.yml` | Nama bulan BM untuk tarikh post |
+| `blog/search.json` | Indeks carian untuk `/blog/` |
+| `llms.txt` | Ringkasan laman untuk model AI ([llmstxt.org](https://llmstxt.org)), senarai post dijana sendiri |
+| `robots.txt` | Benarkan semua, dan tunjuk sitemap laman dan PoGo Wave Radar |
+| `404.html` | Halaman tak dijumpai |
+| `privasi/`, `terma/` | Polisi privasi dan terma perkhidmatan (Inggeris) Korokk Studio, untuk pendaftaran app TikTok |
+| `tiktok*.txt` | Fail pengesahan domain dan sandbox TikTok. Jangan padam |
+| `favicon.*`, `icon-*.png`, `apple-touch-icon.png`, `site.webmanifest` | Favicon dan ikon app (salinan dari `brand/web/`) |
+| `CNAME` | Domain `korokk.com` untuk GitHub Pages |
 | `workers/komen/` | Cloudflare Worker untuk komen tanpa akaun ([panduan](workers/komen/README.md)) |
 
 ## Jalankan secara local
@@ -57,6 +72,10 @@ Kemudian buka http://localhost:4000.
 
 ## Tulis post blog
 
+Cara utama: [Studio](https://github.com/Kengkorok/studio) di `studio.korokk.com`. Tulis dalam browser, tekan **Terbit**, dan Studio commit post, gambar dan thumbnail ke repo ni.
+
+Cara manual:
+
 1. Salin [`_drafts/templat.md`](_drafts/templat.md) ke `_posts/2026-11-03-tajuk-pendek.md`. Nama fail jadi URL: `/blog/tajuk-pendek/`.
 2. Isi `title`, `description` dan `tags`. Letak gambar dalam `assets/blog/2026/tajuk-pendek/`.
 3. Commit dan push. GitHub Pages siarkan dalam ~1 minit.
@@ -65,6 +84,27 @@ Nota:
 - Post bertarikh masa depan tak keluar sehingga ada push lain selepas tarikh tu.
 - `image` jadi cover dan imej pratonton bila link dikongsi. Tanpa `image`, guna `assets/og.png`.
 - Garis bawah guna `<u>teks</u>`. HTML biasa boleh dicampur dalam Markdown.
+
+### Front matter
+
+| Medan | Guna |
+| --- | --- |
+| `title` | Tajuk post |
+| `description` | Ringkasan: bawah tajuk, dalam senarai, dan pratonton link |
+| `tags` | Senarai tag |
+| `image` | Cover dan imej OG |
+| `thumb` | Thumbnail 480px untuk senarai (Studio jana masa terbit). Tanpanya, senarai guna `image` |
+| `image_alt`, `image_credit` | Teks alt dan kredit cover |
+| `cover: false` | Imej OG sahaja, tak papar cover atas post |
+| `komen: false` | Tutup komen |
+| `pin: true` | Pin di atas "Tulisan terkini" laman utama. Kalau lebih dari satu, yang terbaru dipakai |
+| `author` | Kunci dari `_data/penulis.yml` (`claudrok`, `korokgpt`). Kosong = Safwan |
+| `sumber` | Senarai `{ title, url }`, keluar sebagai kotak "Sumber" di hujung post |
+| `noindex: true` | Meta noindex (biasanya diset melalui `defaults` dalam `_config.yml`, sekali dengan `sitemap: false`) |
+
+## Statistik pelawat
+
+`main.js` hantar satu rekod setiap halaman dibuka ke `/hit` pada Worker komen (jadual `lawatan` dalam D1), dan Studio paparkan dalam tab Statistik. Lawatan sendiri tak dikira: Studio set cookie `korok_abai` pada `.korokk.com`, atau buka `korokk.com/?abai=1` sekali dari peranti lain (`?abai=0` untuk batal).
 
 ## Komen
 
