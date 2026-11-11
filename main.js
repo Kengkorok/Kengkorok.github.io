@@ -1,3 +1,46 @@
+// Suis tema cerah/gelap. Tema awal dah diset dalam <head> (localStorage atau tetapan peranti)
+{
+  const root = document.documentElement;
+  const suis = document.querySelector('.tema');
+  const simpan = (t) => { try { localStorage.setItem('tema', t); } catch {} };
+  const pasang = (t) => {
+    root.dataset.theme = t;
+    suis?.setAttribute('aria-checked', String(t === 'dark'));
+  };
+  pasang(root.dataset.theme === 'dark' ? 'dark' : 'light');
+
+  suis?.addEventListener('click', () => {
+    const baru = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    simpan(baru);
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return pasang(baru);
+    if (!document.startViewTransition) {
+      // Pelayar tanpa View Transitions: pudarkan warna sahaja
+      root.classList.add('tema-pudar');
+      pasang(baru);
+      setTimeout(() => root.classList.remove('tema-pudar'), 400);
+      return;
+    }
+    // Tema baru terbuka sebagai bulatan dari suis
+    const b = suis.getBoundingClientRect();
+    const x = b.left + b.width / 2, y = b.top + b.height / 2;
+    const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    root.classList.add('tema-vt');
+    const vt = document.startViewTransition(() => pasang(baru));
+    vt.ready.then(() => root.animate(
+      { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] },
+      { duration: 550, easing: 'cubic-bezier(.2, .7, .2, 1)', pseudoElement: '::view-transition-new(root)' },
+    )).catch(() => {});
+    vt.finished.finally(() => root.classList.remove('tema-vt'));
+  });
+
+  // Ikut tetapan peranti selagi pembaca belum pilih sendiri
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    let pilih = null;
+    try { pilih = localStorage.getItem('tema'); } catch {}
+    if (!pilih) pasang(e.matches ? 'dark' : 'light');
+  });
+}
+
 // Waktu Kuala Lumpur di footer
 const klTime = document.getElementById('kl-time');
 const fmt = new Intl.DateTimeFormat('ms-MY', { timeZone: 'Asia/Kuala_Lumpur', hour: '2-digit', minute: '2-digit', hour12: false });
@@ -122,17 +165,18 @@ if (!reduceMotion && cards.length > 1) {
   update();
 }
 
-// Kursor bulat atas kad kerjaya (tetikus sahaja)
+// Kursor ikon korokk berpusing di seluruh bahagian Kerjaya (tetikus sahaja)
 const cursor = document.querySelector('.cursor');
-if (cursor && matchMedia('(pointer: fine)').matches && !reduceMotion) {
-  addEventListener('pointermove', (e) => {
+const career = document.querySelector('.career');
+if (cursor && career && matchMedia('(pointer: fine)').matches && !reduceMotion) {
+  const ikut = (e) => {
     cursor.style.left = `${e.clientX}px`;
     cursor.style.top = `${e.clientY}px`;
-  }, { passive: true });
-  cards.forEach((card) => {
-    card.addEventListener('pointerenter', () => cursor.classList.add('is-on'));
-    card.addEventListener('pointerleave', () => cursor.classList.remove('is-on'));
-  });
+  };
+  addEventListener('pointermove', ikut, { passive: true });
+  career.classList.add('ada-kursor');
+  career.addEventListener('pointerenter', (e) => { ikut(e); cursor.classList.add('is-on'); });
+  career.addEventListener('pointerleave', () => cursor.classList.remove('is-on'));
 }
 
 // Statistik: hantar satu rekod setiap halaman dibuka ke Worker komen.

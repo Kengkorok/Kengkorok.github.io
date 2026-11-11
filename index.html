@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script>document.documentElement.classList.add('js');</script>
+  <script>(function(r){r.classList.add('js');var t;try{t=localStorage.getItem('tema')}catch(e){}r.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})(document.documentElement);</script>
   <title>Mohd Safwan Abd Rahman | Siang Bilal, malam coding</title>
   <meta name="description" content="Portfolio Mohd Safwan Abd Rahman (Korok): Bilal Gred S1 di Masjid Talhah Bin Ubaidillah yang membina website masjid, penjana jadual kuliah dan PoGo Wave Radar.">
   <link rel="canonical" href="https://korokk.com/">
@@ -20,7 +20,8 @@
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="ms_MY">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="theme-color" content="#F1EBE0">
+  <meta name="theme-color" content="#F1EBE0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#17120F" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -39,7 +40,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Host+Grotesk:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
   <header class="nav wrap">
@@ -49,7 +50,10 @@
     </div>
     <p class="nav__meta mono">Bilal<br>Kuala Lumpur, GMT+8</p>
     <p class="nav__status mono"><span class="dot" aria-hidden="true"></span>Sedang membangunkan:<br>Website Masjid Talhah</p>
-    <a class="nav__blog mono" href="blog/">Blog</a>
+    <div class="nav__aksi">
+      <a class="nav__blog mono" href="blog/">Blog</a>
+      <button type="button" class="tema" role="switch" aria-checked="false" aria-label="Mod gelap" title="Tukar tema"><span class="tema__tombol"><svg class="tema__matahari" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg><svg class="tema__bulan" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span></button>
+    </div>
     <a class="btn btn--ink nav__cta" href="#lab">Tengok projek <span class="arw">↓</span></a>
   </header>
 
@@ -278,7 +282,7 @@
     <span>Kuala Lumpur, <time id="kl-time">--:--</time></span>
   </footer>
 
-  <div class="cursor mono" aria-hidden="true">Kerjaya<br>saya</div>
-  <script src="main.js?v=2" defer></script>
+  <div class="cursor" aria-hidden="true"><svg viewBox="0 0 512 512"><rect class="cursor__kotak" width="512" height="512" rx="112"/><path class="cursor__simbol" transform="translate(87.04 87.04) scale(1.32)" fill-rule="evenodd" d="M44 244 V124 A104 104 0 0 1 128 21.94 A104 104 0 0 1 212 124 V244 Z M64 128 L104 128 L144 168 L104 208 L64 208 L104 168 Z M152 176 H192 V208 H152 Z"/></svg></div>
+  <script src="main.js?v=3" defer></script>
 </body>
 </html>
