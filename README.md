@@ -1,3 +1,10 @@
+<p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="brand/svg/korokk-mendatar-gelap.svg">
+    <img src="brand/svg/korokk-mendatar-cerah.svg" alt="korokk.com" width="240">
+  </picture>
+</p>
+
 # korokk.com
 
 Laman portfolio peribadi Mohd Safwan Abd Rahman (Korok): Bilal siang, builder malam.
@@ -17,6 +24,7 @@ Laman portfolio peribadi Mohd Safwan Abd Rahman (Korok): Bilal siang, builder ma
 - **Kerjaya**: Masjid Talhah, Masjid Abdul Rahman Bin Auf, DevOps dan Homelab
 - **[Blog](https://korokk.com/blog/)**: tulisan dengan tag, carian dan komen
 - **Hubungi**: GitHub, Threads, TikTok dan Ko-fi
+- **Mod gelap**: suis matahari/bulan di nav laman utama dan blog. Ikut tetapan peranti selagi pelawat belum pilih sendiri, dan pilihan diingat (`localStorage`)
 
 ## Teknologi
 
@@ -26,13 +34,14 @@ HTML, CSS dan JavaScript biasa, tiada framework. GitHub Pages jalankan Jekyll un
 | --- | --- |
 | `index.html` | Kandungan laman |
 | `styles.css` | Gaya dan susun atur (desktop, tablet, telefon) |
-| `main.js` | Slaid Lab, video lazy-load, kad bertindan dan animasi |
+| `main.js` | Suis tema, slaid Lab, video lazy-load, kad bertindan, kursor Kerjaya dan animasi |
 | `assets/lab/` | Video pratonton (`.mp4` + versi `-mobile`) dan poster |
 | `assets/career/` | Gambar untuk kad kerjaya |
 | `pallet-office/` | Demo replay statik [Pallet Office](https://github.com/Kengkorok/pallet-office) |
 | `_posts/` | Tulisan blog (`.md` atau `.html`) |
 | `_layouts/`, `_includes/` | Templat Jekyll untuk blog |
 | `blog/`, `blog.css`, `blog.js` | Senarai tulisan, carian, tag dan komen |
+| `brand/` | Logo, ikon dan [panduan jenama](https://korokk.com/brand/panduan.html) |
 | `workers/komen/` | Cloudflare Worker untuk komen tanpa akaun ([panduan](workers/komen/README.md)) |
 
 ## Jalankan secara local
@@ -73,6 +82,21 @@ Setiap post ada dua tab:
    ```
 2. Salin satu `<li class="lab__slide">` dalam `index.html`, tukar video, teks dan pautan.
 3. Kemas kini kaunter `01 / 05` dalam `.lab__count`.
+
+## Jenama
+
+Warna utama: terakota `#9E4A2F`, krim `#F1EBE0`, dakwat `#2B211A`.
+
+| | Mod cerah | Mod gelap |
+| --- | --- | --- |
+| Logo nav | [`korokk-mendatar-cerah.svg`](brand/svg/korokk-mendatar-cerah.svg): kotak terakota, simbol krim, tulisan dakwat | [`korokk-mendatar-gelap.svg`](brand/svg/korokk-mendatar-gelap.svg): kotak krim, simbol terakota, tulisan krim |
+| Ikon app | [`ikon-app.svg`](brand/web/ikon-app.svg), [`korokk-ikon-app-1024.png`](brand/png/korokk-ikon-app-1024.png) | Warna sama dengan logo gelap (dipakai pada kursor Kerjaya) |
+
+<p>
+  <img src="brand/png/korokk-ikon-app-1024.png" alt="Ikon app korokk" width="96">
+</p>
+
+Fail lain (warna, hitam, putih, terbalik, bertindan, wordmark) ada dalam [`brand/svg/`](brand/svg/) dan [`brand/png/`](brand/png/). Favicon dan manifest dalam [`brand/web/`](brand/web/).
 
 ## Kredit
 
