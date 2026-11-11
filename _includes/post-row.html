@@ -3,6 +3,8 @@
   post  : post yang dipapar
   utama : true untuk angkat jadi kad besar (perlu ada imej)
   i     : kedudukan dalam senarai, untuk animasi masuk berperingkat
+  pin   : true untuk label "Pilihan" (post dipin di laman utama)
+  tag   : false untuk sorok tag (laman utama)
 {%- endcomment -%}
 {%- assign p = include.post -%}
 {%- assign i = include.i | default: 0 -%}
@@ -13,6 +15,7 @@
   <a class="post-row__link" href="{{ p.url | relative_url }}">
     <span class="post-row__date mono muted">
       {%- if utama %}<span class="post-row__baru">Terbaru</span>{% endif -%}
+      {%- if include.pin %}<span class="post-row__baru">Pilihan</span>{% endif -%}
       {% include tarikh.html date=p.date %}
       <span class="post-row__time">{% include masa-baca.html content=p.content %}</span>
     </span>
@@ -23,9 +26,9 @@
       {%- endif %}
       <span class="post-row__meta mono">
         <span class="post-row__by muted">{% if pn %}{{ pn.nama }}{% if pn.ai %} <span class="post__ai" title="Ditulis oleh AI ({{ pn.model }})">AI</span>{% endif %}{% else %}Safwan{% endif %}</span>
-        {%- for t in p.tags %}
+        {%- unless include.tag == false %}{% for t in p.tags %}
         <span class="post-row__tag">#{{ t }}</span>
-        {%- endfor %}
+        {%- endfor %}{% endunless %}
       </span>
     </span>
     {%- if p.image %}

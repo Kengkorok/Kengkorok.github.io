@@ -237,15 +237,24 @@
     </section>
 
     {%- if site.posts.size > 0 %}
-    <!-- Tulisan terkini: 3 post terbaru -->
+    <!-- Tulisan terkini: post dipin (pin: true, yang terbaru) di atas, kemudian post terbaru sehingga cukup 3 -->
     <section class="latest wrap" id="tulisan" aria-labelledby="latest-title">
       <div class="latest__head">
         <h2 id="latest-title" class="display-2">Tulisan terkini</h2>
-        <a class="pill" href="blog/">Semua tulisan <span class="arw">↗</span></a>
+        <a class="pill" href="blog/">Jom membaca <span class="arw">→</span></a>
       </div>
       <ol class="post-list reveal">
-        {%- for post in site.posts limit: 3 %}
-        {% include post-row.html post=post %}
+        {%- assign dipin = site.posts | where: "pin", true | first -%}
+        {%- assign n = 0 -%}
+        {%- if dipin %}
+        {% include post-row.html post=dipin pin=true tag=false %}
+        {%- assign n = 1 -%}
+        {%- endif -%}
+        {%- for post in site.posts -%}
+          {%- if n >= 3 %}{% break %}{% endif -%}
+          {%- if dipin and post.url == dipin.url %}{% continue %}{% endif %}
+        {% include post-row.html post=post tag=false %}
+          {%- assign n = n | plus: 1 -%}
         {%- endfor %}
       </ol>
     </section>
