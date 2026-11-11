@@ -12,7 +12,7 @@
 {%- assign imej = page.image | default: "/assets/og.png" | absolute_url -%}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>document.documentElement.classList.add('js');</script>
+<script>(function(r){r.classList.add('js');var t;try{t=localStorage.getItem('tema')}catch(e){}r.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})(document.documentElement);</script>
 <title>{{ tajuk }}</title>
 <meta name="description" content="{{ ringkas }}">
 <link rel="canonical" href="{{ page.url | absolute_url }}">
@@ -36,7 +36,8 @@
 {"@context":"https://schema.org","@type":"BlogPosting","headline":{{ page.title | jsonify }},"description":{{ ringkas | jsonify }},"image":{{ imej | jsonify }},"datePublished":"{{ page.date | date_to_xmlschema }}","dateModified":"{{ page.last_modified_at | default: page.date | date_to_xmlschema }}","inLanguage":"ms","author":{"@type":"Person","@id":"{{ '/#person' | absolute_url }}","name":"Mohd Safwan Abd Rahman","url":"{{ '/' | absolute_url }}"},"publisher":{"@id":"{{ '/#person' | absolute_url }}"},"isPartOf":{"@id":"{{ '/#website' | absolute_url }}"},{% assign penulis = site.data.penulis[page.author] %}{% if penulis %}"contributor":{"@type":"SoftwareApplication","name":{{ penulis.nama | jsonify }},"applicationCategory":{{ penulis.model | jsonify }}},{% endif %}"mainEntityOfPage":"{{ page.url | absolute_url }}"}
 </script>
 {%- endif %}
-<meta name="theme-color" content="#F1EBE0">
+<meta name="theme-color" content="#F1EBE0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17120F" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="48x48">
 <link rel="icon" href="{{ '/favicon.svg' | relative_url }}" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{{ '/apple-touch-icon.png' | relative_url }}">
@@ -46,4 +47,4 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Host+Grotesk:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,14,400..600;1,14,400..600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ '/styles.css?v=5' | relative_url }}">
-<link rel="stylesheet" href="{{ '/blog.css?v=10' | relative_url }}">
+<link rel="stylesheet" href="{{ '/blog.css?v=11' | relative_url }}">

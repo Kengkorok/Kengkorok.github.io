@@ -11,6 +11,62 @@
 .nav--blog { align-items: center; }
 .nav--blog .nav__name { display: block; width: fit-content; }
 .nav--blog .nav__name img { display: block; width: 132px; height: 40px; }
+.nav--blog .nav__links { align-items: center; }
+[data-theme="dark"] .logo--terang, :root:not([data-theme="dark"]) .logo--gelap { display: none !important; }
+
+/* Suis tema (gaya suis VitePress yang dipakai lucide.dev): matahari untuk cerah, bulan untuk gelap */
+.tema {
+  position: relative; flex: none; width: 40px; height: 22px; padding: 0; border-radius: 11px;
+  border: 1px solid var(--line); background: var(--card); cursor: pointer; transition: border-color .25s;
+}
+.tema:hover { border-color: var(--muted); }
+.tema:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tema__tombol {
+  position: absolute; top: 1px; left: 1px; width: 18px; height: 18px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--bg); color: var(--muted);
+  box-shadow: 0 1px 2px rgb(0 0 0 / .06), 0 1px 2px rgb(0 0 0 / .1); transition: transform .25s var(--ease), background-color .25s;
+}
+.tema svg { grid-area: 1 / 1; width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: opacity .25s; }
+.tema__bulan { opacity: 0; }
+[data-theme="dark"] .tema__tombol { transform: translateX(18px); color: var(--ink); }
+[data-theme="dark"] .tema__matahari { opacity: 0; }
+[data-theme="dark"] .tema__bulan { opacity: 1; }
+
+/* Peralihan tema: bulatan dari suis (View Transitions), atau pudar warna untuk pelayar lama */
+.tema-vt * { view-transition-name: none !important; }
+.tema-vt::view-transition-old(root), .tema-vt::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+.tema-pudar, .tema-pudar * { transition: background-color .35s ease, color .35s ease, border-color .35s ease !important; }
+
+/* Telefon kecil: muatkan logo, tagline, pautan dan suis dalam satu baris */
+@media (max-width: 380px) {
+  .nav--blog { column-gap: 10px; }
+  .nav--blog .nav__tag { font-size: 9px; }
+  .nav--blog .nav__links { gap: 10px; }
+  .nav--blog .nav__links a { font-size: 11px; }
+}
+
+/* ---------- Mod gelap: hangat, dengan sentuhan terminal ---------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #17120F; --ink: #EDE3D3; --muted: #A69684; --line: #3A3029;
+  --accent: #E58A62; --gold: #8FC7A0; --card: #241C17;
+  --fosfor: #9CCB98;
+}
+[data-theme="dark"] ::selection { background: #3E5A3C; color: #F3EADC; }
+[data-theme="dark"] .mono.muted, [data-theme="dark"] .post-row__date { color: color-mix(in srgb, var(--fosfor) 72%, var(--muted)); }
+[data-theme="dark"] .nav__tag::after { content: "▍"; margin-left: 4px; color: var(--fosfor); animation: kelip 1.1s steps(1) infinite; }
+@keyframes kelip { 50% { opacity: 0; } }
+[data-theme="dark"] .prose :not(pre) > code { background: rgb(237 227 211 / .09); }
+[data-theme="dark"] .prose pre { position: relative; padding-top: 42px; background: #0E0B09; color: #D8CFC2; border: 1px solid var(--line); }
+[data-theme="dark"] .prose pre::before { content: "● ● ●"; position: absolute; top: 13px; left: 20px; font-size: 9px; letter-spacing: 3px; color: #5A4B40; }
+[data-theme="dark"] .komen__field input, [data-theme="dark"] .komen__field textarea { background: #1F1813; }
+[data-theme="dark"] .komen__field input:focus, [data-theme="dark"] .komen__field textarea:focus { background: #261D18; }
+[data-theme="dark"] .komen__status.is-err { color: #F2A097; }
+[data-theme="dark"] .post-row__thumb, [data-theme="dark"] .prose img, [data-theme="dark"] .post__cover img { filter: brightness(.94); }
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="dark"] .nav__tag::after { animation: none; }
+  .tema__tombol, .tema svg { transition: none; }
+}
 .nav--blog .nav__tag { margin-top: 6px; }
 .blog__rss { display: inline-flex; vertical-align: -3px; margin-left: 2px; color: var(--accent); }
 .blog__rss svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
@@ -308,7 +364,8 @@ html:has(.zum[open]) { overflow: hidden; }
   .post__lain-tajuk { font-size: 28px; margin-bottom: 16px; }
   .post__lain .post-row__title { font-size: 19px; }
   .nav--blog .nav__name img { width: 100px; height: 30px; }
-  .nav--blog .nav__tag { margin-top: 4px; }
+  .nav--blog .nav__tag { margin-top: 4px; white-space: nowrap; }
+  .nav--blog .nav__links { gap: 12px; }
   .komen { margin-top: 64px; }
   .komen__title { font-size: 28px; }
 }
