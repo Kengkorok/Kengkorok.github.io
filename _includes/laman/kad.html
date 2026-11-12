@@ -1,0 +1,63 @@
+{%- comment -%} Satu kad bertindan. Param: k (kad dari _data/laman.yml), i (indeks dalam seksyen) {%- endcomment -%}
+{%- assign k = include.k -%}
+{%- assign v = k.visual -%}
+{%- assign jenis = v.jenis | default: 'tiada' -%}
+          <li class="card card--{{ k.warna | default: 'cream' }}{% if jenis == 'tiada' %} card--tanpa-visual{% endif %}" style="--i:{{ include.i }}">
+            <div class="card__body">
+              <p class="card__kicker mono">{% if k.live %}<span class="live-dot" aria-hidden="true"></span>&nbsp; {% endif %}{{ k.kicker | escape }}</p>
+              <h3 class="card__title">{{ k.tajuk | escape }}</h3>
+              {%- if k.peranan and k.peranan != "" %}
+              <p class="card__role">{{ k.peranan | escape }}</p>
+              {%- endif %}
+              {%- if k.huraian and k.huraian != "" %}
+              <p class="card__desc">{{ k.huraian | escape }}</p>
+              {%- endif %}
+              {%- if k.chips.size > 0 %}
+              <ul class="card__chips mono">{% for c in k.chips %}<li>{{ c | escape }}</li>{% endfor %}</ul>
+              {%- endif %}
+            </div>
+            {%- if jenis == 'gambar' %}
+            <div class="card__visual comp" aria-hidden="true">
+              {%- for g in v.gambar limit: 2 %}
+              <img src="{{ g.src | escape }}" width="{{ g.w }}" height="{{ g.h }}" alt="" loading="lazy">
+              {%- endfor %}
+            </div>
+            {%- elsif jenis == 'nombor' %}
+            <div class="card__visual card__visual--type" aria-hidden="true">
+              <p class="card__years">{{ v.nombor | escape }}{% if v.unit and v.unit != "" %}<small>{{ v.unit | escape }}</small>{% endif %}</p>
+            </div>
+            {%- elsif jenis == 'terminal' %}
+            <div class="card__visual" aria-hidden="true">
+              <div class="term">
+                <div class="term__bar"><i></i><i></i><i></i></div>
+                {%- for b in v.baris %}
+                {%- assign n = forloop.index0 %}
+                {%- case b.jenis %}
+                {%- when 'cmd' %}
+                <p class="cmd" style="--n:{{ n }}">{{ b.teks | escape }}</p>
+                {%- when 'dim' %}
+                <p class="dim" style="--n:{{ n }}">{{ b.teks | escape }}</p>
+                {%- when 'ok' %}
+                <p style="--n:{{ n }}"><span class="ok">✓</span> {{ b.teks | escape }}{% if b.nota and b.nota != "" %} <span class="dim">· {{ b.nota | escape }}</span>{% endif %}</p>
+                {%- when 'run' %}
+                <p style="--n:{{ n }}"><span class="run">●</span> {{ b.teks | escape }}{% if b.nota and b.nota != "" %} <span class="dim">· {{ b.nota | escape }}</span>{% endif %}</p>
+                {%- when 'selesai' %}
+                <p class="ok" style="--n:{{ n }}">{{ b.teks | escape }}</p>
+                {%- else %}
+                <p style="--n:{{ n }}">{{ b.teks | escape }}</p>
+                {%- endcase %}
+                {%- endfor %}
+                <p style="--n:{{ v.baris.size }}"><span class="cmd"></span><span class="cursor-blink"></span></p>
+              </div>
+            </div>
+            {%- elsif jenis == 'papan' %}
+            <div class="card__visual" aria-hidden="true">
+              <div class="dash">
+                <div class="dash__head"><strong>{{ v.tajuk | escape }}</strong><span class="mono muted">{{ v.status | escape }}</span></div>
+                {%- for t in v.tile %}
+                <div class="tile"><b>{{ t.nama | escape }}</b><span><i class="live-dot"></i>{{ t.label | escape }}</span></div>
+                {%- endfor %}
+              </div>
+            </div>
+            {%- endif %}
+          </li>

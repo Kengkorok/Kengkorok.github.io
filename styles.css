@@ -569,3 +569,11 @@ ol, ul { padding: 0; list-style: none; }
 @media (max-width: 340px) {
   .nav__name:has(img) + .nav__tag { white-space: normal; }
 }
+
+/* Kad dari Studio: satu gambar sahaja, atau tanpa visual */
+.comp img:only-child { left: 6%; top: 56px; width: 680px; }
+.card--tanpa-visual { grid-template-columns: 1fr; }
+.card--tanpa-visual .card__desc { max-width: 560px; }
+/* Tajuk seksyen dengan perkataan panjang (contoh "Pembelajaran") muat dalam lajur 300px */
+.display-2--panjang { font-size: 44px; overflow-wrap: break-word; }
+@media (max-width: 560px) { .display-2--panjang { font-size: 32px; } }

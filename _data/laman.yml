@@ -1,0 +1,189 @@
+# Isi laman utama (index.html). Disunting melalui tab "Laman" dalam Studio.
+# Teks biasa sahaja; baris baru dalam teks berbilang baris jadi <br>.
+
+meta:
+  title: "Mohd Safwan Abd Rahman | Siang Bilal, malam coding"
+  description: "Portfolio Mohd Safwan Abd Rahman (Korok): Bilal Gred S1 di Masjid Talhah Bin Ubaidillah yang membina website masjid, penjana jadual kuliah dan PoGo Wave Radar."
+  og_title: "Mohd Safwan Abd Rahman | Bilal siang, builder malam"
+  og_description: "Website masjid, penjana jadual kuliah, PoGo Wave Radar dan homelab sendiri."
+
+nav:
+  tag: "Siang Bilal, Malam Coding"
+  meta: "Bilal\nKuala Lumpur, GMT+8"
+  blog: "Blog"
+  cta: { teks: "Tengok projek", link: "#lab", arw: "↓" }
+
+# Keluar di bar atas dan di hero. Kosongkan `teks` untuk sorok.
+status:
+  label: "Sedang membangunkan"
+  teks: "Website Masjid Talhah"
+
+hero:
+  tajuk_1: "Siang bilal,"
+  tajuk_2: "malam coding"
+  lede: "Pembantu Pegawai Hal Ehwal Islam · Majlis Agama Islam Wilayah Persekutuan, Kuala Lumpur."
+
+lab:
+  label: "Lab:"
+  tajuk: "Apa yang saya bina"
+  projek:
+    - nama: "Laman Rasmi Masjid Talhah"
+      ringkasan: "Laman rasmi masjid: waktu solat, pengurusan kempen, jadual kuliah bulanan, galeri dan sumbangan. Next.js, Sanity dan Supabase."
+      warna: mint
+      link: ""
+      badge: "Preview · dalam proses"
+      segera: "Akan dilancarkan"
+      media:
+        jenis: video
+        bar: "masjid talhah · preview"
+        video: "assets/lab/masjid.mp4"
+        video_phone: "assets/lab/masjid-mobile.mp4"
+        poster: "assets/lab/masjid-poster.jpg"
+        alt: "Website Masjid Talhah: halaman utama dengan waktu solat, kuliah terdekat dan ruang sumbangan, kemudian jadual kuliah bulanan"
+      links: []
+    - nama: "Pallet Office"
+      ringkasan: "Pejabat pixel di mana setiap sesi Claude Code jadi Pokémon: kerja di meja, subagent lain membantu, dan lari ke Pokémon Center bila arahan saya seterusnya diperlukan."
+      warna: lilac
+      link: "pallet-office/"
+      media:
+        jenis: video
+        bar: "korokk.com/pallet-office"
+        video: "assets/lab/pallet-office.mp4"
+        video_phone: "assets/lab/pallet-office-mobile.mp4"
+        poster: "assets/lab/pallet-office-poster.jpg"
+        alt: "Pallet Office: Pokémon untuk setiap session Claude Code bekerja di meja, memanggil helper, dan pergi ke Pusat Pokémon bila perlukan kebenaran"
+      links:
+        - { teks: "Tengok", url: "pallet-office/" }
+        - { teks: "Kod", url: "https://github.com/Kengkorok/pallet-office" }
+    - nama: "PoGo Wave Radar"
+      ringkasan: "Jejak Event Pokémon GO seluruh dunia agak tidak terlepas, khusus untuk para spoofer, event bergerak macam ombak ikut zon waktu. Pilih bandar, salin koordinat, kejar event. Data dikemas kini automatik setiap 30 minit."
+      warna: sky
+      link: "/pogo-wave-radar/"
+      media:
+        jenis: video
+        bar: "korokk.com/pogo-wave-radar"
+        video: "assets/lab/pogo.mp4"
+        video_phone: "assets/lab/pogo-mobile.mp4"
+        poster: "assets/lab/pogo-poster.jpg"
+        alt: "PoGo Wave Radar: senarai event yang sedang live, Wave Tracker mengikut bandar, dan semua event"
+      links:
+        - { teks: "Buka", url: "/pogo-wave-radar/" }
+    - nama: "Penjana Jadual Kuliah Bulanan"
+      ringkasan: "Ganti PSD 264 layer dengan satu fail HTML. Tetapkan aturan kuliah berulang, klik petak untuk edit, eksport poster A3 300 dpi."
+      warna: butter
+      link: "https://masjidtalhah-kl.github.io/JadualKuliahBulanan/"
+      media:
+        jenis: video
+        bar: "jadual-kuliah-generator.html"
+        video: "assets/lab/jadual.mp4"
+        video_phone: "assets/lab/jadual-mobile.mp4"
+        poster: "assets/lab/jadual-poster.jpg"
+        alt: "Jadual Kuliah Generator: memuatkan contoh, poster bulanan terjana, kemudian menyunting satu tarikh"
+      links:
+        - { teks: "Cuba", url: "https://masjidtalhah-kl.github.io/JadualKuliahBulanan/" }
+        - { teks: "Kod", url: "https://github.com/Kengkorok/jadual-kuliah-generator" }
+    - nama: "Servis Tracker"
+      ringkasan: "PWA jejak servis kenderaan ikut mileage: minyak enjin, coolant, cukai jalan dan lesen."
+      warna: rose
+      link: "/Auto-Services-Tracker/"
+      media:
+        jenis: phone
+        gambar:
+          - { src: "assets/lab/tracker-dashboard.jpg", alt: "Servis Tracker: senarai kenderaan dengan status Overdue, Due Soon dan Belum Log" }
+          - { src: "assets/lab/tracker-vehicle-detail.jpg", alt: "Servis Tracker: jadual servis Proton Persona" }
+          - { src: "assets/lab/tracker-log-service.jpg", alt: "Servis Tracker: borang log servis minyak enjin" }
+      links:
+        - { teks: "Buka", url: "/Auto-Services-Tracker/" }
+
+# **tebal** jadi huruf tebal
+peralatan: "Peralatan harian: **Linux**, **Docker** dan **CasaOS** di server rumah, **Next.js** dan **JavaScript** biasa untuk web, **Python** untuk kerja remeh dan **Claude Code, Codex ChatGPT** dan **Hermes** sebagai rakan kerja yang setia."
+
+# Seksyen kad bertindan, ikut turutan. Visual kad: tiada, gambar, nombor, terminal atau papan.
+seksyen_kad:
+  - id: kerjaya
+    tajuk: "Kerjaya"
+    nota: "2019 – 2026\n7 tahun dengan MAIWP"
+    kad:
+      - kicker: "Dis 2024 – Kini · Bukit Jalil"
+        live: true
+        tajuk: "Masjid Talhah"
+        peranan: "Jawatankuasa Penerangan, ICT dan Multimedia "
+        huraian: "Menyelia tugasan bilal, membantu pentadbiran masjid, menyediakan laporan aktiviti dan program, mengurus media sosial dan mendesain jadual kuliah bulanan."
+        chips: ["ICT & Multimedia", "Jadual kuliah", "Laman masjid"]
+        warna: green
+        visual:
+          jenis: gambar
+          gambar:
+            - { src: "assets/career/jadual-talhah.jpg", w: 991, h: 702 }
+            - { src: "assets/lab/masjid-home.jpg", w: 1280, h: 720 }
+      - kicker: "Jul 2019 – Dis 2024 · Jalan Puchong"
+        live: false
+        tajuk: "Masjid Abdul Rahman Bin Auf"
+        peranan: "Jawatankuasa Belia dan Sukan"
+        huraian: "Penempatan masjid pertama. Merekod dan mengurus dokumentasi pentadbiran masjid, mengurus media sosial dan mendesain poster program."
+        chips: []
+        warna: cream
+        visual:
+          jenis: nombor
+          nombor: "5½"
+          unit: "tahun"
+      - kicker: "2026 · Infratify DevOps Bootcamp - Cohort 2"
+        live: false
+        tajuk: "DevOps"
+        peranan: "Linux, Git, Docker dan CI/CD"
+        huraian: "Menambah kemahiran : asas Linux, GitHub, Docker, DNS Cloudflare, AWS, CI/CD, Terraform, Ansible dan banyak lagi. Hasil sampingan: Ship It: Mission Control, papan CI/CD live untuk kelas, dan Ship Dashboard."
+        chips: ["GitHub Actions", "Docker", "Nginx"]
+        warna: ink
+        visual:
+          jenis: terminal
+          baris:
+            - { jenis: cmd, teks: "git push origin main" }
+            - { jenis: dim, teks: "→ workflow: ship-it.yml" }
+            - { jenis: ok, teks: "lint", nota: "4s" }
+            - { jenis: ok, teks: "test", nota: "21 lulus" }
+            - { jenis: ok, teks: "docker build", nota: "38s" }
+            - { jenis: run, teks: "deploy", nota: "staging" }
+            - { jenis: ok, teks: "healthcheck", nota: "200 OK" }
+            - { jenis: selesai, teks: "Shipped. Alhamdulillah 🚀" }
+      - kicker: "Hobi · Home Server"
+        live: false
+        tajuk: "Homelab"
+        peranan: "CasaOS, Docker, Tailscale, Cloudflare Tunnel"
+        huraian: "Bereksperimen dengan hos media, backup gambar, automasi, password manager dan preview website masjid."
+        chips: ["RTX 5070 Ti", "20+ container", "Self-hosted"]
+        warna: sky
+        visual:
+          jenis: papan
+          tajuk: "korok@homelab"
+          status: "semua sihat"
+          tile:
+            - { nama: "Jellyfin", label: "filem" }
+            - { nama: "Navidrome", label: "muzik" }
+            - { nama: "Immich", label: "gambar" }
+            - { nama: "n8n", label: "automasi" }
+            - { nama: "Actual", label: "bajet" }
+            - { nama: "BookStack", label: "wiki" }
+            - { nama: "Uptime Kuma", label: "monitor" }
+            - { nama: "Portainer", label: "docker" }
+            - { nama: "VaultWarden", label: "password" }
+    milestone:
+      - { tarikh: "Ogos 2016", tajuk: "Graduasi UniSZA", huraian: "Ijazah Sarjana Muda Pengajian Islam" }
+      - { tarikh: "24 Jun 2019", tajuk: "Terima tawaran MAIWP", huraian: "Bahagian Pembangunan Sumber Manusia" }
+
+tulisan:
+  tajuk: "Tulisan terkini"
+  butang: "Jom membaca"
+
+hubungi:
+  pre: "Nak sembang pasal masjid, homelab atau Pokémon?"
+  cta: { teks: "Sembang\ndi Threads", link: "https://www.threads.com/@msafwanrahman", arw: "↗" }
+  # ikon: github, threads, tiktok, kofi, instagram, youtube, facebook, x, linkedin, whatsapp, telegram, email, link
+  sosial:
+    - { ikon: github, label: "GitHub", nota: "Kengkorok", url: "https://github.com/Kengkorok" }
+    - { ikon: threads, label: "Threads", nota: "@msafwanrahman", url: "https://www.threads.com/@msafwanrahman" }
+    - { ikon: tiktok, label: "TikTok", nota: "@kengkorokk", url: "https://www.tiktok.com/@kengkorokk" }
+    - { ikon: kofi, label: "Ko-fi", nota: "belanja kopi", url: "https://ko-fi.com/kengkorok" }
+
+footer:
+  - "© 2026 Mohd Safwan Abd Rahman"
+  - "Dibina dengan bantuan Claude"

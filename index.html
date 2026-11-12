@@ -1,20 +1,21 @@
 ---
-# Diproses Jekyll supaya "Tulisan terkini" dapat senarai post
+# Diproses Jekyll: isi dari _data/laman.yml (disunting dalam Studio, tab Laman)
 ---
+{%- assign l = site.data.laman -%}
 <!doctype html>
 <html lang="ms">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script>(function(r){r.classList.add('js');var t;try{t=localStorage.getItem('tema')}catch(e){}r.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})(document.documentElement);</script>
-  <title>Mohd Safwan Abd Rahman | Siang Bilal, malam coding</title>
-  <meta name="description" content="Portfolio Mohd Safwan Abd Rahman (Korok): Bilal Gred S1 di Masjid Talhah Bin Ubaidillah yang membina website masjid, penjana jadual kuliah dan PoGo Wave Radar.">
+  <title>{{ l.meta.title | escape }}</title>
+  <meta name="description" content="{{ l.meta.description | escape }}">
   <link rel="canonical" href="https://korokk.com/">
   <meta name="author" content="Mohd Safwan Abd Rahman">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://korokk.com/">
-  <meta property="og:title" content="Mohd Safwan Abd Rahman | Bilal siang, builder malam">
-  <meta property="og:description" content="Website masjid, penjana jadual kuliah, PoGo Wave Radar dan homelab sendiri.">
+  <meta property="og:title" content="{{ l.meta.og_title | escape }}">
+  <meta property="og:description" content="{{ l.meta.og_description | escape }}">
   <meta property="og:image" content="https://korokk.com/assets/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -33,215 +34,100 @@
      "jobTitle":"Bilal","description":"Bilal Gred S1 di Masjid Talhah Bin Ubaidillah, Kuala Lumpur, yang membina website masjid, penjana jadual kuliah dan PoGo Wave Radar.",
      "worksFor":{"@type":"Organization","name":"Majlis Agama Islam Wilayah Persekutuan","alternateName":"MAIWP","url":"https://www.maiwp.gov.my/"},
      "homeLocation":{"@type":"Place","name":"Kuala Lumpur, Malaysia"},
-     "sameAs":["https://github.com/Kengkorok","https://www.threads.com/@msafwanrahman","https://www.tiktok.com/@kengkorokk","https://ko-fi.com/kengkorok"]},
+     "sameAs":{{ l.hubungi.sosial | where_exp: "s", "s.url contains 'http'" | map: "url" | jsonify }}},
     {"@type":"WebSite","@id":"https://korokk.com/#website","url":"https://korokk.com/","name":"Mohd Safwan Abd Rahman","inLanguage":"ms","publisher":{"@id":"https://korokk.com/#person"}}
   ]}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Host+Grotesk:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
 </head>
 <body>
   <header class="nav wrap">
     <div>
       <a class="nav__name" href="./"><img class="logo--terang" src="brand/svg/korokk-mendatar-cerah.svg" alt="korokk.com" width="120" height="40"><img class="logo--gelap" src="brand/svg/korokk-mendatar-gelap.svg" alt="korokk.com" width="120" height="40"></a>
-      <p class="nav__tag mono muted">Siang Bilal, Malam Coding</p>
+      <p class="nav__tag mono muted">{{ l.nav.tag | escape }}</p>
     </div>
-    <p class="nav__meta mono">Bilal<br>Kuala Lumpur, GMT+8</p>
-    <p class="nav__status mono"><span class="dot" aria-hidden="true"></span>Sedang membangunkan:<br>Website Masjid Talhah</p>
+    <p class="nav__meta mono">{{ l.nav.meta | escape | newline_to_br }}</p>
+    {%- if l.status.teks and l.status.teks != "" %}
+    <p class="nav__status mono"><span class="dot" aria-hidden="true"></span>{{ l.status.label | escape }}:<br>{{ l.status.teks | escape }}</p>
+    {%- endif %}
     <div class="nav__aksi">
-      <a class="nav__blog mono" href="blog/">Blog</a>
+      <a class="nav__blog mono" href="blog/">{{ l.nav.blog | escape }}</a>
       <button type="button" class="tema" role="switch" aria-checked="false" aria-label="Mod gelap" title="Tukar tema"><span class="tema__tombol"><svg class="tema__matahari" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg><svg class="tema__bulan" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span></button>
     </div>
-    <a class="btn btn--ink nav__cta" href="#lab">Tengok projek <span class="arw">↓</span></a>
+    <a class="btn btn--ink nav__cta" href="{{ l.nav.cta.link | escape }}">{{ l.nav.cta.teks | escape }}{% if l.nav.cta.arw and l.nav.cta.arw != "" %} <span class="arw">{{ l.nav.cta.arw }}</span>{% endif %}</a>
   </header>
 
   <main>
     <section class="hero wrap">
-      <p class="hero__status mono"><span class="dot" aria-hidden="true"></span>Sedang membangunkan: Website Masjid Talhah</p>
-      <h1 class="hero__title">Siang bilal,<br><span class="soft">malam coding</span><span class="accent">.</span></h1>
-      <p class="hero__lede">Pembantu Pegawai Hal Ehwal Islam · Majlis Agama Islam Wilayah Persekutuan, Kuala Lumpur.</p>
+      {%- if l.status.teks and l.status.teks != "" %}
+      <p class="hero__status mono"><span class="dot" aria-hidden="true"></span>{{ l.status.label | escape }}: {{ l.status.teks | escape }}</p>
+      {%- endif %}
+      <h1 class="hero__title">{{ l.hero.tajuk_1 | escape }}<br><span class="soft">{{ l.hero.tajuk_2 | escape }}</span><span class="accent">.</span></h1>
+      <p class="hero__lede">{{ l.hero.lede | escape }}</p>
     </section>
 
     <!-- Lab: slaid projek mendatar -->
     <section class="lab wrap" id="lab" aria-labelledby="lab-title">
       <div class="lab__head">
-        <h2 id="lab-title" class="mono"><span class="accent">Lab:</span> Apa yang saya bina</h2>
+        <h2 id="lab-title" class="mono"><span class="accent">{{ l.lab.label | escape }}</span> {{ l.lab.tajuk | escape }}</h2>
         <div class="lab__nav">
-          <span class="mono muted lab__count" aria-live="polite">01 / 05</span>
+          <span class="mono muted lab__count" aria-live="polite">01 / {% if l.lab.projek.size < 10 %}0{% endif %}{{ l.lab.projek.size }}</span>
           <button class="lab__btn" type="button" data-dir="-1" aria-label="Projek sebelum">←</button>
           <button class="lab__btn" type="button" data-dir="1" aria-label="Projek seterusnya">→</button>
         </div>
       </div>
       <ol class="lab__track" tabindex="0" aria-label="Projek Lab, skrol mendatar">
-        <li class="lab__slide" style="--i:0">
-          <div class="lab__frame lab__frame--mint lab__frame--browser">
-            <span class="lab__badge mono"><span class="live-dot live-dot--gold" aria-hidden="true"></span>Preview · dalam proses</span>
-            <div class="browser">
-              <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span class="mono">masjid talhah · preview</span></div>
-              <video data-src="assets/lab/masjid.mp4" data-src-phone="assets/lab/masjid-mobile.mp4" poster="assets/lab/masjid-poster.jpg" width="1280" height="720" muted loop playsinline preload="none" aria-label="Website Masjid Talhah: halaman utama dengan waktu solat, kuliah terdekat dan ruang sumbangan, kemudian jadual kuliah bulanan"></video>
-            </div>
-          </div>
-          <div class="lab__caption">
-            <p><strong>Laman Rasmi Masjid Talhah</strong> <span class="muted">Laman rasmi masjid: waktu solat, pengurusan kempen, jadual kuliah bulanan, galeri dan sumbangan. Next.js, Sanity dan Supabase.</span></p>
-            <div class="lab__links"><span class="lab__soon mono">Akan dilancarkan</span></div>
-          </div>
-        </li>
-        <li class="lab__slide" style="--i:1">
-          <a class="lab__frame lab__frame--lilac lab__frame--browser" href="pallet-office/">
-            <div class="browser">
-              <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span class="mono">korokk.com/pallet-office</span></div>
-              <video data-src="assets/lab/pallet-office.mp4" data-src-phone="assets/lab/pallet-office-mobile.mp4" poster="assets/lab/pallet-office-poster.jpg" width="1280" height="720" muted loop playsinline preload="none" aria-label="Pallet Office: Pokémon untuk setiap session Claude Code bekerja di meja, memanggil helper, dan pergi ke Pusat Pokémon bila perlukan kebenaran"></video>
-            </div>
-          </a>
-          <div class="lab__caption">
-            <p><strong>Pallet Office</strong> <span class="muted">Pejabat pixel di mana setiap sesi Claude Code jadi Pokémon: kerja di meja, subagent lain membantu, dan lari ke Pokémon Center bila arahan saya seterusnya diperlukan.</span></p>
-            <div class="lab__links">
-              <a href="pallet-office/">Tengok <span class="arw">↗</span></a>
-              <a href="https://github.com/Kengkorok/pallet-office">Kod</a>
-            </div>
-          </div>
-        </li>
-        <li class="lab__slide" style="--i:2">
-          <a class="lab__frame lab__frame--sky lab__frame--browser" href="/pogo-wave-radar/">
-            <div class="browser">
-              <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span class="mono">korokk.com/pogo-wave-radar</span></div>
-              <video data-src="assets/lab/pogo.mp4" data-src-phone="assets/lab/pogo-mobile.mp4" poster="assets/lab/pogo-poster.jpg" width="1280" height="720" muted loop playsinline preload="none" aria-label="PoGo Wave Radar: senarai event yang sedang live, Wave Tracker mengikut bandar, dan semua event"></video>
-            </div>
-          </a>
-          <div class="lab__caption">
-            <p><strong>PoGo Wave Radar</strong> <span class="muted">Jejak Event Pokémon GO seluruh dunia agak tidak terlepas, khusus untuk para spoofer, event bergerak macam ombak ikut zon waktu. Pilih bandar, salin koordinat, kejar event. Data dikemas kini automatik setiap 30 minit.</span></p>
-            <div class="lab__links"><a href="/pogo-wave-radar/">Buka <span class="arw">↗</span></a></div>
-          </div>
-        </li>
-        <li class="lab__slide" style="--i:3">
-          <a class="lab__frame lab__frame--butter lab__frame--browser" href="https://masjidtalhah-kl.github.io/JadualKuliahBulanan/">
-            <div class="browser">
-              <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span class="mono">jadual-kuliah-generator.html</span></div>
-              <video data-src="assets/lab/jadual.mp4" data-src-phone="assets/lab/jadual-mobile.mp4" poster="assets/lab/jadual-poster.jpg" width="1280" height="720" muted loop playsinline preload="none" aria-label="Jadual Kuliah Generator: memuatkan contoh, poster bulanan terjana, kemudian menyunting satu tarikh"></video>
-            </div>
-          </a>
-          <div class="lab__caption">
-            <p><strong>Penjana Jadual Kuliah Bulanan</strong> <span class="muted">Ganti PSD 264 layer dengan satu fail HTML. Tetapkan aturan kuliah berulang, klik petak untuk edit, eksport poster A3 300 dpi.</span></p>
-            <div class="lab__links">
-              <a href="https://masjidtalhah-kl.github.io/JadualKuliahBulanan/">Cuba <span class="arw">↗</span></a>
-              <a href="https://github.com/Kengkorok/jadual-kuliah-generator">Kod</a>
-            </div>
-          </div>
-        </li>
-        <li class="lab__slide" style="--i:4">
-          <a class="lab__frame lab__frame--rose lab__frame--phones" href="/Auto-Services-Tracker/">
-            <span class="phone"><img src="assets/lab/tracker-dashboard.jpg" width="440" height="952" alt="Servis Tracker: senarai kenderaan dengan status Overdue, Due Soon dan Belum Log"></span>
-            <span class="phone"><img src="assets/lab/tracker-vehicle-detail.jpg" width="440" height="952" alt="Servis Tracker: jadual servis Proton Persona"></span>
-            <span class="phone"><img src="assets/lab/tracker-log-service.jpg" width="440" height="952" alt="Servis Tracker: borang log servis minyak enjin"></span>
-          </a>
-          <div class="lab__caption">
-            <p><strong>Servis Tracker</strong> <span class="muted">PWA jejak servis kenderaan ikut mileage: minyak enjin, coolant, cukai jalan dan lesen.</span></p>
-            <div class="lab__links"><a href="/Auto-Services-Tracker/">Buka <span class="arw">↗</span></a></div>
-          </div>
-        </li>
+        {%- for p in l.lab.projek %}
+{% include laman/projek.html p=p i=forloop.index0 %}
+        {%- endfor %}
       </ol>
     </section>
 
-    <p class="terms wrap reveal">Peralatan harian: <strong>Linux</strong>, <strong>Docker</strong> dan <strong>CasaOS</strong> di server rumah, <strong>Next.js</strong> dan <strong>JavaScript</strong> biasa untuk web, <strong>Python</strong> untuk kerja remeh dan <strong>Claude Code, Codex ChatGPT</strong> dan <strong>Hermes</strong> sebagai rakan kerja yang setia.</p>
+    {%- if l.peralatan and l.peralatan != "" %}
+    {%- assign bahagian = l.peralatan | escape | split: "**" %}
+    <p class="terms wrap reveal">{% for b in bahagian %}{% assign ganjil = forloop.index0 | modulo: 2 %}{% if ganjil == 1 %}<strong>{{ b }}</strong>{% else %}{{ b }}{% endif %}{% endfor %}</p>
+    {%- endif %}
 
-    <!-- Kerjaya: kad melekat yang bertindan -->
-    <section class="career wrap" id="kerjaya" aria-labelledby="career-title">
+    <!-- Seksyen kad bertindan (Kerjaya dan seksyen lain dari _data/laman.yml) -->
+    {%- for sk in l.seksyen_kad %}
+    <section class="career wrap" id="{{ sk.id | escape }}" aria-labelledby="{{ sk.id | escape }}-title">
       <div class="career__head">
-        <h2 id="career-title" class="display-2">Kerjaya</h2>
-        <p class="mono muted">2019 – 2026<br>7 tahun dengan MAIWP</p>
+        {%- assign panjang = false %}
+        {%- assign kata = sk.tajuk | split: " " %}
+        {%- for w in kata %}{% if w.size > 8 %}{% assign panjang = true %}{% endif %}{% endfor %}
+        <h2 id="{{ sk.id | escape }}-title" class="display-2{% if panjang %} display-2--panjang{% endif %}">{{ sk.tajuk | escape }}</h2>
+        {%- if sk.nota and sk.nota != "" %}
+        <p class="mono muted">{{ sk.nota | escape | newline_to_br }}</p>
+        {%- endif %}
       </div>
       <div>
         <ol class="stack">
-          <li class="card card--green" style="--i:0">
-            <div class="card__body">
-              <p class="card__kicker mono"><span class="live-dot" aria-hidden="true"></span>&nbsp; Dis 2024 – Kini · Bukit Jalil</p>
-              <h3 class="card__title">Masjid Talhah</h3>
-              <p class="card__role">Jawatankuasa Penerangan, ICT dan Multimedia </p>
-              <p class="card__desc">Menyelia tugasan bilal, membantu pentadbiran masjid, menyediakan laporan aktiviti dan program, mengurus media sosial dan mendesain jadual kuliah bulanan.</p>
-              <ul class="card__chips mono"><li>ICT & Multimedia</li><li>Jadual kuliah</li><li>Laman masjid</li></ul>
-            </div>
-            <div class="card__visual comp" aria-hidden="true">
-              <img src="assets/career/jadual-talhah.jpg" width="991" height="702" alt="" loading="lazy">
-              <img src="assets/lab/masjid-home.jpg" width="1280" height="720" alt="" loading="lazy">
-            </div>
-          </li>
-          <li class="card card--cream" style="--i:1">
-            <div class="card__body">
-              <p class="card__kicker mono">Jul 2019 – Dis 2024 · Jalan Puchong</p>
-              <h3 class="card__title">Masjid Abdul Rahman Bin Auf</h3>
-              <p class="card__role">Jawatankuasa Belia dan Sukan</p>
-              <p class="card__desc">Penempatan masjid pertama. Merekod dan mengurus dokumentasi pentadbiran masjid, mengurus media sosial dan mendesain poster program.</p>
-            </div>
-            <div class="card__visual card__visual--type" aria-hidden="true">
-              <p class="card__years">5½<small>tahun</small></p>
-            </div>
-          </li>
-          <li class="card card--ink" style="--i:2">
-            <div class="card__body">
-              <p class="card__kicker mono">2026 · Infratify DevOps Bootcamp - Cohort 2</p>
-              <h3 class="card__title">DevOps</h3>
-              <p class="card__role">Linux, Git, Docker dan CI/CD</p>
-              <p class="card__desc">Menambah kemahiran : asas Linux, GitHub, Docker, DNS Cloudflare, AWS, CI/CD, Terraform, Ansible dan banyak lagi. Hasil sampingan: Ship It: Mission Control, papan CI/CD live untuk kelas, dan Ship Dashboard.</p>
-              <ul class="card__chips mono"><li>GitHub Actions</li><li>Docker</li><li>Nginx</li></ul>
-            </div>
-            <div class="card__visual" aria-hidden="true">
-              <div class="term">
-                <div class="term__bar"><i></i><i></i><i></i></div>
-                <p class="cmd" style="--n:0">git push origin main</p>
-                <p class="dim" style="--n:1">→ workflow: ship-it.yml</p>
-                <p style="--n:2"><span class="ok">✓</span> lint <span class="dim">· 4s</span></p>
-                <p style="--n:3"><span class="ok">✓</span> test <span class="dim">· 21 lulus</span></p>
-                <p style="--n:4"><span class="ok">✓</span> docker build <span class="dim">· 38s</span></p>
-                <p style="--n:5"><span class="run">●</span> deploy <span class="dim">· staging</span></p>
-                <p style="--n:6"><span class="ok">✓</span> healthcheck <span class="dim">· 200 OK</span></p>
-                <p class="ok" style="--n:7">Shipped. Alhamdulillah 🚀</p>
-                <p style="--n:8"><span class="cmd"></span><span class="cursor-blink"></span></p>
-              </div>
-            </div>
-          </li>
-          <li class="card card--sky" style="--i:3">
-            <div class="card__body">
-              <p class="card__kicker mono">Hobi · Home Server</p>
-              <h3 class="card__title">Homelab</h3>
-              <p class="card__role">CasaOS, Docker, Tailscale, Cloudflare Tunnel</p>
-              <p class="card__desc">Bereksperimen dengan hos media, backup gambar, automasi, password manager dan preview website masjid.</p>
-              <ul class="card__chips mono"><li>RTX 5070 Ti</li><li>20+ container</li><li>Self-hosted</li></ul>
-            </div>
-            <div class="card__visual" aria-hidden="true">
-              <div class="dash">
-                <div class="dash__head"><strong>korok@homelab</strong><span class="mono muted">semua sihat</span></div>
-                <div class="tile"><b>Jellyfin</b><span><i class="live-dot"></i>filem</span></div>
-                <div class="tile"><b>Navidrome</b><span><i class="live-dot"></i>muzik</span></div>
-                <div class="tile"><b>Immich</b><span><i class="live-dot"></i>gambar</span></div>
-                <div class="tile"><b>n8n</b><span><i class="live-dot"></i>automasi</span></div>
-                <div class="tile"><b>Actual</b><span><i class="live-dot"></i>bajet</span></div>
-                <div class="tile"><b>BookStack</b><span><i class="live-dot"></i>wiki</span></div>
-                <div class="tile"><b>Uptime Kuma</b><span><i class="live-dot"></i>monitor</span></div>
-                <div class="tile"><b>Portainer</b><span><i class="live-dot"></i>docker</span></div>
-                <div class="tile"><b>VaultWarden</b><span><i class="live-dot"></i>password</span></div>
-              </div>
-            </div>
-          </li>
+          {%- for k in sk.kad %}
+{% include laman/kad.html k=k i=forloop.index0 %}
+          {%- endfor %}
         </ol>
+        {%- if sk.milestone.size > 0 %}
         <div class="role-mini reveal">
-          <span class="mono muted">Ogos 2016</span>
-          <span class="role-mini__title">Graduasi UniSZA</span>
-          <span class="role-mini__desc">Ijazah Sarjana Muda Pengajian Islam</span>
-          <span class="mono muted">24 Jun 2019</span>
-          <span class="role-mini__title">Terima tawaran MAIWP</span>
-          <span class="role-mini__desc">Bahagian Pembangunan Sumber Manusia</span>
+          {%- for m in sk.milestone %}
+          <span class="mono muted">{{ m.tarikh | escape }}</span>
+          <span class="role-mini__title">{{ m.tajuk | escape }}</span>
+          <span class="role-mini__desc">{{ m.huraian | escape }}</span>
+          {%- endfor %}
         </div>
+        {%- endif %}
       </div>
     </section>
+    {%- endfor %}
 
     {%- if site.posts.size > 0 %}
     <!-- Tulisan terkini: post dipin (pin: true, yang terbaru) di atas, kemudian post terbaru sehingga cukup 3 -->
     <section class="latest wrap" id="tulisan" aria-labelledby="latest-title">
       <div class="latest__head">
-        <h2 id="latest-title" class="display-2">Tulisan terkini</h2>
-        <a class="pill" href="blog/">Jom membaca <span class="arw">→</span></a>
+        <h2 id="latest-title" class="display-2">{{ l.tulisan.tajuk | escape }}</h2>
+        <a class="pill" href="blog/">{{ l.tulisan.butang | escape }} <span class="arw">→</span></a>
       </div>
       <ol class="post-list reveal">
         {%- assign dipin = site.posts | where: "pin", true | first -%}
@@ -262,36 +148,27 @@
 
     <!-- Hubungi -->
     <section class="contact wrap" id="hubungi" aria-labelledby="contact-title">
-      <p class="contact__pre">Nak sembang pasal masjid, homelab atau Pokémon?</p>
-      <h2 id="contact-title" class="contact__title"><a href="https://www.threads.com/@msafwanrahman">Sembang<br>di Threads <span class="arw accent">↗</span></a></h2>
+      <p class="contact__pre">{{ l.hubungi.pre | escape }}</p>
+      <h2 id="contact-title" class="contact__title"><a href="{{ l.hubungi.cta.link | escape }}">{{ l.hubungi.cta.teks | escape | newline_to_br }}{% if l.hubungi.cta.arw and l.hubungi.cta.arw != "" %} <span class="arw accent">{{ l.hubungi.cta.arw }}</span>{% endif %}</a></h2>
       <div class="socials">
-        <a class="social" href="https://github.com/Kengkorok">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-          GitHub <span class="muted">Kengkorok</span>
+        {%- for so in l.hubungi.sosial %}
+        <a class="social" href="{{ so.url | escape }}">
+          {% include laman/ikon.html nama=so.ikon %}
+          {{ so.label | escape }}{% if so.nota and so.nota != "" %} <span class="muted">{{ so.nota | escape }}</span>{% endif %}
         </a>
-        <a class="social" href="https://www.threads.com/@msafwanrahman">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.790-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32L7.734 7.847c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388.108.046.216.094.321.142 1.49.7 2.58 1.761 3.154 3.070.797 1.82.871 4.79-1.548 7.158-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69c-.242 0-.487.007-.739.021-1.836.103-2.98.946-2.916 2.143.067 1.256 1.452 1.839 2.784 1.767 1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221z"/></svg>
-          Threads <span class="muted">@msafwanrahman</span>
-        </a>
-        <a class="social" href="https://www.tiktok.com/@kengkorokk">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.920-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-          TikTok <span class="muted">@kengkorokk</span>
-        </a>
-        <a class="social" href="https://ko-fi.com/kengkorok">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.351 2.715c-2.7 0-4.986.025-6.83.26C2.078 3.285 0 5.154 0 8.61c0 3.506.182 6.13 1.585 8.493 1.584 2.701 4.233 4.182 7.662 4.182h.83c4.209 0 6.494-2.234 7.637-4a9.5 9.5 0 0 0 1.091-2.338C21.792 14.688 24 12.22 24 9.208v-.415c0-3.247-2.13-5.507-5.792-5.870-1.558-.156-2.65-.208-6.857-.208m0 1.947c4.208 0 5.09.052 6.571.182 2.624.311 4.13 1.584 4.13 4v.39c0 2.156-1.792 3.844-3.87 3.844h-.935l-.156.649c-.208 1.013-.597 1.818-1.039 2.546-.909 1.428-2.545 3.064-5.922 3.064h-.805c-2.571 0-4.831-.883-6.078-3.195-1.09-2-1.298-4.155-1.298-7.506 0-2.181.857-3.402 3.012-3.714 1.533-.233 3.559-.26 6.39-.26m6.547 2.287c-.416 0-.65.234-.65.546v2.935c0 .311.234.545.65.545 1.324 0 2.051-.754 2.051-2s-.727-2.026-2.052-2.026m-10.39.182c-1.818 0-3.013 1.48-3.013 3.142 0 1.533.858 2.857 1.949 3.897.727.701 1.87 1.429 2.649 1.896a1.47 1.47 0 0 0 1.507 0c.78-.467 1.922-1.195 2.623-1.896 1.117-1.039 1.974-2.364 1.974-3.897 0-1.662-1.247-3.142-3.039-3.142-1.065 0-1.792.545-2.338 1.298-.493-.753-1.246-1.298-2.312-1.298"/></svg>
-          Ko-fi <span class="muted">belanja kopi</span>
-        </a>
+        {%- endfor %}
       </div>
     </section>
   </main>
 
   <footer class="footer wrap mono">
-    <span>© 2026 Mohd Safwan Abd Rahman</span>
-    <span>Dibina dengan bantuan Claude</span>
+    {%- for f in l.footer %}
+    <span>{{ f | escape }}</span>
+    {%- endfor %}
     <span>Kuala Lumpur, <time id="kl-time">--:--</time></span>
   </footer>
 
   <div class="cursor" aria-hidden="true"><svg viewBox="0 0 512 512"><rect class="cursor__kotak" width="512" height="512" rx="112"/><path class="cursor__simbol" transform="translate(87.04 87.04) scale(1.32)" fill-rule="evenodd" d="M44 244 V124 A104 104 0 0 1 128 21.94 A104 104 0 0 1 212 124 V244 Z M64 128 L104 128 L144 168 L104 208 L64 208 L104 168 Z M152 176 H192 V208 H152 Z"/></svg></div>
-  <script src="main.js?v=3" defer></script>
+  <script src="main.js?v=4" defer></script>
 </body>
 </html>

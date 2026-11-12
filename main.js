@@ -142,13 +142,14 @@ document.querySelectorAll('.term').forEach((term) => new IntersectionObserver(([
   term.classList.toggle('is-on', e.isIntersecting);
 }, { threshold: 0.4 }).observe(term));
 
-// Kad bertindan: bila kad seterusnya menutup, kad bawah mengecil dan malap sedikit
-const cards = [...document.querySelectorAll('.card')];
-if (!reduceMotion && cards.length > 1) {
+// Kad bertindan: bila kad seterusnya menutup, kad bawah mengecil dan malap sedikit.
+// Setiap seksyen kad (.stack) dikira berasingan.
+const stacks = [...document.querySelectorAll('.stack')].map((s) => [...s.querySelectorAll('.card')]).filter((c) => c.length > 1);
+if (!reduceMotion && stacks.length) {
   let ticking = false;
   const update = () => {
     ticking = false;
-    cards.forEach((card, i) => {
+    stacks.forEach((cards) => cards.forEach((card, i) => {
       const next = cards[i + 1];
       if (!next) return;
       const top = parseFloat(getComputedStyle(card).top) || 0;
@@ -157,7 +158,7 @@ if (!reduceMotion && cards.length > 1) {
       const p = Math.min(1, Math.max(0, (start - next.getBoundingClientRect().top) / (start - end)));
       card.style.transform = `scale(${1 - 0.06 * p})`;
       card.style.filter = `brightness(${1 - 0.22 * p})`;
-    });
+    }));
   };
   const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
   addEventListener('scroll', onScroll, { passive: true });
@@ -165,18 +166,20 @@ if (!reduceMotion && cards.length > 1) {
   update();
 }
 
-// Kursor ikon korokk berpusing di seluruh bahagian Kerjaya (tetikus sahaja)
+// Kursor ikon korokk berpusing di seluruh seksyen kad (tetikus sahaja)
 const cursor = document.querySelector('.cursor');
-const career = document.querySelector('.career');
-if (cursor && career && matchMedia('(pointer: fine)').matches && !reduceMotion) {
+const careers = document.querySelectorAll('.career');
+if (cursor && careers.length && matchMedia('(pointer: fine)').matches && !reduceMotion) {
   const ikut = (e) => {
     cursor.style.left = `${e.clientX}px`;
     cursor.style.top = `${e.clientY}px`;
   };
   addEventListener('pointermove', ikut, { passive: true });
-  career.classList.add('ada-kursor');
-  career.addEventListener('pointerenter', (e) => { ikut(e); cursor.classList.add('is-on'); });
-  career.addEventListener('pointerleave', () => cursor.classList.remove('is-on'));
+  careers.forEach((career) => {
+    career.classList.add('ada-kursor');
+    career.addEventListener('pointerenter', (e) => { ikut(e); cursor.classList.add('is-on'); });
+    career.addEventListener('pointerleave', () => cursor.classList.remove('is-on'));
+  });
 }
 
 // Statistik: hantar satu rekod setiap halaman dibuka ke Worker komen.

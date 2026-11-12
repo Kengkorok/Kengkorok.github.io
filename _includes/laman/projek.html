@@ -1,0 +1,37 @@
+{%- comment -%} Satu slaid Lab. Param: p (projek dari _data/laman.yml), i (indeks) {%- endcomment -%}
+{%- assign p = include.p -%}
+{%- assign m = p.media -%}
+{%- if p.link and p.link != "" -%}{%- assign tag = 'a' -%}{%- else -%}{%- assign tag = 'div' -%}{%- endif -%}
+        <li class="lab__slide" style="--i:{{ include.i }}">
+          <{{ tag }} class="lab__frame lab__frame--{{ p.warna | default: 'mint' }} lab__frame--{% if m.jenis == 'phone' %}phones{% else %}browser{% endif %}"{% if p.link and p.link != "" %} href="{{ p.link | escape }}"{% endif %}>
+            {%- if p.badge and p.badge != "" %}
+            <span class="lab__badge mono"><span class="live-dot live-dot--gold" aria-hidden="true"></span>{{ p.badge | escape }}</span>
+            {%- endif %}
+            {%- if m.jenis == 'phone' %}
+            {%- for g in m.gambar limit: 3 %}
+            <span class="phone"><img src="{{ g.src | escape }}" width="440" height="952" alt="{{ g.alt | escape }}"></span>
+            {%- endfor %}
+            {%- else %}
+            <div class="browser">
+              <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span class="mono">{{ m.bar | escape }}</span></div>
+              {%- if m.jenis == 'video' %}
+              <video data-src="{{ m.video | escape }}"{% if m.video_phone and m.video_phone != "" %} data-src-phone="{{ m.video_phone | escape }}"{% endif %}{% if m.poster and m.poster != "" %} poster="{{ m.poster | escape }}"{% endif %} width="{{ m.w | default: 1280 }}" height="{{ m.h | default: 720 }}" muted loop playsinline preload="none" aria-label="{{ m.alt | escape }}"></video>
+              {%- else %}
+              <img src="{{ m.gambar[0].src | escape }}" width="{{ m.gambar[0].w | default: 1280 }}" height="{{ m.gambar[0].h | default: 720 }}" alt="{{ m.alt | default: m.gambar[0].alt | escape }}" loading="lazy">
+              {%- endif %}
+            </div>
+            {%- endif %}
+          </{{ tag }}>
+          <div class="lab__caption">
+            <p><strong>{{ p.nama | escape }}</strong> <span class="muted">{{ p.ringkasan | escape }}</span></p>
+            {%- if p.segera and p.segera != "" %}
+            <div class="lab__links"><span class="lab__soon mono">{{ p.segera | escape }}</span></div>
+            {%- elsif p.links.size > 0 %}
+            <div class="lab__links">
+              {%- for l in p.links %}
+              <a href="{{ l.url | escape }}">{{ l.teks | escape }}{% if forloop.first %} <span class="arw">↗</span>{% endif %}</a>
+              {%- endfor %}
+            </div>
+            {%- endif %}
+          </div>
+        </li>
