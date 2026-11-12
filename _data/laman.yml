@@ -108,7 +108,7 @@ lab:
       links:
         - teks: Buka
           url: /Auto-Services-Tracker/
-peralatan: "Peralatan harian: **Linux**, **Docker** dan **CasaOS** di server rumah, **Next.js** dan **JavaScript** biasa untuk web, **Python** untuk kerja remeh dan **Claude Code, Codex ChatGPT** dan **Hermes** sebagai rakan kerja yang setia."
+peralatan: "Daily tools: **Linux**, **Docker** dan **CasaOS** di Homelab, **Next.js** dan **JavaScript** biasa untuk web, **Python** untuk kerja remeh dan **Claude Code, Codex ChatGPT** dan **Hermes** sebagai rakan kerja yang setia."
 seksyen_kad:
   - id: kerjaya
     tajuk: Kerjaya
