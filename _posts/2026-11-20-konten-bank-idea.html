@@ -1,0 +1,112 @@
+---
+title: Konten Bank Idea
+description: Tiap malam, aku skrol tiktok, terjumpa content yang menarik, lantas aku berfikir kalau aku jadikannya versi BM cun jugak nih. So aku pon brainstorming dengan Claude.
+image: /assets/blog/2026/konten-bank-idea/cover-ai-bf3b5a.webp
+thumb: /assets/blog/2026/konten-bank-idea/thumb-685d21.webp
+image_credit: "Gambar: dijana AI"
+---
+{% raw %}
+<p>Suatu malam sedang aku skrol Tiktok, habit hampir seluruh umat manusia masakini. Aku terjumpa satu content tiktok berbahasa Inggeris yang menarik perhatian aku. Lantas aku terfikir kalau aku buat juga content yang sama dalam versi Bahasa Melayu pon cun juga, tapi tu la, tak original lah kan kalau tiru sebiji. Okay itu aku cerita nanti.</p>
+<p>Masalah : Sebenarnya dah banyak dah content yang terlintas dalam feed For You tiktok ni yang bagus-bagus walaupun content tu sepenuhnya generated/edited AI, kadang banyak input, knowledge dan info terkini. Cuma bila idea tu tak dicatat atau didokumentasikan, esoknya aku lupa dah apa yang aku nak buat. So idea aku ni, aku campak kat Claude untuk sama-sama brainstorm, apa perlu aku buat supaya idea yang datang tiba-tiba ni tak dilupakan pada keesokan harinya. So aku campak prompt untuk brainstorm :</p>
+<blockquote>
+<p>aku nak buat content idea bank, aku dah connect youtube dengan tiktok dengan zernio, kadang tu aku ada idea untuk next content, tapi disebabkan aku tak tahu nak letak mana idea tu, aku terus jadi lupa content apa aku nak buat, dan kadang aku skrol tiktok, aku nampak content yang menarik dalam bahasa english, aku terinspirasi dengan idea content tu, mgkin aku nak buat versi bahasa melayu, so ada reference juga disitu mungkin boleh tiru sikit style, conteks, idea dan isi. jadi dimana aku perlu ada content bank ni? berikan cadangan bernas kau</p>
+</blockquote>
+<p>So claude mencadangkan untuk buat satu tab baru dalam studio aku, tab idea content bank khas untuk video contentlah, taklah terhad hanya video, mungkin content blog pon mungkin boleh. Aku rasa aku perlu terangkan studio apa yang dimaksudkan. Laman page portfolio aku iaitu <a href="https://korokk.com">korokk.com</a> ada dua page yang umum, iaitu boleh diakses oleh public, satu laman utama dan satu lagi blog, tempat yang korang baca sekarang ni. Studio adalah satu page khas untuk aku draf content blog aku, so admin dashboard la basically.</p>
+<img loading="lazy" src="/assets/blog/2026/konten-bank-idea/image-b2fb3c.webp" alt="" width="1029" height="848">
+<p>So ini adalah struktur yang claude cadangkan:</p>
+<h3>1. Tab Idea dalam Studio</h3>
+<ul>
+<li>
+<p><strong>Borang idea yang ada field untuk aku taip idea secara ringkas dan pantas:</strong> taip idea, paste link rujukan kalau ada, tekan Simpan.</p></li>
+<li>
+<p><strong>Status setiap idea:</strong> Simpan → Pilih → Skrip → Rakam → Terbit, atau Buang.</p></li>
+<li>
+<p><strong>Jenis idea:</strong> Sendiri, Rujukan, Komen atau Feed.</p></li>
+<li>
+<p><strong>Pages setiap idea</strong> ada:</p>
+<ul>
+<li>
+<p>nota yang aku rasa patut dicatat</p></li>
+<li>
+<p>analisis</p></li>
+<li>
+<p>ruang untuk rangka skrip/content</p></li>
+<li>
+<p>transkrip audio atau video jika idea tu dari video tiktok, aku juga boleh sent voice note idea, so transkrip buat kerja.</p></li>
+<li>
+<p>embed video</p></li>
+<li>
+<p>link video yang dah aku publish.</p></li>
+</ul>
+<p>Semua disimpan sendiri masa kau menaip.</p></li>
+<li>
+<p><strong>Ada search box </strong>dalam tajuk, nota, caption dan analisis, memudahkan aku nak cari balik idea yang aku dah tulis/simpan.</p></li>
+<li>
+<p><strong>Link sama tak jadi dua idea.</strong> Nota baru ditambah pada idea yang dah ada. So takkan ada duplicate idea kalau aku tersimpan dua kali benda yang sama</p></li>
+<li>
+<p><strong>Butang “→ Idea”</strong> pada setiap berita dalam Feed.</p></li>
+</ul>
+<h3>2. Fetch dari phone melalui Discord</h3>
+<p>Studio aku ni aku connect juga dengan discord channel khas</p>
+<ul>
+<li>
+<p>Channel <code>#bank-idea</code> dah dibenarkan untuk bot, dan hanya mesej dari aku sendiri yang akan dilayan bot Claude, tapi memang ada aku seorang je pon dalam server discord tu.</p></li>
+<li>
+<p>Sesi channel <code>claude-komen</code> (yang dah jalan 24 jam untuk komen TikTok) sekarang tahu aliran bank idea:</p>
+<ul>
+<li>
+<p><strong>Link video</strong> (TikTok, YouTube, Reels): dia muat turun, transkrip dan pecahkan hook, struktur, gaya, isi dan kenapa video tu menjadi. Lepas tu dia cadang 2–3 versi BM dalam niche aku, simpan ke Studio, dan balas dengan link.</p></li>
+<li>
+<p><strong>Teks biasa:</strong> disimpan terus sebagai idea sendiri.</p></li>
+<li>
+<p><strong>Voice note:</strong> ditranskrip, kemudian disimpan.</p></li>
+<li>
+<p><strong>Soalan</strong> macam “idea apa aku ada” atau “pilih idea 5”: dia jawab dari bank.</p></li>
+<li>
+<p><strong>Komen TikTok kategori “balas-video”:</strong> Claude akan cadangkan sebagai idea content balas komen tiktok dengan video, selagi aku tak mention untuk letak as idea next content, so claude abaikan. Maksudnya kalau aku suruh jadikan idea next content barulah claude masukkan dalam bank idea tadi.</p></li>
+</ul></li>
+</ul>
+<img loading="lazy" src="/assets/blog/2026/konten-bank-idea/image-ea31c1.webp" alt="" width="1301" height="851">
+<h3>3. Penganalisa video (<code>analisa.py</code>)</h3>
+<ul>
+<li>
+<p>Tools yang diperlukan yt-dlp, Whisper turbo dan ffmpeg untuk keyframe. Tak guna AI.</p></li>
+<li>
+<p>Video dipadam lepas siap. Yang disimpan cuma transkrip dan gambar scene.</p></li>
+</ul>
+<h3>4. Dari claude.ai di phone</h3>
+<p>Connector Studio dapat 4 alat baru: <code>simpan_idea</code>, <code>senarai_idea</code>, <code>baca_idea</code> dan <code>ubah_idea</code>. Jadi kau boleh cakap “simpan idea: …” dalam claude.ai. Bahagian ni belum dicuba dari claude.ai lagi.</p>
+<h3>Voice note: macam mana?</h3>
+<p>Kadang idea datang masa tangan tak boleh menaip, contohnya masa memandu atau atas motor tiba-tiba idea datang tanpa diundang. Masa tu aku rakam suara je terus dalam <code>#bank-idea</code> kat Discord. Contohnya: <em>"Idea: buat video pasal kenapa aku guna Tailscale, bukan buka port."</em></p>
+<p>Lepas tu, bot buat kerja ni:</p>
+<ol>
+<li>
+<p>Ambil fail audio tu dari Discord.</p></li>
+<li>
+<p>Tukar suara jadi teks guna Whisper, model yang sama aku pakai kat homelab.</p></li>
+<li>
+<p>Simpan teks tu sebagai idea sendiri, dan balas dengan transkrip supaya aku boleh betulkan kalau dia salah dengar.</p></li>
+</ol>
+<h3>Bila video dah publish</h3>
+<p>Setakat aku menulis tulisan ni, aliran kerja ni aku belum ada lagi idea yang dah dipublish. Sekarang bank idea berhenti di status <strong>Terbit</strong>. Lepas video naik, aku tak tahu pun idea mana yang betul-betul menjadi.</p>
+<p>Ini yang aku fikir nak tambah nanti:</p>
+<ol>
+<li>
+<p>Bila video dah publish, aku letak link video tu dalam idea.</p></li>
+<li>
+<p>Zernio dah sambung dengan TikTok dan YouTube aku, jadi ia boleh tarik statistik setiap video: tontonan, like, share dan komen.</p></li>
+<li>
+<p>Studio tarik statistik tu dan letak sebelah setiap idea.</p></li>
+</ol>
+<p>Ini <strong>belum ada lagi</strong>, cuma rancangan. Tapi bila dah ada 10–20 video, aku harap boleh nampak corak, contohnya:</p>
+<ul>
+<li>
+<p><em>Video yang aku adaptasi dari gaya animasi line-art dapat lebih tontonan berbanding video cakap depan kamera?</em></p></li>
+<li>
+<p><em>Idea dari komen penonton (balas-video) lebih banyak komen?</em></p></li>
+<li>
+<p><em>Hook jenis soalan lebih menjadi dari hook jenis kenyataan?</em></p></li>
+</ul>
+<p>Semua tu soalan, bukan kesimpulan. Aku tak nak claim apa-apa sebelum ada data yang sebenar. Tapi kalau betul, bank idea ni bukan sekadar tempat simpan idea. Dia boleh tunjuk <strong>jenis idea dan gaya rujukan mana yang patut aku buat lagi</strong>. Menarik kan? Hahaa</p>
+<p>So tak rushing. so kene tunggu bila idea-idea yang tercatat dalam bank idea ni dah publish nanti. Ini baru pelan, rangka dan angan-angan aku. Kalau aku rajin, aku tulis balik hasilnya.</p>
+{% endraw %}
